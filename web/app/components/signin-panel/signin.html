@@ -1,0 +1,14 @@
+<div class="SigninPanel">
+    <form class="signin-form" @submit.prevent="sign_in">
+        <img class="header" src="https://dl.dropboxusercontent.com/s/8uump2xnur9opb5/a2zcloud.png" />
+        <div class="signin-content">
+            <div class="inputs">
+                <input  class="username" type="text"     placeholder="Username" v-model="username" />
+                <input  class="password" type="password" placeholder="Password" v-model="password" />
+            </div>
+            <button class="submit"   type="submit">
+                <span class="lnr lnr-arrow-right"></span>
+            </button>
+        </div>
+    </form>
+</div>
