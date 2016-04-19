@@ -14,7 +14,14 @@ import ResizeMixin from 'vue-resize-mixin'
 import signin_panel  from "app/components/signin-panel/signin"
 
 // Vue global settings
-// Vue.config.debug = true
+Vue.config.debug = true
+
+// –– Control
+Control.prototype.install = function(Vue){
+	Vue.prototype.control = this;
+};
+
+Vue.use(new Control());
 
 
 // Init App
@@ -24,6 +31,8 @@ var app = new Vue({
 	data: {
         user: null,
         url: "a2z-users.herokuapp.com",
+        status: null,
+        error: null,
 	},
     components: {
         "signin-panel": signin_panel,
@@ -37,6 +46,18 @@ var app = new Vue({
         },
 
 	},
+    created() {
+        this.control.init((signal, message) => {
+			this.$dispatch(signal, message);
+			this.$broadcast(signal, message);
+		}).
+		then((status) => {
+			this.status = status;
+		}).
+		catch((err) => {
+			this.error = err;
+		});
+    },
     ready(){
 
     },

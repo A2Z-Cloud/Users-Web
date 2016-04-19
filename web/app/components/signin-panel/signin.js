@@ -17,13 +17,18 @@ export default Vue.extend({
     props: [],
     data() {
         return {
+            background_url: "https://s3-eu-west-1.amazonaws.com/com-a2zcloud-assets/images/a2z-users/landscapes/",
             username: null,
             password: null,
             result: null,
+            error: null,
         }
     },
     components: {
 
+    },
+    created() {
+        this.background_url += "land" + Math.floor((Math.random() * 11) + 1) + ".jpg"
     },
     ready() {
         // window.signin_panel = this
@@ -37,10 +42,15 @@ export default Vue.extend({
         },
         sign_in() {
             // send login request
-            this.access_control.login()
+            this.control.sign_in(this.username,this.password).
+                then((result) => {
+                    console.log(result)
+                }).
+                catch((error) => {
+                    console.log(error)
+                })
 
-            console.log(this.username);
-            console.log(this.password);
+            return false
         },
     },
     computed: {},
@@ -48,9 +58,6 @@ export default Vue.extend({
         resize(size) {
             this.resize_panel(size)
             return true
-        },
-        get_user(result) {
-            this.user = result
         },
     }
 })
