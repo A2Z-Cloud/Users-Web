@@ -27,7 +27,7 @@
     <link rel='stylesheet' type='text/css' href="loader.css" />
 </head>
 
-<body>
+<body id="App">
     <div id="loading-placeholder" class="loader" v-cloak>
         <div class="mpc_preloader">
             <div class="mpc_preloader_inner"></div>
@@ -39,13 +39,12 @@
             <h1>Welcome</h1>
         </div>
         <div class="content" v-else>
-            <signin-panel :user.sync="user"></signin-panel>
+            <router-view></router-view>
         </div>
     </div>
 
     <script type="text/javascript" src="jspm_packages/system.js"></script>
     <script type="text/javascript" src="config.js"></script>
-    <script type="text/javascript" src="http://localhost:8888/control.js"></script>
     <script type="text/javascript">
         System.import("app/main");
     </script>

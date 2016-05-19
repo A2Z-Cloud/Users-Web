@@ -5,7 +5,7 @@ import VueRouter from 'vue-router'
 import {debug} from './consts'
 
 // -- Route Panels
-// import SomePanel from "./components/some-panel/some_panel"
+import UsersPanel from "./panels/users-panel/users"
 
 
 Vue.use(VueRouter)
@@ -16,10 +16,10 @@ const router = new VueRouter({
 })
 
 router.map({
-    // '/': {
-    //     name: 'SomePage',
-    //     component: SomePanel,
-    // },
+    '/users': {
+        name: 'Users',
+        component: UsersPanel,
+    },
 })
 
 // For debugging against the web console

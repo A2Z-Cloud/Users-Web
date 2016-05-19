@@ -38,5 +38,5 @@ System.import(control_url).then(({Control}) => {  // eslint-disable-line no-unde
                 this.error = "Cannot connect to server."
             })
         },
-    }, '#Main')
+    }, '#App')
 })
