@@ -511,5 +511,6 @@
     "events": "github:jspm/nodelibs-events@^0.1.1"
   },
   "github:systemjs/plugin-text@0.0.7": {},
-  "npm:normalize.css@4.0.0": {}
+  "npm:normalize.css@4.0.0": {},
+  "npm:vue-router@0.7.13": {}
 }

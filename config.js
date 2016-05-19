@@ -23,6 +23,7 @@ System.config({
     "text": "github:systemjs/plugin-text@0.0.7",
     "vue": "npm:vue@1.0.20",
     "vue-resize-mixin": "npm:vue-resize-mixin@1.0.1",
+    "vue-router": "npm:vue-router@0.7.13",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },
