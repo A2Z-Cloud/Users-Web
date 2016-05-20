@@ -20,6 +20,7 @@ System.import(control_url).then(({Control}) => {  // eslint-disable-line no-unde
 
     router.start({
         data: () => ({
+            user: null,
             status: null,
             error: null,
         }),
@@ -37,6 +38,15 @@ System.import(control_url).then(({Control}) => {  // eslint-disable-line no-unde
                 // TODO: error page for dead websocket
                 this.error = "Cannot connect to server."
             })
+        },
+        computed: {
+
+        },
+        events: {
+            current_user(message) {
+                if (message.user == null) window.location = message.auth_url
+                this.user = message.user
+            },
         },
     }, '#App')
 })

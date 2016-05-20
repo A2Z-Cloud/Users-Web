@@ -8,17 +8,25 @@ export default Vue.extend({
     ],
     data: () => ({
         error: '',
-        deeds: [],
-        new_deed: {
-            description:'',
+        users: [],
+        new_user: {
+            email: '',
+            first_name: '',
+            last_name: '',
         },
     }),
     computed: {
     },
     ready() {
+        this.control
+            .filter_users()
+            .then(users => (this.users = users))
+            .catch(error => (this.error = error))
     },
     methods: {
+
     },
     events: {
+        
     },
 })
