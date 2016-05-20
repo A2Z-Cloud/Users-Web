@@ -36,7 +36,14 @@
 
     <div id="Main" v-cloak>
         <div class="content" v-if="user">
-            <router-view></router-view>
+            <div v-if="user.type == 'admin'" class="navigation">
+                <a v-link="{ path: '/'}">My Account</a>
+                <a v-link="{ path: '/services'}">Services</a>
+                <a v-link="{ path: '/users'}">Users</a>
+                <a v-link="{ path: '/groups'}">Groups</a>
+            </div>
+
+            <router-view :user="user"></router-view>
         </div>
     </div>
 

@@ -1,1 +1,12 @@
-{{services | json 4}}
+<div v-if="error">{{error.message}}</div>
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+    </tr>
+    <tr v-for='service in services'>
+        <td>{{ service.id }}</td>
+        <td>{{ service.name }}</td>
+    </tr>
+</table>

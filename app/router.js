@@ -9,6 +9,7 @@ import AccountPanel from "./panels/account-panel/account"
 import ServciesPanel from "./panels/services-panel/services"
 import UsersPanel from "./panels/users-panel/users"
 import GroupsPanel from "./panels/groups-panel/groups"
+import EmailConfirmation from "./panels/email-confirmation-panel/email_confirmation"
 
 
 Vue.use(VueRouter)
@@ -34,6 +35,10 @@ router.map({
     '/groups': {
         name: 'Groups',
         component: GroupsPanel,
+    },
+    '/confirm_email': {
+        name: 'Confirm Email',
+        component: EmailConfirmation,
     },
 })
 

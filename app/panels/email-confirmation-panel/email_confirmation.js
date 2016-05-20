@@ -1,5 +1,5 @@
-import './users.css!'
-import tmpl from './users.html!text'
+import './email_confirmation.css!'
+import tmpl from './email_confirmation.html!text'
 import Vue from 'vue'
 
 export default Vue.extend({
@@ -9,19 +9,14 @@ export default Vue.extend({
     ],
     data: () => ({
         error: {},
-        users: [],
-        new_user: {
-            email: '',
-            first_name: '',
-            last_name: '',
-        },
+        success: false,
     }),
     computed: {
     },
     ready() {
         this.control
-            .filter_users()
-            .then(users => (this.users = users))
+            .confirm_email(this.$route.query.token)
+            .then(() => (this.success = true))
             .catch(error => (this.error = error))
     },
     methods: {
