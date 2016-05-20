@@ -1,3 +1,12 @@
-<div v-for="user in users">
-    {{ user.first_name }}
-</div>
+<table>
+    <tr>
+        <th>id</th>
+        <th>email</th>
+        <th>name</th>
+    </tr>
+    <tr v-for='user in users'>
+        <td>{{ user.id }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.first_name + ' ' + user.last_name }}</td>
+    </tr>
+</table>
