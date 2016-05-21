@@ -14,7 +14,7 @@ export default Vue.extend({
     computed: {
     },
     ready() {
-        this.control
+        this.$control
             .confirm_email(this.$route.query.token)
             .then(() => (this.success = true))
             .catch(error => (this.error = error))

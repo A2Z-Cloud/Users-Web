@@ -2,6 +2,7 @@ import './users.css!'
 import tmpl from './users.html!text'
 import Vue from 'vue'
 
+
 export default Vue.extend({
     template: tmpl,
     props: [
@@ -19,7 +20,7 @@ export default Vue.extend({
     computed: {
     },
     ready() {
-        this.control
+        this.$control
             .filter_users()
             .then(users => (this.users = users))
             .catch(error => (this.error = error))

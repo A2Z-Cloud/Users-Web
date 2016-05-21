@@ -6,23 +6,23 @@
     <div>
         <div>First Name</div>
         <input
-            :class="{'changed': first_name !== user.first_name}"
+            :class="{'changed': dirty_user.first_name !== user.first_name}"
             type="text"
-            v-model="first_name"
+            v-model="dirty_user.first_name"
             placeholder="first name">
 
         <div>Last Name</div>
         <input
-            :class="{'changed': last_name !== user.last_name}"
+            :class="{'changed': dirty_user.last_name !== user.last_name}"
             type="text"
-            v-model="last_name"
+            v-model="dirty_user.last_name"
             placeholder="last name">
 
         <div>Email Address</div>
         <input
-            :class="{'changed': email !== user.email}"
+            :class="{'changed': dirty_user.email !== user.email}"
             type="text"
-            v-model="email"
+            v-model="dirty_user.email"
             placeholder="email">
 
         <div v-if="!user.email_confirmed">
@@ -31,11 +31,11 @@
 
         <div>Phone Number</div>
         <input
-            :class="{'changed': phone !== user.phone}"
+            :class="{'changed': dirty_user.phone !== user.phone}"
             type="text"
-            v-model="phone"
+            v-model="dirty_user.phone"
             placeholder="phone">
 
-        <button :disabled="!changed" @click="save_changes">Save</button>
+        <button :disabled="!changed" @click="save_user(dirty_user)">Save</button>
     </div>
 </div>

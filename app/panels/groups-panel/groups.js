@@ -14,7 +14,7 @@ export default Vue.extend({
     computed: {
     },
     ready() {
-        this.control
+        this.$control
             .filter_groups()
             .then(groups => (this.groups = groups))
             .catch(error => (this.error = error))

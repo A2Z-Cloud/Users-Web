@@ -14,7 +14,7 @@ export default Vue.extend({
     computed: {
     },
     ready() {
-        this.control
+        this.$control
             .filter_services()
             .then(services => (this.services = services))
             .catch(error => (this.error = error))

@@ -1,0 +1,1 @@
+module.exports = require("npm:vuex@0.6.3/dist/vuex");
