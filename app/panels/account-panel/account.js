@@ -2,7 +2,7 @@ import './account.css!'
 import tmpl from './account.html!text'
 import Vue from 'vue'
 
-import { save_user } from 'app/actions'
+import { save_user } from 'app/vuex/actions'
 
 
 export default Vue.extend({

@@ -2,7 +2,7 @@ import './users.css!'
 import tmpl from './users.html!text'
 import Vue from 'vue'
 
-import { filter_users } from 'app/actions'
+import { filter_users } from 'app/vuex/actions'
 
 
 export default Vue.extend({

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { debug } from './consts'
+import { debug } from 'app/consts'
 
 Vue.use(Vuex)
 
@@ -42,6 +42,34 @@ const mutations = {
         if (user_id === state.user.id) state.user = null
         const index = state.users.findIndex(u => u.id === user_id)
         if (index !== -1) state.users.splice(index, 1)
+    },
+    SET_SERVICES(state, services) {
+        state.services = services
+    },
+    INSERT_SERVICE(state, service) {
+        state.services.push(service)
+    },
+    UPDATE_SERVICE(state, service) {
+        const index = state.services.findIndex(s => s.id === service.id)
+        if (index !== -1) state.services.$set(index, service)
+    },
+    DELETE_SERVICE(state, service_id) {
+        const index = state.services.findIndex(s => s.id === service_id)
+        if (index !== -1) state.services.splice(index, 1)
+    },
+    SET_GROUPS(state, groups) {
+        state.groups = groups
+    },
+    INSERT_GROUP(state, group) {
+        state.groups.push(group)
+    },
+    UPDATE_GROUP(state, group) {
+        const index = state.groups.findIndex(g => g.id === group.id)
+        if (index !== -1) state.groups.$set(index, group)
+    },
+    DELETE_GROUP(state, group_id) {
+        const index = state.groups.findIndex(g => g.id === group_id)
+        if (index !== -1) state.groups.splice(index, 1)
     },
 }
 
