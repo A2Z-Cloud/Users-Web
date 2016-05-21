@@ -27,6 +27,9 @@ const mutations = {
         if (user === null) window.location = auth_url
         state.user = user
     },
+    SET_USERS(state, users) {
+        state.users = users
+    },
     INSERT_USER(state, user) {
         state.users.push(user)
     },

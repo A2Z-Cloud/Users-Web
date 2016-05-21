@@ -15,5 +15,12 @@ export const save_user = function(store, {email, first_name, last_name, phone}) 
             email_confirmation_url,
             current_user.id
         )
-        .catch(error => (store.dispatch('SET_ERROR', error)))
+        .catch(error => store.dispatch('SET_ERROR', error))
+}
+
+export const filter_users = function(store) {
+    this.$control
+        .filter_users()
+        .then(users => store.dispatch('SET_USERS', users))
+        .catch(error => store.dispatch('SET_ERROR', error))
 }
