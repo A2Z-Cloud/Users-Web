@@ -25,8 +25,8 @@ System.import(control_url).then(({Control}) => {  // eslint-disable-line no-unde
             // catch websocket broadcasts
             this.$control
                 .init((signal, message) => store.dispatch(signal, message))
-                .then(status => store.dispatch('SET_WS_STATUS', status))
-                .catch(() => store.dispatch('SET_ERROR', {
+                .then(status => store.dispatch('WS_STATUS_SET', status))
+                .catch(() => store.dispatch('ERROR_SET', {
                     message: "Cannot connect to server.",
                 }))
         },
