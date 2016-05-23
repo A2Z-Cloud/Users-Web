@@ -1,0 +1,49 @@
+.AccountPanel {
+    padding-top: 32px;
+    padding-bottom: 32px;
+
+    text-align: center;
+    align-content: center;
+}
+
+.AccountPanel
+.greeting {
+    padding-bottom: 32px;
+
+    font-size: xx-large;
+}
+
+.AccountPanel
+.form-label {
+    font-weight: bold;
+    text-align: left;
+}
+
+.AccountPanel
+.changed {
+    font-style: italic;
+}
+
+.AccountPanel
+.unverified {
+    color: rgb(170, 57, 57);
+}
+
+.AccountPanel
+.form-label
+.unverified {
+    font-weight: normal;
+}
+
+.AccountPanel
+.form-actions {
+    padding-top: 32px;
+
+    text-align: right;
+}
+
+.AccountPanel
+button {
+    overflow: hidden;
+    padding: 0;
+}

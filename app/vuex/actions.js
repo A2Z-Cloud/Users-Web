@@ -26,6 +26,19 @@ export const save_user = function(store, {email, first_name, last_name, phone}) 
     })
 }
 
+export const send_email_confirmation = function(store) {
+    return new Promise((resolve, reject) => {  // eslint-disable-line no-undef
+        const handle_error = error => {
+            store.dispatch('ERROR_SET', error)
+            reject(error)
+        }
+        this.$control
+            .send_email_confirmation(email_confirmation_url)
+            .then(resolve)
+            .catch(handle_error)
+    })
+}
+
 export const filter_users = function(store) {
     return new Promise((resolve, reject) => {  // eslint-disable-line no-undef
         const handle_error = error => {

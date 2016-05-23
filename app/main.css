@@ -1,176 +1,59 @@
-/* ---- Colours ---- */
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea {
+    border-radius: 0;
 
-/* Primary
-   #FFF
-*/
-
-/* Secondary
-   #2A6BAE
-*/
-
-/* Highlight
-   #38933A
-*/
-
-
-/* ---- Font Imports ---- */
-
-/*
-@import url(https://fonts.googleapis.com/css?family=Khula:400,700,300);
-@import url(https://fonts.googleapis.com/css?family=Work+Sans:400,900,300,700);
-*/
-
-
-/* ---- General CSS ---- */
-
-body {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-
-    margin: 0;
-    padding: 0;
-
-    background: #FFF;
-    color: #000;
-    font-family: 'Khula', sans-serif;
+    border-width: 0px;
+    border-bottom-width: 1px;
 }
 
-h1,h2,h3,h4,.title {
-    color: #2A6BAE;
-    font-family: 'Work Sans', sans-serif;
-    margin: 0;
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    border-radius: 0;
+
+    border-width: 0px;
+    border-bottom-width: 1px;
 }
 
-/* Override base fonts for inputs and buttons */
-button, input {
-    height: 30px;
-
-    box-sizing: border-box;
-    padding: 0 6px;
-    border: 1px solid #CCC;
-    border-radius: 3px;
-
-    background: #FFF;
-    color: #000;
-    font-size: 18px;
-    line-height: 30px;
-    font-family: 'Khula', sans-serif;
+input[type="email"].invalid,
+input[type="number"].invalid,
+input[type="search"].invalid,
+input[type="text"].invalid,
+input[type="tel"].invalid,
+input[type="url"].invalid,
+input[type="password"].invalid,
+textarea.invalid {
+    border-color: rgb(170, 57, 57);
 }
 
-button, a.button, .button,
-button:focus, a.button:focus, .button:focus {
-    background-color: #2A6BAE;
-        border-color: #2A6BAE;
+.button,
+button {
+    border-radius: 0;
 }
 
-button:hover, a.button:hover, .button:hover,
-button:focus, a.button:focus, .button:focus {
-    background-color: #38933A;
-        border-color: #38933A;
-}
+.button:disabled,
+button:disabled,
+input[type="submit"]:disabled,
+input[type="reset"]:disabled,
+input[type="button"]:disabled,
+.button.button-primary:disabled,
+button.button-primary:disabled,
+input[type="submit"].button-primary:disabled,
+input[type="reset"].button-primary:disabled,
+input[type="button"].button-primary:disabled {
+    border-color: rgb(251, 251, 251);
+    background-color: rgb(251, 251, 251);
 
-button:active, a.button:active, .button:active {
-    -webkit-box-shadow: inset 5px 5px 30px 5px rgba(0,0,0,0.3);
-       -moz-box-shadow: inset 5px 5px 30px 5px rgba(0,0,0,0.3);
-            box-shadow: inset 5px 5px 30px 5px rgba(0,0,0,0.3);
-}
-
-input:focus, button:focus, textarea:focus, select:focus,
-input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus,
-input[type="text"]:focus, input[type="tel"]:focus, input[type="url"]:focus,
-input[type="password"]:focus {
-    outline: 2px solid rgba(56,147,58,0.5);
-    border-radius: 0 !important;
-}
-
-#Main {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    height: 100%;
-    width: 100%;
-}
-
-#Main
-.content {
-    position: relative;
-    height: 100%;
-    width: 100%;
-}
-
-.noselect {
-    -webkit-touch-callout: none;
-      -webkit-user-select: none;
-       -khtml-user-select: none;
-         -moz-user-select: none;
-          -ms-user-select: none;
-              user-select: none;
-}
-
-.transition-base {
-    -webkit-transition: 1s;
-       -moz-transition: 1s;
-        -ms-transition: 1s;
-         -o-transition: 1s;
-            transition: 1s;
-}
-
-
-/* --- Hide Number Input Spinners --- */
-
-input[type='number'] {
-    -moz-appearance:textfield;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-
-/* ---- Media Queries ---- */
-
-/* Larger than mobile */
-@media (min-width: 400px) {}
-
-/* Larger than phablet */
-@media (min-width: 550px) {}
-
-/* Larger than tablet */
-@media (min-width: 750px) {}
-
-/* Larger than desktop */
-@media (min-width: 1000px) {}
-
-/* Larger than Desktop HD */
-@media (min-width: 1200px) {}
-
-
-/** ie10mobile.css **/
-@-webkit-viewport {
-    width: device-width;
-}
-
-@-moz-viewport {
-    width: device-width;
-}
-
-@-ms-viewport {
-    width: device-width;
-}
-
-@-o-viewport {
-    width: device-width;
-}
-
-@viewport {
-    width: device-width;
+    color: rgb(148, 148, 148);
 }

@@ -1,41 +1,82 @@
-<div v-if="error">{{error.message}}</div>
-
 <div>
-    <div>Hi {{user.first_name}} {{user.last_name}}</div>
+    <div v-if="error">{{error.message}}</div>
 
-    <div>
-        <div>First Name</div>
-        <input
-            :class="{'changed': dirty_user.first_name !== user.first_name}"
-            type="text"
-            v-model="dirty_user.first_name"
-            placeholder="first name">
+    <div class="AccountPanel">
+        <div class="greeting">Hi, {{user.first_name}} {{user.last_name}}</div>
 
-        <div>Last Name</div>
-        <input
-            :class="{'changed': dirty_user.last_name !== user.last_name}"
-            type="text"
-            v-model="dirty_user.last_name"
-            placeholder="last name">
+        <div class="container">
+            <div class="row">
+                <div class="six columns">
+                    <div class="form-label">First Name</div>
+                    <input
+                        class="u-full-width"
+                        :class="{'changed': dirty_user.first_name !== user.first_name, 'invalid': !valid_first_name}"
+                        type="text"
+                        v-model="dirty_user.first_name"
+                        placeholder="Bill">
+                </div>
+                <div class="six columns">
+                    <div class="form-label">Last Name</div>
+                    <input
+                        class="u-full-width"
+                        :class="{'changed': dirty_user.last_name !== user.last_name, 'invalid': !valid_last_name}"
+                        type="text"
+                        v-model="dirty_user.last_name"
+                        placeholder="Billson">
+                </div>
+            </div>
 
-        <div>Email Address</div>
-        <input
-            :class="{'changed': dirty_user.email !== user.email}"
-            type="text"
-            v-model="dirty_user.email"
-            placeholder="email">
+            <div class="row">
+                <div class="six columns">
+                    <div class="form-label">
+                        Email Address
+                        <span v-if="!user.email_confirmed" class="unverified">(unverified)</span>
+                    </div>
+                    <input
+                        class="u-full-width"
+                        :class="{'changed': dirty_user.email !== user.email, 'unverified': !user.email_confirmed, 'invalid': !valid_email}"
+                        type="text"
+                        v-model="dirty_user.email"
+                        placeholder="bill@billson.net">
+                </div>
+                <div class="six columns">
+                    <div class="form-label">Phone Number</div>
+                    <input
+                        class="u-full-width"
+                        :class="{'changed': dirty_user.phone !== user.phone}"
+                        type="text"
+                        v-model="dirty_user.phone"
+                        placeholder="phone">
+                </div>
+            </div>
 
-        <div v-if="!user.email_confirmed">
-            Email unverified (check your email) <button :click="send_email_confirmation">Resend email</button>
         </div>
 
-        <div>Phone Number</div>
-        <input
-            :class="{'changed': dirty_user.phone !== user.phone}"
-            type="text"
-            v-model="dirty_user.phone"
-            placeholder="phone">
-
-        <button :disabled="!changed" @click="save_user(dirty_user)">Save</button>
+        <div class="container form-actions">
+            <div class="row">
+                <div class="six columns">
+                    <br>
+                </div>
+                <div class="three columns">
+                    <button
+                        class="verify-email u-full-width"
+                        v-if="!user.email_confirmed && dirty_user.email === user.email"
+                        :disabled="recently_sent_verification || sending_verification_email"
+                        @click="verify_email">
+                        {{ verify_email_button_text }}
+                    </button>
+                    <br v-else>
+                </div>
+                <div class="three columns">
+                    <button
+                        class="button-primary save u-full-width"
+                        :disabled="!changed || saving_user || !valid_form"
+                        @click="save(dirty_user)">
+                        {{ save_user_button_text }}
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>
