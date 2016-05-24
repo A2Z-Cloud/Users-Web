@@ -9,6 +9,7 @@ export default Vue.extend({
     template: tmpl,
     data: () => ({
         error: {},
+        changing_password: false,
         sending_verification_email: false,
         recently_sent_verification: false,
         recently_sent_timeout_id: null,
@@ -18,6 +19,14 @@ export default Vue.extend({
             first_name: '',
             last_name: '',
             phone: '',
+        },
+        password_data: {
+            old_password: '',
+            new_password: '',
+            new_password_confirmation: '',
+        },
+        password_requirements: {
+            length: 8,
         },
     }),
     computed: {
@@ -38,6 +47,9 @@ export default Vue.extend({
             else if (!this.changed) return 'Saved'
             return 'Save'
         },
+        change_password_button_text() {
+            return 'Change Password'
+        },
         valid_first_name() {
             return this.dirty_user.first_name
         },
@@ -52,6 +64,9 @@ export default Vue.extend({
             return this.valid_first_name
                 && this.valid_last_name
                 && this.valid_email
+        },
+        valid_new_password() {
+            return this.password_data.new_password.length >= this.password_requirements.length
         },
     },
     ready() {

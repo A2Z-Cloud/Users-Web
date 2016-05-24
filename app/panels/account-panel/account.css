@@ -47,3 +47,18 @@ button {
     overflow: hidden;
     padding: 0;
 }
+
+/* always present */
+.AccountPanel
+.fade-transition {
+  transition: all .3s ease;
+}
+
+/* .expand-enter defines the starting state for entering */
+/* .expand-leave defines the ending state for leaving */
+.AccountPanel
+.fade-enter,
+.AccountPanel
+.fade-leave {
+  opacity: 0;
+}
