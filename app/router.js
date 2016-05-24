@@ -9,6 +9,7 @@ import AccountPanel from "./panels/account-panel/account"
 import ServciesPanel from "./panels/services-panel/services"
 import UsersPanel from "./panels/users-panel/users"
 import GroupsPanel from "./panels/groups-panel/groups"
+import InvitePanel from './panels/invite-panel/invite'
 import EmailConfirmation from "./panels/email-confirmation-panel/email_confirmation"
 
 
@@ -36,7 +37,11 @@ router.map({
         name: 'Groups',
         component: GroupsPanel,
     },
-    '/confirm_email': {
+    '/invite': {
+        name: 'Invite',
+        component: InvitePanel,
+    },
+    '/confirm-email': {
         name: 'Confirm Email',
         component: EmailConfirmation,
     },
