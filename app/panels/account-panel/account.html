@@ -4,49 +4,88 @@
     <div class="AccountPanel">
         <div class="greeting">Hi, {{user.first_name}} {{user.last_name}}</div>
 
-        <div class="container">
+        <div v-if="!changing_password" class="container">
             <div class="row">
                 <div class="six columns">
-                    <div class="form-label">First Name</div>
+                    <div class="form-label">first name</div>
                     <input
                         class="u-full-width"
                         :class="{'changed': dirty_user.first_name !== user.first_name, 'invalid': !valid_first_name}"
                         type="text"
                         v-model="dirty_user.first_name"
-                        placeholder="Bill">
+                        placeholder="e.g. Bill">
                 </div>
                 <div class="six columns">
-                    <div class="form-label">Last Name</div>
+                    <div class="form-label">last name</div>
                     <input
                         class="u-full-width"
                         :class="{'changed': dirty_user.last_name !== user.last_name, 'invalid': !valid_last_name}"
                         type="text"
                         v-model="dirty_user.last_name"
-                        placeholder="Billson">
+                        placeholder="e.g. Billson">
                 </div>
             </div>
 
             <div class="row">
                 <div class="six columns">
                     <div class="form-label">
-                        Email Address
-                        <span v-if="!user.email_confirmed" class="unverified">(unverified)</span>
+                        email address
+                        <span v-if="!user.email_confirmed" class="unverified">unverified</span>
                     </div>
                     <input
                         class="u-full-width"
                         :class="{'changed': dirty_user.email !== user.email, 'unverified': !user.email_confirmed, 'invalid': !valid_email}"
                         type="text"
                         v-model="dirty_user.email"
-                        placeholder="bill@billson.net">
+                        placeholder="e.g. bill@billson.net">
                 </div>
                 <div class="six columns">
-                    <div class="form-label">Phone Number</div>
+                    <div class="form-label">phone number</div>
                     <input
                         class="u-full-width"
-                        :class="{'changed': dirty_user.phone !== user.phone}"
+                        :class="{'changed': nullify(dirty_user.phone) !== nullify(user.phone)}"
                         type="text"
                         v-model="dirty_user.phone"
-                        placeholder="+44 12345 67891">
+                        placeholder="e.g. +44 12345 67891">
+                </div>
+            </div>
+
+        </div>
+
+        <div v-else class="container">
+            <div class="row">
+                <div class="six columns">
+                    <div class="form-label">current password</div>
+                    <input
+                        class="u-full-width"
+                        :class="{'invalid': !password_data.old_password}"
+                        type="text"
+                        v-model="password_data.old_password"
+                        placeholder="e.g. passw0rd1">
+                </div>
+                <div class="six columns">
+                    <br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="six columns">
+                    <div class="form-label">new password</div>
+                    <input
+                        class="u-full-width"
+                        :class="{'changed': dirty_user.email !== user.email, 'unverified': !user.email_confirmed, 'invalid': !valid_email}"
+                        type="text"
+                        v-model="password_data.new_password"
+                        placeholder="e.g. 9av46FWVABchv48yHa">
+                </div>
+                <div class="six columns">
+                    <div class="form-label">confirm new password</div>
+                    <input
+                        class="u-full-width"
+                        :class="{'changed': nullify(dirty_user.phone) !== nullify(user.phone)}"
+                        type="text"
+                        v-model="password_data.new_password_confirmation"
+                        placeholder="e.g. 9av46FWVABchv48yHa">
                 </div>
             </div>
 
@@ -54,13 +93,13 @@
 
         <div class="container form-actions">
             <div class="row">
-                <div class="six columns">
+                <div class="three columns">
                     <br>
                 </div>
                 <div class="three columns">
                     <button
                         class="verify-email u-full-width"
-                        v-if="!user.email_confirmed && dirty_user.email === user.email"
+                        v-if="!user.email_confirmed && dirty_user.email === user.email && !changing_password"
                         :disabled="recently_sent_verification || sending_verification_email"
                         @click="verify_email">
                         {{ verify_email_button_text }}
@@ -69,10 +108,25 @@
                 </div>
                 <div class="three columns">
                     <button
+                        class="change-password u-full-width"
+                        @click="changing_password=!changing_password">
+                        {{ changing_password ? 'Cancel' : 'Change Password' }}
+                    </button>
+                </div>
+                <div class="three columns">
+                    <button
+                        v-if="!changing_password"
                         class="button-primary save u-full-width"
                         :disabled="!changed || saving_user || !valid_form"
                         @click="save(dirty_user)">
                         {{ save_user_button_text }}
+                    </button>
+                    <button
+                        v-else
+                        class="button-primary save u-full-width"
+                        :disabled="!valid_new_password_entry"
+                        @click="change_password(new_password_payload)">
+                        {{ change_password_button_text }}
                     </button>
                 </div>
             </div>
