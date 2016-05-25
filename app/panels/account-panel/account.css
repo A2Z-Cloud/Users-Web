@@ -25,8 +25,12 @@
 }
 
 .AccountPanel
-.unverified {
-    color: rgb(170, 57, 57);
+.lnr-warning {
+    color:
+}
+
+.lnr:before {
+    vertical-align: sub;
 }
 
 .AccountPanel
@@ -48,17 +52,36 @@ button {
     padding: 0;
 }
 
-/* always present */
 .AccountPanel
-.fade-transition {
-  transition: all .3s ease;
+.tool-tip-container {
+    position: relative;
 }
 
-/* .expand-enter defines the starting state for entering */
-/* .expand-leave defines the ending state for leaving */
 .AccountPanel
-.fade-enter,
+.lnr-warning {
+    color: rgb(170, 57, 57);
+}
+
 .AccountPanel
-.fade-leave {
-  opacity: 0;
+.tool-tip-message {
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+    width: 300px;
+    z-index: 1;
+    font-size: smaller;
+    background: white;
+    padding: 8px;
+    border: 1px solid #bbb
+}
+
+.AccountPanel
+.tool-tip-container:hover
+.tool-tip-message {
+    visibility: visible;
+}
+
+.AccountPanel
+.tool-tip-message.warning {
+    color: rgb(170, 57, 57);
 }

@@ -2,8 +2,9 @@
     <div v-if="error">{{error.message}}</div>
 
     <div class="AccountPanel">
-        <div class="greeting">Hi, {{user.first_name}} {{user.last_name}}</div>
+        <div class="greeting">{{salutation}}, {{user.first_name}} {{user.last_name}}</div>
 
+        <!-- Edit account details -->
         <div v-if="!changing_password" class="container">
             <div class="row">
                 <div class="six columns">
@@ -30,7 +31,10 @@
                 <div class="six columns">
                     <div class="form-label">
                         email address
-                        <span v-if="!user.email_confirmed" class="unverified">unverified</span>
+                        <div v-if="!user.email_confirmed" class="tool-tip-container u-pull-right">
+                            <span class="lnr lnr-warning unverified tool-tip-icon"></span>
+                            <div class="tool-tip-message warning">Unverified email address; follow verification link in your email. <br>Resend email by clicking 'Verify Email' bellow.</div>
+                        </div>
                     </div>
                     <input
                         class="u-full-width"
@@ -52,16 +56,19 @@
 
         </div>
 
+        <!-- Change password -->
         <div v-else class="container">
             <div class="row">
                 <div class="six columns">
-                    <div class="form-label">current password</div>
+                    <div class="form-label">
+                        current password
+                    </div>
                     <input
                         class="u-full-width"
-                        :class="{'invalid': !password_data.old_password}"
-                        type="text"
+                        :class="{'required': !password_data.old_password}"
+                        type="password"
                         v-model="password_data.old_password"
-                        placeholder="e.g. passw0rd1">
+                        placeholder="e.g. p4ssw0rd1">
                 </div>
                 <div class="six columns">
                     <br>
@@ -70,20 +77,32 @@
 
             <div class="row">
                 <div class="six columns">
-                    <div class="form-label">new password</div>
+                    <div class="form-label">
+                        new password
+                        <div v-if="new_password_errors.length" class="tool-tip-container u-pull-right">
+                            <span class="lnr lnr-warning tool-tip-icon u-pull-right"></span>
+                            <div class="tool-tip-message warning"><span v-for="error in new_password_errors">{{error}}</span></div>
+                        </div>
+                    </div>
                     <input
                         class="u-full-width"
-                        :class="{'changed': dirty_user.email !== user.email, 'unverified': !user.email_confirmed, 'invalid': !valid_email}"
-                        type="text"
+                        :class="{'invalid': new_password_errors.length, 'required': !password_data.new_password}"
+                        type="password"
                         v-model="password_data.new_password"
                         placeholder="e.g. 9av46FWVABchv48yHa">
                 </div>
                 <div class="six columns">
-                    <div class="form-label">confirm new password</div>
+                    <div class="form-label">
+                        confirm new password
+                        <div v-if="confirm_password_errors.length" class="tool-tip-container u-pull-right">
+                            <span class="lnr lnr-warning tool-tip-icon u-pull-right"></span>
+                            <div class="tool-tip-message warning"><span v-for="error in confirm_password_errors">{{error}}</span></div>
+                        </div>
+                    </div>
                     <input
                         class="u-full-width"
-                        :class="{'changed': nullify(dirty_user.phone) !== nullify(user.phone)}"
-                        type="text"
+                        :class="{'invalid': confirm_password_errors.length, 'required': !password_data.new_password_confirmation}"
+                        type="password"
                         v-model="password_data.new_password_confirmation"
                         placeholder="e.g. 9av46FWVABchv48yHa">
                 </div>
@@ -108,10 +127,12 @@
                 </div>
                 <div class="three columns">
                     <button
+                        v-if="!saving_password"
                         class="change-password u-full-width"
                         @click="changing_password=!changing_password">
                         {{ changing_password ? 'Cancel' : 'Change Password' }}
                     </button>
+                    <br v-else>
                 </div>
                 <div class="three columns">
                     <button
@@ -124,9 +145,9 @@
                     <button
                         v-else
                         class="button-primary save u-full-width"
-                        :disabled="!valid_new_password_entry"
-                        @click="change_password(new_password_payload)">
-                        {{ change_password_button_text }}
+                        :disabled="!enable_change_password_button"
+                        @click="change_password(password_data)">
+                        {{ saving_password ? 'Saving' : 'Change Password' }}
                     </button>
                 </div>
             </div>

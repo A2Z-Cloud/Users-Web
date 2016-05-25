@@ -2,18 +2,21 @@ import './account.css!'
 import tmpl from './account.html!text'
 import Vue from 'vue'
 
-import { save_user, send_email_confirmation } from 'app/vuex/actions'
+import { save_user, send_email_confirmation, change_password } from 'app/vuex/actions'
 
 
 export default Vue.extend({
     template: tmpl,
     data: () => ({
         error: {},
+        salutation: 'Hi',
         changing_password: false,
         sending_verification_email: false,
         recently_sent_verification: false,
         recently_sent_timeout_id: null,
+        recently_changed_password: false,
         saving_user: false,
+        saving_password: false,
         dirty_user: {
             email: '',
             first_name: '',
@@ -26,7 +29,7 @@ export default Vue.extend({
             new_password_confirmation: '',
         },
         password_requirements: {
-            length: 8,
+            min_length: 8,
         },
     }),
     computed: {
@@ -47,9 +50,6 @@ export default Vue.extend({
             else if (!this.changed) return 'Saved'
             return 'Save'
         },
-        change_password_button_text() {
-            return 'Change Password'
-        },
         valid_first_name() {
             return this.dirty_user.first_name
         },
@@ -65,8 +65,32 @@ export default Vue.extend({
                 && this.valid_last_name
                 && this.valid_email
         },
-        valid_new_password() {
-            return this.password_data.new_password.length >= this.password_requirements.length
+        new_password_errors() {
+            const {new_password} = this.password_data
+            const {min_length}   = this.password_requirements
+            const errors       = []
+            if (new_password && new_password.length < min_length) {
+                errors.push('Password must be atleast ' + min_length + ' characters long')
+            }
+            return errors
+        },
+        confirm_password_errors() {
+            const {new_password, new_password_confirmation} = this.password_data
+            const errors = []
+            if (new_password && new_password_confirmation && new_password !== new_password_confirmation) {
+                errors.push("New password and confirmation do not match")
+            }
+            return errors
+        },
+        enable_change_password_button() {
+            const {old_password, new_password, new_password_confirmation} = this.password_data
+            return old_password
+                && new_password
+                && new_password_confirmation
+                && !this.new_password_errors.length
+                && !this.confirm_password_errors.length
+                && new_password === new_password_confirmation
+                && !this.saving_password
         },
     },
     ready() {
@@ -74,6 +98,9 @@ export default Vue.extend({
         this.dirty_user.first_name = this.user.first_name
         this.dirty_user.last_name  = this.user.last_name
         this.dirty_user.phone      = this.user.phone
+
+        const salutations = ['Hi', 'Greetings', 'Salut', 'Hallo', 'Ciao', 'Ahoj', 'Hola', 'Hej', 'こんにちは', '你好', 'السلام عليكم', 'שלום', 'Olá', 'سلام']
+        this.salutation   = salutations[Math.floor(Math.random()*salutations.length)]
     },
     vuex: {
         getters: {
@@ -82,6 +109,7 @@ export default Vue.extend({
         actions: {
             save_user,
             send_email_confirmation,
+            remote_change_password: change_password,
         },
     },
     methods: {
@@ -110,7 +138,7 @@ export default Vue.extend({
             this.recently_sent_verification = this.dirty_user.email !== this.user.email || this.recently_sent_verification
             clearTimeout(this.recently_sent_timeout_id)
             const release_now     = () => (this.recently_sent_verification = false)
-            const release_later    = () => (this.recently_sent_timeout_id = setTimeout(release_now, 15000))
+            const release_later   = () => (this.recently_sent_timeout_id = setTimeout(release_now, 15000))
             const sending_success = () => {
                 this.saving_user = false
                 release_later()
@@ -122,6 +150,28 @@ export default Vue.extend({
             this.save_user(user)
                 .then(sending_success)
                 .catch(sending_failure)
+        },
+        change_password(password_data) {
+            this.saving_password = true
+            const sending_success = () => {
+                this.clear_password_form()
+                this.saving_password = false
+                this.changing_password = false
+            }
+            const sending_failure = () => {
+                this.saving_password = false
+            }
+            this.remote_change_password(password_data)
+                .then(sending_success)
+                .catch(sending_failure)
+        },
+        clear_password_form() {
+            this.password_data.old_password = this.password_data.new_password = this.password_data.new_password_confirmation = ''
+        },
+    },
+    watch: {
+        changing_password() {
+            this.clear_password_form()
         },
     },
 })
