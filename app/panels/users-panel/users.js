@@ -8,6 +8,7 @@ import { filter_users } from 'app/vuex/actions'
 export default Vue.extend({
     template: tmpl,
     data: () => ({
+        error: null,
         new_user: {
             email: '',
             first_name: '',

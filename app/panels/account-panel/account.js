@@ -4,6 +4,8 @@ import Vue from 'vue'
 
 import { save_user, send_email_confirmation, change_password } from 'app/vuex/actions'
 
+import { password_errors, valid_email } from 'app/utils/validation'
+
 
 export default Vue.extend({
     template: tmpl,
@@ -27,9 +29,6 @@ export default Vue.extend({
             old_password: '',
             new_password: '',
             new_password_confirmation: '',
-        },
-        password_requirements: {
-            min_length: 8,
         },
     }),
     computed: {
@@ -56,9 +55,8 @@ export default Vue.extend({
         valid_last_name() {
             return this.dirty_user.last_name
         },
-        valid_email() {
-            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            return re.test(this.dirty_user.email)
+        valid_dirty_email() {
+            return valid_email(this.dirty_user.email)
         },
         valid_form() {
             return this.valid_first_name
@@ -67,12 +65,7 @@ export default Vue.extend({
         },
         new_password_errors() {
             const {new_password} = this.password_data
-            const {min_length}   = this.password_requirements
-            const errors       = []
-            if (new_password && new_password.length < min_length) {
-                errors.push('Password must be atleast ' + min_length + ' characters long')
-            }
-            return errors
+            return password_errors(new_password)
         },
         confirm_password_errors() {
             const {new_password, new_password_confirmation} = this.password_data

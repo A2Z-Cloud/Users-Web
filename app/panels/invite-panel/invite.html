@@ -1,0 +1,77 @@
+<div>
+    <div v-if="error">{{error.message}}</div>
+
+    <div class="InvitePanel panel">
+
+        <!-- Create password -->
+        <div v-else class="container">
+
+            <div class="greeting">Welcome. Let's set up your account</div>
+
+            <div class="row">
+                <div class="tweleve columns">
+                    <div class="form-label">
+                        email
+                    </div>
+                    <input
+                        class="u-full-width"
+                        :class="{'invalid': !is_valid_email, 'required': !payload.email}"
+                        type="email"
+                        v-model="payload.email"
+                        placeholder="e.g. bill@billson.net">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="six columns">
+                    <div class="form-label">
+                        password
+                        <div v-if="payload.password && new_password_errors.length" class="tool-tip-container u-pull-right">
+                            <span class="lnr lnr-warning tool-tip-icon u-pull-right"></span>
+                            <div class="tool-tip-message warning"><span v-for="error in new_password_errors">{{error}}</span></div>
+                        </div>
+                    </div>
+                    <input
+                        class="u-full-width"
+                        :class="{'invalid': new_password_errors.length, 'required': !payload.password}"
+                        type="password"
+                        v-model="payload.password"
+                        placeholder="e.g. 9av46FWVABchv48yHa">
+                </div>
+                <div class="six columns">
+                    <div class="form-label">
+                        confirm password
+                        <div v-if="invalid_password_confirmation" class="tool-tip-container u-pull-right">
+                            <span class="lnr lnr-warning tool-tip-icon u-pull-right"></span>
+                            <div class="tool-tip-message warning">Doesn't match previous password</div>
+                        </div>
+                    </div>
+                    <input
+                        class="u-full-width"
+                        :class="{'invalid': invalid_password_confirmation, 'required': !payload.password_confirmation}"
+                        type="password"
+                        v-model="payload.password_confirmation"
+                        placeholder="e.g. 9av46FWVABchv48yHa">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container form-actions">
+            <div class="row">
+                <div class="six columns">
+                    <br>
+                </div>
+                <div class="six columns">
+                    <button
+                        class="button-primary save u-full-width"
+                        :disabled="!enable_create_account_button"
+                        @click="create_account(payload)">
+                        {{ creating_account ? 'Creating' : 'Create Your A2Z Account' }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,6 +1,19 @@
 import { email_confirmation_url } from 'app/consts'
 
 
+export const accept_invite = function(store, {token, email, password}) {
+    return new Promise((resolve, reject) => {  // eslint-disable-line no-undef
+        const handle_error = error => {
+            store.dispatch('ERROR_SET', error)
+            reject(error)
+        }
+        this.$control
+            .accept_invite(token, email, password, email_confirmation_url)
+            .then(resolve)
+            .catch(handle_error)
+    })
+}
+
 export const save_user = function(store, {email, first_name, last_name, phone}) {
     return new Promise((resolve, reject) => {  // eslint-disable-line no-undef
         const current_user = store.state.user

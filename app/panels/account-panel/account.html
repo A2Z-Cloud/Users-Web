@@ -1,7 +1,7 @@
 <div>
     <div v-if="error">{{error.message}}</div>
 
-    <div class="AccountPanel">
+    <div class="AccountPanel panel">
         <div class="greeting">{{salutation}}, {{user.first_name}} {{user.last_name}}</div>
 
         <!-- Edit account details -->
@@ -38,7 +38,7 @@
                     </div>
                     <input
                         class="u-full-width"
-                        :class="{'changed': dirty_user.email !== user.email, 'unverified': !user.email_confirmed, 'invalid': !valid_email}"
+                        :class="{'changed': dirty_user.email !== user.email, 'unverified': !user.email_confirmed, 'invalid': !valid_dirty_email}"
                         type="text"
                         v-model="dirty_user.email"
                         placeholder="e.g. bill@billson.net">

@@ -52,6 +52,8 @@ textarea.invalid {
 .button,
 button {
     border-radius: 0;
+    overflow: hidden;
+    padding: 0;
 }
 
 .button:disabled,
@@ -68,4 +70,64 @@ input[type="button"].button-primary:disabled {
     background-color: rgb(251, 251, 251);
 
     color: rgb(148, 148, 148);
+}
+
+.panel {
+    padding-top: 32px;
+    padding-bottom: 32px;
+
+    text-align: center;
+    align-content: center;
+}
+
+.greeting {
+    padding-bottom: 32px;
+    font-size: xx-large;
+}
+
+.form-label {
+    font-weight: bold;
+    text-align: left;
+}
+
+.changed {
+    font-style: italic;
+}
+
+/* vertical aligns linaricons */
+.lnr:before {
+    vertical-align: sub;
+}
+
+.lnr-warning {
+    color: rgb(170, 57, 57);
+}
+
+.tool-tip-container {
+    position: relative;
+}
+
+.tool-tip-message {
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+    width: 300px;
+    z-index: 1;
+    font-size: smaller;
+    background: white;
+    padding: 8px;
+    border: 1px solid #bbb
+}
+
+.tool-tip-container:hover
+.tool-tip-message {
+    visibility: visible;
+}
+
+.tool-tip-message.warning {
+    color: rgb(170, 57, 57);
+}
+
+.form-actions {
+    padding-top: 32px;
 }
