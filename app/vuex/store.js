@@ -7,6 +7,7 @@ Vue.use(Vuex)
 
 
 const state = {
+    control: null,
     ws_status: null,
     error: null,
     user: null,
@@ -23,8 +24,7 @@ const mutations = {
     ERROR_SET(state, error) {
         state.error = error
     },
-    CURRENT_USER_SET(state, {user, auth_url}) {
-        if (user === null) window.location = auth_url
+    CURRENT_USER_SET(state, user) {
         state.user = user
     },
     USERS_SET(state, users) {
@@ -34,12 +34,12 @@ const mutations = {
         state.users.push(user)
     },
     USER_UPDATE(state, user) {
-        if (user.id === state.user.id) state.user = user
+        if (state.user && user.id === state.user.id) state.user = user
         const index = state.users.findIndex(u => u.id === user.id)
         if (index !== -1) state.users.$set(index, user)
     },
     USER_DELETE(state, user_id) {
-        if (user_id === state.user.id) state.user = null
+        if (state.user && user_id === state.user.id) state.user = null
         const index = state.users.findIndex(u => u.id === user_id)
         if (index !== -1) state.users.splice(index, 1)
     },

@@ -35,8 +35,8 @@
     </div>
 
     <div id="Main" v-cloak>
-        <div class="content" v-if="user">
-            <div v-if="user.type == 'admin'" class="container navigation">
+        <div class="content">
+            <div v-if="user && user.type == 'admin'" class="container navigation">
                 <div class="row">
                     <div class="tweleve columns">
                         <a v-link="{ path: '/'}">My Account</a>

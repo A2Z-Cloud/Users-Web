@@ -56,7 +56,7 @@ export default Vue.extend({
             this.accept_invite(this.payload)
                 .then(() => {
                     this.creating_account  = false
-                    document.location.href = '/'
+                    this.$router.go('/')
                 })
                 .catch(error => {
                     this.creating_account = false

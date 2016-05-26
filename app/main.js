@@ -15,26 +15,22 @@ import {control_url} from './consts'
 
 // –– Control
 System.import(control_url).then(({Control}) => {  // eslint-disable-line no-undef
-    Control.prototype.install = function(Vue) {
-        Vue.prototype.$control = this
-    }
-
-    Vue.use(new Control())
-
     router.start({
         store,
         ready() {
             // catch websocket broadcasts
-            this.$control
-                .init((signal, message) => store.dispatch(signal, message))
-                .then(status => store.dispatch('WS_STATUS_SET', status))
-                .catch(() => store.dispatch('ERROR_SET', {
-                    message: "Cannot connect to server.",
-                }))
+            store.control = new Control()
+            store.control
+                 .init((signal, message) => store.dispatch(signal, message))
+                 .then(status => store.dispatch('WS_STATUS_SET', status))
+                 .catch(() => store.dispatch('ERROR_SET', {
+                     message: "Cannot connect to server.",
+                 }))
         },
         vuex: {
-            getters: {
+            getters:  {
                 user: store => store.user,
+                ws_ready: store => store.auth_url && store.ws_status === 'open',
             },
         },
     }, '#App')

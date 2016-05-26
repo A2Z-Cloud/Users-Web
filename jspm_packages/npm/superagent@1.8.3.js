@@ -1,1 +1,0 @@
-module.exports = require("npm:superagent@1.8.3/lib/client");
