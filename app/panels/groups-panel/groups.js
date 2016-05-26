@@ -4,9 +4,6 @@ import Vue from 'vue'
 
 export default Vue.extend({
     template: tmpl,
-    props: [
-        'user',
-    ],
     data: () => ({
         error: {},
         groups: [],
@@ -14,10 +11,6 @@ export default Vue.extend({
     computed: {
     },
     ready() {
-        this.$control
-            .filter_groups()
-            .then(groups => (this.groups = groups))
-            .catch(error => (this.error = error))
     },
     methods: {
 
