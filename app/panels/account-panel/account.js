@@ -50,10 +50,10 @@ export default Vue.extend({
             return 'Save'
         },
         valid_first_name() {
-            return this.dirty_user.first_name
+            return this.dirty_user.first_name.length > 0
         },
         valid_last_name() {
-            return this.dirty_user.last_name
+            return this.dirty_user.last_name.length > 0
         },
         valid_dirty_email() {
             return valid_email(this.dirty_user.email)
@@ -61,7 +61,7 @@ export default Vue.extend({
         valid_form() {
             return this.valid_first_name
                 && this.valid_last_name
-                && this.valid_email
+                && this.valid_dirty_email
         },
         new_password_errors() {
             const {new_password} = this.password_data
