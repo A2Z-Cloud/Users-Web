@@ -1,24 +1,33 @@
 <div>
     <div v-if="error">{{error.message}}</div>
 
-    <div class="ServicesPanel">
+    <div v-el:service-panel class="ServicesPanel panel">
 
         <div class="container">
             <div class="row">
                 <div class="twleve columns">
-                    <table class="u-full-width">
-                        <tr>
-                            <th>id</th>
-                            <th>name</th>
-                        </tr>
-                        <tr v-for='service in services'>
-                            <td>{{ service.id }}</td>
-                            <td>{{ service.name }}</td>
-                        </tr>
-                    </table>
+                    <div>
+                        <table v-el:table-head v-el:service-table class="u-full-width">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>name</th>
+                                </tr>
+                            </thead>
+                            <tbody
+                                v-el:table-body :style="{height: table_height}"
+                                v-infinite-scroll="fetch_next()"
+                                infinite-scroll-disabled="busy"
+                                infinite-scroll-distance="10">
+                                    <tr v-for='service in services' track-by='id'>
+                                        <td>{{ service.id }}</td>
+                                        <td>{{ service.name }}</td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>

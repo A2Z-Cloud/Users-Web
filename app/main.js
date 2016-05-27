@@ -10,13 +10,19 @@ import Vue from 'vue'
 import router from './router'
 import store from 'app/vuex/store'
 
+import ResizeMixin from 'vue-resize-mixin'
+import infinateScroll from 'vue-infinite-scroll'
+
 import {control_url} from './consts'
 
 
 // –– Control
 System.import(control_url).then(({Control}) => {  // eslint-disable-line no-undef
+    Vue.use(infinateScroll)
+
     router.start({
         store,
+        mixins: [ResizeMixin],
         ready() {
             // catch websocket broadcasts
             store.control = new Control()
@@ -29,9 +35,16 @@ System.import(control_url).then(({Control}) => {  // eslint-disable-line no-unde
         },
         vuex: {
             getters:  {
-                user: store => store.user,
-                ws_ready: store => store.auth_url && store.ws_status === 'open',
+                user: state => state.user,
+                ws_ready: state => state.auth_url && state.ws_status === 'open',
             },
+        },
+        events: {
+            resize: size => store.dispatch({
+                type: 'WINDOWS_SIZE_SET',
+                silent: false,
+                payload: size,
+            }),
         },
     }, '#App')
 })

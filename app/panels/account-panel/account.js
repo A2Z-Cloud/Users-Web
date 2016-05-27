@@ -97,7 +97,7 @@ export default Vue.extend({
     },
     vuex: {
         getters: {
-            user: store => store.user,
+            user: state => state.user,
         },
         actions: {
             save_user,

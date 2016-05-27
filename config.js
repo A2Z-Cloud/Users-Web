@@ -21,7 +21,8 @@ System.config({
     "normalize.css": "npm:normalize.css@4.0.0",
     "skeleton-css": "npm:skeleton-css@2.0.4",
     "text": "github:systemjs/plugin-text@0.0.7",
-    "vue": "npm:vue@1.0.20",
+    "vue": "npm:vue@1.0.24",
+    "vue-infinite-scroll": "npm:vue-infinite-scroll@0.2.3",
     "vue-resize-mixin": "npm:vue-resize-mixin@1.0.1",
     "vue-router": "npm:vue-router@0.7.13",
     "vuex": "npm:vuex@0.6.3",
@@ -143,10 +144,13 @@ System.config({
       "inherits": "npm:inherits@2.0.1",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
+    "npm:vue-infinite-scroll@0.2.3": {
+      "vue": "npm:vue@1.0.24"
+    },
     "npm:vue-resize-mixin@1.0.1": {
       "windowsill": "npm:windowsill@1.0.7"
     },
-    "npm:vue@1.0.20": {
+    "npm:vue@1.0.24": {
       "envify": "npm:envify@3.4.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },

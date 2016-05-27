@@ -20,7 +20,7 @@ export default Vue.extend({
     },
     vuex: {
         getters: {
-            users: store => store.users,
+            users: state => state.users,
         },
         actions: {
             filter_users,

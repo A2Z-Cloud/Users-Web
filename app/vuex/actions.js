@@ -116,3 +116,20 @@ export const filter_users = function(store) {
              .catch(handle_error)
     })
 }
+
+export const filter_services = function(store, {term=null, offset=0, limit=20}={}) {
+    return new Promise((resolve, reject) => {  // eslint-disable-line no-undef
+        const handle_success = services => {
+            services.forEach(s => store.dispatch('SERVICE_UPDATE', s))
+            resolve(services)
+        }
+        const handle_error = error => {
+            store.dispatch('ERROR_SET', error)
+            reject(error)
+        }
+        store.control
+             .filter_services(term, offset, limit)
+             .then(handle_success)
+             .catch(handle_error)
+    })
+}

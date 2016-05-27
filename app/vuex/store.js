@@ -7,6 +7,10 @@ Vue.use(Vuex)
 
 
 const state = {
+    window_size: {
+        width: window.innerWidth,
+        height: window.innerHeight,
+    },
     control: null,
     ws_status: null,
     error: null,
@@ -18,6 +22,9 @@ const state = {
 
 
 const mutations = {
+    WINDOWS_SIZE_SET(state, size) {
+        state.window_size = size
+    },
     WS_STATUS_SET(state, status) {
         state.ws_status = status
     },
@@ -52,6 +59,7 @@ const mutations = {
     SERVICE_UPDATE(state, service) {
         const index = state.services.findIndex(s => s.id === service.id)
         if (index !== -1) state.services.$set(index, service)
+        else state.services.push(service)
     },
     SERVICE_DELETE(state, service_id) {
         const index = state.services.findIndex(s => s.id === service_id)
