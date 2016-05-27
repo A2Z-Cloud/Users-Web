@@ -137,3 +137,20 @@ export const filter_services = function(store, {term=null, offset=0, limit=20, o
              .catch(handle_error)
     })
 }
+
+export const filter_groups = function(store, {term=null, offset=0, limit=20, order_by='name'}={}) {
+    return new Promise((resolve, reject) => {  // eslint-disable-line no-undef
+        const handle_success = groups => {
+            groups.forEach(g => store.dispatch('SERVICE_UPDATE', g))
+            resolve(groups)
+        }
+        const handle_error = error => {
+            store.dispatch('ERROR_SET', error)
+            reject(error)
+        }
+        store.control
+             .filter_groups(term, offset, limit, order_by)
+             .then(handle_success)
+             .catch(handle_error)
+    })
+}

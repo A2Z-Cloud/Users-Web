@@ -1,12 +1,12 @@
-<div v-if="error">{{error.message}}</div>
+<div>
+    <div v-if="error">{{error.message}}</div>
 
-<table>
-    <tr>
-        <th>id</th>
-        <th>name</th>
-    </tr>
-    <tr v-for='group in groups'>
-        <td>{{ group.id }}</td>
-        <td>{{ group.name }}</td>
-    </tr>
-</table>
+    <div v-el:service-panel class="GroupsPanel panel">
+        <infinite-table
+            :columns="['name']"
+            :items="users"
+            :fetch_next="fetch_next"
+            :fetch_next_search="fetch_next_search">
+        </infinite-table>
+    </div>
+</div>
