@@ -1,0 +1,34 @@
+/* Scrolling body tables */
+.InfiniteTable
+table {
+    display: table;
+    width: 100%;
+}
+
+.InfiniteTable
+table thead,
+.InfiniteTable
+table tbody {
+    float: left;
+    width: 100%;
+}
+
+.InfiniteTable
+table tbody {
+    overflow: auto;
+    /*height: 150px; apply your own height*/
+}
+
+.InfiniteTable
+table tr {
+    width: 100%;
+    display: table;
+    text-align: left;
+}
+
+.InfiniteTable
+table th,
+.InfiniteTable
+table td {
+    width: 33%;
+}

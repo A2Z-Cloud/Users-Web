@@ -2,42 +2,11 @@
     <div v-if="error">{{error.message}}</div>
 
     <div v-el:service-panel class="ServicesPanel panel">
-
-        <div class="container">
-            <div class="row">
-                <div class="twleve columns">
-                    <input
-                        class="u-full-width"
-                        type="text"
-                        v-model="search_term"
-                        placeholder="search services..."
-                        v-on:keyup="search | debounce 100">
-                </div>
-            </div>
-            <div class="row">
-                <div class="twleve columns">
-                    <div>
-                        <table v-el:table-head v-el:service-table class="u-full-width">
-                            <thead>
-                                <tr>
-                                    <!-- <th>id</th> -->
-                                    <th>name</th>
-                                </tr>
-                            </thead>
-                            <tbody
-                                v-el:table-body :style="{height: table_height}"
-                                v-infinite-scroll="fetch_next()"
-                                infinite-scroll-disabled="busy"
-                                infinite-scroll-distance="10">
-                                    <tr v-for='service in services' track-by='id'>
-                                        <!-- <td>{{ service.id }}</td> -->
-                                        <td>{{ service.name }}</td>
-                                    </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <infinite-table
+            :columns="['name']"
+            :items="services"
+            :fetch_next="fetch_next"
+            :fetch_next_search="fetch_next_search">
+        </infinite-table>
     </div>
 </div>

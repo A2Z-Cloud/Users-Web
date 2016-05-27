@@ -39,10 +39,10 @@
             <div v-if="user && user.type == 'admin'" class="container navigation">
                 <div class="row">
                     <div class="tweleve columns">
-                        <a v-link="{ path: '/'}">My Account</a>
-                        <a v-link="{ path: '/services'}">Services</a>
-                        <a v-link="{ path: '/users'}">Users</a>
-                        <a v-link="{ path: '/groups'}">Groups</a>
+                        <a v-link="{ path: '/', exact: true }">My Account</a>
+                        <a v-link="{ path: '/services', exact: true }">Services</a>
+                        <a v-link="{ path: '/users', exact: true }">Users</a>
+                        <a v-link="{ path: '/groups', exact: true }">Groups</a>
                     </div>
                 </div>
             </div>

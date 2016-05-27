@@ -10,6 +10,11 @@ a {
     padding-right: 8px;
 }
 
+.navigation
+.v-link-active {
+    color: black;
+}
+
 input[type="email"],
 input[type="number"],
 input[type="search"],
@@ -130,26 +135,4 @@ input[type="button"].button-primary:disabled {
 
 .form-actions {
     padding-top: 32px;
-}
-
-/* Scrolling body tables */
-table {
-    display: table;
-    width: 100%;
-}
-table thead, table tbody {
-    float: left;
-    width: 100%;
-}
-table tbody {
-    overflow: auto;
-    /*height: 150px; apply your own height*/
-}
-table tr {
-    width: 100%;
-    display: table;
-    text-align: left;
-}
-table th, table td {
-    width: 33%;
 }

@@ -1,0 +1,36 @@
+<div class="InfiniteTable">
+    <div class="container">
+        <div class="row">
+            <div class="twleve columns">
+                <input
+                    class="u-full-width"
+                    type="text"
+                    v-model="search_term"
+                    placeholder="search..."
+                    v-on:keyup="search | debounce 100">
+            </div>
+        </div>
+        <div class="row">
+            <div class="twleve columns">
+                <table class="u-full-width">
+                    <thead>
+                        <tr>
+                            <th v-for="column in columns">{{column}}</th>
+                        </tr>
+                    </thead>
+                    <tbody
+                        v-else
+                        v-el:table-body
+                        :style="{height: table_height}"
+                        v-infinite-scroll="nearing_bottom()"
+                        infinite-scroll-disabled="disabled"
+                        infinite-scroll-distance="10">
+                            <tr v-for='item in display_items' track-by='$index'>
+                                <td v-for="column in columns">{{ item[column] }}</td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

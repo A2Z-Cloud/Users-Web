@@ -104,20 +104,24 @@ export const send_email_confirmation = function(store) {
     })
 }
 
-export const filter_users = function(store) {
+export const filter_users = function(store, {term=null, offset=0, limit=20, order_by='last_name'}={}) {
     return new Promise((resolve, reject) => {  // eslint-disable-line no-undef
+        const handle_success = users => {
+            users.forEach(u => store.dispatch('USER_UPDATE', u))
+            resolve(users)
+        }
         const handle_error = error => {
             store.dispatch('ERROR_SET', error)
             reject(error)
         }
         store.control
-             .filter_users()
-             .then(resolve)
+             .filter_users(term, offset, limit, order_by)
+             .then(handle_success)
              .catch(handle_error)
     })
 }
 
-export const filter_services = function(store, {term=null, offset=0, limit=20}={}) {
+export const filter_services = function(store, {term=null, offset=0, limit=20, order_by='name'}={}) {
     return new Promise((resolve, reject) => {  // eslint-disable-line no-undef
         const handle_success = services => {
             services.forEach(s => store.dispatch('SERVICE_UPDATE', s))
@@ -128,7 +132,7 @@ export const filter_services = function(store, {term=null, offset=0, limit=20}={
             reject(error)
         }
         store.control
-             .filter_services(term, offset, limit)
+             .filter_services(term, offset, limit, order_by)
              .then(handle_success)
              .catch(handle_error)
     })
