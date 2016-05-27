@@ -19,7 +19,7 @@ System.config({
     "clean-css": "npm:clean-css@3.4.13",
     "core-js": "npm:core-js@1.2.6",
     "css": "github:systemjs/plugin-css@0.1.20",
-    "normalize.css": "npm:normalize.css@4.0.0",
+    "normalize.css": "npm:normalize.css@4.1.1",
     "skeleton-css": "npm:skeleton-css@2.0.4",
     "text": "github:systemjs/plugin-text@0.0.7",
     "vue": "npm:vue@1.0.24",
