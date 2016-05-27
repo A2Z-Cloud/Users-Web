@@ -6,11 +6,21 @@
         <div class="container">
             <div class="row">
                 <div class="twleve columns">
+                    <input
+                        class="u-full-width"
+                        type="text"
+                        v-model="search_term"
+                        placeholder="search services..."
+                        v-on:keyup="search | debounce 100">
+                </div>
+            </div>
+            <div class="row">
+                <div class="twleve columns">
                     <div>
                         <table v-el:table-head v-el:service-table class="u-full-width">
                             <thead>
                                 <tr>
-                                    <th>id</th>
+                                    <!-- <th>id</th> -->
                                     <th>name</th>
                                 </tr>
                             </thead>
@@ -20,7 +30,7 @@
                                 infinite-scroll-disabled="busy"
                                 infinite-scroll-distance="10">
                                     <tr v-for='service in services' track-by='id'>
-                                        <td>{{ service.id }}</td>
+                                        <!-- <td>{{ service.id }}</td> -->
                                         <td>{{ service.name }}</td>
                                     </tr>
                             </tbody>

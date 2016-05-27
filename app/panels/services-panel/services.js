@@ -9,11 +9,20 @@ export default Vue.extend({
     template: tmpl,
     data: () => ({
         error: null,
+        search_term: '',
+        search_services: [],
         busy: false,
         table_body_distance_from_top: 0,
         exhausted: false,
     }),
     computed: {
+        searching() {
+            return (this.search_term.length > 0)
+        },
+        services() {
+            if (this.searching) return this.search_services
+            return this.all_services
+        },
         table_height() {
             return (this.window_height - this.table_body_distance_from_top - 32) + 'px'
         },
@@ -30,15 +39,21 @@ export default Vue.extend({
     vuex: {
         getters: {
             window_height: state => state.window_size.height,
-            services: state => state.services,
+            all_services: state => state.services,
         },
         actions: {
             filter_services,
         },
     },
     methods: {
+        search() {
+            const filter = {term:this.search_term, offset:0, limit:5}
+            this.filter_services(filter)
+                .then(services => (this.search_services = services))
+                .catch(() => (this.exhausted = true))
+        },
         fetch_next() {
-            if (this.exhausted) return
+            if (this.exhausted || this.searching) return
 
             this.busy = true
             const success = services => {
@@ -50,7 +65,5 @@ export default Vue.extend({
                 .then(success)
                 .catch(() => (this.exhausted = true))
         },
-    },
-    watch: {
     },
 })
