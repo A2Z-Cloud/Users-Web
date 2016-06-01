@@ -1,0 +1,78 @@
+<div class="ServiceCreator">
+    <div class="container">
+
+        <div class="row">
+            <div class="six columns">
+                <div class="form-label">name</div>
+                <input
+                    class="u-full-width"
+                    type="text"
+                    v-model="service.name"
+                    placeholder="e.g. A2Z Scheduler">
+            </div>
+            <div class="six columns">
+                <div class="form-label">secret</div>
+                <input
+                    class="u-full-width"
+                    type="text"
+                    v-model="service.secret"
+                    placeholder="e.g. MH4!^R2Ch@2!*3KJ2g9@^bNJ^">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="tweleve columns">
+                <div class="form-label">service API location</div>
+                <input
+                    class="u-full-width"
+                    type="text"
+                    v-model="service.cors"
+                    placeholder="e.g. https://a2z-scheduler.herokuapp.com">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="six columns">
+                <div class="form-label">remote API sign in location</div>
+                <input
+                    class="u-full-width"
+                    type="text"
+                    v-model="service.sign_in_url"
+                    placeholder="e.g. https://a2z-scheduler.herokuapp.com/remote-sign-in">
+            </div>
+            <div class="six columns">
+                <div class="form-label">remote API sign out location</div>
+                <input
+                    class="u-full-width"
+                    type="text"
+                    v-model="service.sign_out_url"
+                    placeholder="e.g. https://a2z-scheduler.herokuapp.com/remote-sign-out">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container form-actions">
+        <div class="row">
+            <div class="six columns">
+                <br>
+            </div>
+            <div class="three columns">
+                <button
+                    class="button-primary save u-full-width"
+                    :disabled="!enable_create_button"
+                    @click="create_service({finish: false})">
+                    {{ creating_service && !will_finish ? 'Creating' : 'Create' }}
+                </button>
+            </div>
+            <div class="three columns">
+                <button
+                    class="button-primary save u-full-width"
+                    :disabled="!enable_create_button"
+                    @click="create_service({finish: true})">
+                    {{ creating_service && will_finish ? 'Creating' : 'Create & Finish' }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

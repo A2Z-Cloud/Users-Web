@@ -173,3 +173,21 @@ export const invite_user = function(store, {email, first_name, last_name, phone=
              .catch(handle_error)
     })
 }
+
+export const save_service = function(store, {name, secret, cors, sign_in_url, sign_out_url}) {
+    return new Promise((resolve, reject) => {  // eslint-disable-line no-undef
+        const handle_error = error => {
+            store.dispatch('ERROR_SET', error)
+            reject(error)
+        }
+        store.control
+             .save_service(
+                 name,
+                 secret,
+                 cors,
+                 sign_in_url,
+                 sign_out_url)
+             .then(resolve)
+             .catch(handle_error)
+    })
+}
