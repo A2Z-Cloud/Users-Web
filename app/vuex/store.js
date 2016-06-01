@@ -79,6 +79,7 @@ const mutations = {
         const index     = state.groups.findIndex(g => g.id === group.id)
         const new_group = merge(state.groups[index], group)
         if (index !== -1) state.groups.$set(index, new_group)
+        else state.groups.push(new_group)
     },
     GROUP_DELETE(state, group_id) {
         const index = state.groups.findIndex(g => g.id === group_id)

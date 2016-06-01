@@ -18,7 +18,7 @@ export default {
                 src: 'core.min.js',
             }),
             script({
-                contents: 'System.import("app")',
+                contents: 'System.import("app/main")',
             }),
         ],
     },
