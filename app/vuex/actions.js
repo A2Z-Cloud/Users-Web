@@ -1,5 +1,4 @@
-import { email_confirmation_url, invitation_url } from 'app/consts'
-import { User } from 'app/model/user'
+import { email_confirmation_url, invite_url } from 'app/consts'
 
 
 export const authenticate = function(store) {
@@ -107,7 +106,6 @@ export const filter_users = function(store, {term=null, offset=0, limit=20, orde
     return new Promise((resolve, reject) => {  // eslint-disable-line no-undef
         const handle_success = users => {
             users.forEach(u => store.dispatch('USER_UPDATE', u))
-            users = users.map(u => new User(u))
             resolve(users)
         }
         const handle_error = error => {
@@ -169,7 +167,7 @@ export const invite_user = function(store, {email, first_name, last_name, phone=
                  phone,
                  birthday,
                  zcrm_id,
-                 invitation_url,
+                 invite_url,
                  send_email_invite)
              .then(resolve)
              .catch(handle_error)

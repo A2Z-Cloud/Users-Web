@@ -5,7 +5,7 @@ import Vue from 'vue'
 
 export default Vue.extend({
     template: tmpl,
-    props: ['columns', 'items', 'fetch_next', 'fetch_next_search'],
+    props: ['columns', 'items', 'fetch_next', 'fetch_next_search', 'display_table_cell'],
     data: () => ({
         busy: false,
         busy_searching: false,
@@ -43,9 +43,7 @@ export default Vue.extend({
     },
     methods: {
         display_item(item, {column}) {
-            if (typeof item[column] === 'function') {
-                return item[column]()
-            }
+            if (this.display_table_cell) return this.display_table_cell(item, {column})
             return item[column]
         },
         search() {

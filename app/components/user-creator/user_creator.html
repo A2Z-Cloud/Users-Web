@@ -54,16 +54,16 @@
                 <button
                     class="button-primary save u-full-width"
                     :disabled="!enable_create_button"
-                    @click="create_user({finish: true})">
-                    Create
+                    @click="create_user({finish: false})">
+                    {{ creating_user && !will_finish ? 'Creating' : 'Create' }}
                 </button>
             </div>
             <div class="three columns">
                 <button
                     class="button-primary save u-full-width"
                     :disabled="!enable_create_button"
-                    @click="create_user({finish: false})">
-                    Create & Finish
+                    @click="create_user({finish: true})">
+                    {{ creating_user && will_finish ? 'Creating' : 'Create & Finish' }}
                 </button>
             </div>
         </div>

@@ -16,14 +16,16 @@
     </div>
 
     <user-creator
-        v-if="show_create_component">
+        v-if="show_create_component"
+        :completed="close_create_component">
     </user-creator>
 
     <infinite-table
         v-else
-        :columns="['email', 'first_name', 'last_name', 'accepted_invite']"
+        :columns="['email', 'first_name', 'last_name', 'invite_accepted', 'invite_link']"
         :items="users"
         :fetch_next="fetch_next"
-        :fetch_next_search="fetch_next_search">
+        :fetch_next_search="fetch_next_search"
+        :display_table_cell="display_table_cell">
     </infinite-table>
 </div>

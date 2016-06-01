@@ -4,8 +4,6 @@ import Vuex from 'vuex'
 import { merge } from 'app/utils/merge'
 import { debug } from 'app/consts'
 
-import { User } from 'app/model/user'
-
 Vue.use(Vuex)
 
 
@@ -41,11 +39,9 @@ const mutations = {
         state.users = users
     },
     USER_INSERT(state, user) {
-        user = new User(user)
         state.users.push(user)
     },
     USER_UPDATE(state, user) {
-        user = new User(user)
         if (state.user && user.id === state.user.id) state.user = merge(state.user, user)
         const index    = state.users.findIndex(u => u.id === user.id)
         const new_user = merge(state.users[index], user)
