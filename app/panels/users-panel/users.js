@@ -4,15 +4,18 @@ import Vue from 'vue'
 
 import { filter_users } from 'app/vuex/actions'
 import infinite_table from 'app/components/infinite-table/infinite_table'
+import user_creator from 'app/components/user-creator/user_creator'
 
 
 export default Vue.extend({
     template: tmpl,
     components: {
         'infinite-table': infinite_table,
+        'user-creator': user_creator,
     },
     data: () => ({
         error: null,
+        show_create_component: false,
     }),
     computed: {
     },

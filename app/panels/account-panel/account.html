@@ -1,157 +1,152 @@
-<div>
-    <div v-if="error">{{error.message}}</div>
+<div class="AccountPanel panel">
+    <div class="greeting">{{salutation}}, {{user.first_name}} {{user.last_name}}</div>
 
-    <div class="AccountPanel panel">
-        <div class="greeting">{{salutation}}, {{user.first_name}} {{user.last_name}}</div>
-
-        <!-- Edit account details -->
-        <div v-if="!changing_password" class="container">
-            <div class="row">
-                <div class="six columns">
-                    <div class="form-label">first name</div>
-                    <input
-                        class="u-full-width"
-                        :class="{'changed': dirty_user.first_name !== user.first_name, 'invalid': !valid_first_name}"
-                        type="text"
-                        v-model="dirty_user.first_name"
-                        placeholder="e.g. Bill">
-                </div>
-                <div class="six columns">
-                    <div class="form-label">last name</div>
-                    <input
-                        class="u-full-width"
-                        :class="{'changed': dirty_user.last_name !== user.last_name, 'invalid': !valid_last_name}"
-                        type="text"
-                        v-model="dirty_user.last_name"
-                        placeholder="e.g. Billson">
-                </div>
+    <!-- Edit account details -->
+    <div v-if="!changing_password" class="container">
+        <div class="row">
+            <div class="six columns">
+                <div class="form-label">first name</div>
+                <input
+                    class="u-full-width"
+                    :class="{'changed': dirty_user.first_name !== user.first_name, 'invalid': !valid_first_name}"
+                    type="text"
+                    v-model="dirty_user.first_name"
+                    placeholder="e.g. Bill">
             </div>
-
-            <div class="row">
-                <div class="six columns">
-                    <div class="form-label">
-                        email address
-                        <div v-if="!user.email_confirmed" class="tool-tip-container u-pull-right">
-                            <span class="lnr lnr-warning unverified tool-tip-icon"></span>
-                            <div class="tool-tip-message warning">Unverified email address; follow verification link in your email. <br>Resend email by clicking 'Verify Email' bellow.</div>
-                        </div>
-                    </div>
-                    <input
-                        class="u-full-width"
-                        :class="{'changed': dirty_user.email !== user.email, 'unverified': !user.email_confirmed, 'invalid': !valid_dirty_email}"
-                        type="text"
-                        v-model="dirty_user.email"
-                        placeholder="e.g. bill@billson.net">
-                </div>
-                <div class="six columns">
-                    <div class="form-label">phone number</div>
-                    <input
-                        class="u-full-width"
-                        :class="{'changed': nullify(dirty_user.phone) !== nullify(user.phone)}"
-                        type="text"
-                        v-model="dirty_user.phone"
-                        placeholder="e.g. +44 12345 67891">
-                </div>
+            <div class="six columns">
+                <div class="form-label">last name</div>
+                <input
+                    class="u-full-width"
+                    :class="{'changed': dirty_user.last_name !== user.last_name, 'invalid': !valid_last_name}"
+                    type="text"
+                    v-model="dirty_user.last_name"
+                    placeholder="e.g. Billson">
             </div>
-
         </div>
 
-        <!-- Change password -->
-        <div v-else class="container">
-            <div class="row">
-                <div class="six columns">
-                    <div class="form-label">
-                        current password
+        <div class="row">
+            <div class="six columns">
+                <div class="form-label">
+                    email address
+                    <div v-if="!user.email_confirmed" class="tool-tip-container u-pull-right">
+                        <span class="lnr lnr-warning unverified tool-tip-icon"></span>
+                        <div class="tool-tip-message warning">Unverified email address; follow verification link in your email. <br>Resend email by clicking 'Verify Email' bellow.</div>
                     </div>
-                    <input
-                        class="u-full-width"
-                        :class="{'required': !password_data.old_password}"
-                        type="password"
-                        v-model="password_data.old_password"
-                        placeholder="e.g. p4ssw0rd1">
                 </div>
-                <div class="six columns">
-                    <br>
-                </div>
+                <input
+                    class="u-full-width"
+                    :class="{'changed': dirty_user.email !== user.email, 'unverified': !user.email_confirmed, 'invalid': !valid_dirty_email}"
+                    type="text"
+                    v-model="dirty_user.email"
+                    placeholder="e.g. bill@billson.net">
             </div>
-
-            <div class="row">
-                <div class="six columns">
-                    <div class="form-label">
-                        new password
-                        <div v-if="new_password_errors.length" class="tool-tip-container u-pull-right">
-                            <span class="lnr lnr-warning tool-tip-icon u-pull-right"></span>
-                            <div class="tool-tip-message warning"><span v-for="error in new_password_errors">{{error}}</span></div>
-                        </div>
-                    </div>
-                    <input
-                        class="u-full-width"
-                        :class="{'invalid': new_password_errors.length, 'required': !password_data.new_password}"
-                        type="password"
-                        v-model="password_data.new_password"
-                        placeholder="e.g. 9av46FWVABchv48yHa">
-                </div>
-                <div class="six columns">
-                    <div class="form-label">
-                        confirm new password
-                        <div v-if="confirm_password_errors.length" class="tool-tip-container u-pull-right">
-                            <span class="lnr lnr-warning tool-tip-icon u-pull-right"></span>
-                            <div class="tool-tip-message warning"><span v-for="error in confirm_password_errors">{{error}}</span></div>
-                        </div>
-                    </div>
-                    <input
-                        class="u-full-width"
-                        :class="{'invalid': confirm_password_errors.length, 'required': !password_data.new_password_confirmation}"
-                        type="password"
-                        v-model="password_data.new_password_confirmation"
-                        placeholder="e.g. 9av46FWVABchv48yHa">
-                </div>
+            <div class="six columns">
+                <div class="form-label">phone number</div>
+                <input
+                    class="u-full-width"
+                    :class="{'changed': nullify(dirty_user.phone) !== nullify(user.phone)}"
+                    type="text"
+                    v-model="dirty_user.phone"
+                    placeholder="e.g. +44 12345 67891">
             </div>
-
         </div>
 
-        <div class="container form-actions">
-            <div class="row">
-                <div class="three columns">
-                    <br>
+    </div>
+
+    <!-- Change password -->
+    <div v-else class="container">
+        <div class="row">
+            <div class="six columns">
+                <div class="form-label">
+                    current password
                 </div>
-                <div class="three columns">
-                    <button
-                        class="verify-email u-full-width"
-                        v-if="!user.email_confirmed && dirty_user.email === user.email && !changing_password"
-                        :disabled="recently_sent_verification || sending_verification_email"
-                        @click="verify_email">
-                        {{ verify_email_button_text }}
-                    </button>
-                    <br v-else>
+                <input
+                    class="u-full-width"
+                    :class="{'required': !password_data.old_password}"
+                    type="password"
+                    v-model="password_data.old_password"
+                    placeholder="e.g. p4ssw0rd1">
+            </div>
+            <div class="six columns">
+                <br>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="six columns">
+                <div class="form-label">
+                    new password
+                    <div v-if="new_password_errors.length" class="tool-tip-container u-pull-right">
+                        <span class="lnr lnr-warning tool-tip-icon u-pull-right"></span>
+                        <div class="tool-tip-message warning"><span v-for="error in new_password_errors">{{error}}</span></div>
+                    </div>
                 </div>
-                <div class="three columns">
-                    <button
-                        v-if="!saving_password"
-                        class="change-password u-full-width"
-                        @click="changing_password=!changing_password">
-                        {{ changing_password ? 'Cancel' : 'Change Password' }}
-                    </button>
-                    <br v-else>
+                <input
+                    class="u-full-width"
+                    :class="{'invalid': new_password_errors.length, 'required': !password_data.new_password}"
+                    type="password"
+                    v-model="password_data.new_password"
+                    placeholder="e.g. 9av46FWVABchv48yHa">
+            </div>
+            <div class="six columns">
+                <div class="form-label">
+                    confirm new password
+                    <div v-if="confirm_password_errors.length" class="tool-tip-container u-pull-right">
+                        <span class="lnr lnr-warning tool-tip-icon u-pull-right"></span>
+                        <div class="tool-tip-message warning"><span v-for="error in confirm_password_errors">{{error}}</span></div>
+                    </div>
                 </div>
-                <div class="three columns">
-                    <button
-                        v-if="!changing_password"
-                        class="button-primary save u-full-width"
-                        :disabled="!changed || saving_user || !valid_form"
-                        @click="save(dirty_user)">
-                        {{ save_user_button_text }}
-                    </button>
-                    <button
-                        v-else
-                        class="button-primary save u-full-width"
-                        :disabled="!enable_change_password_button"
-                        @click="change_password(password_data)">
-                        {{ saving_password ? 'Saving' : 'Change Password' }}
-                    </button>
-                </div>
+                <input
+                    class="u-full-width"
+                    :class="{'invalid': confirm_password_errors.length, 'required': !password_data.new_password_confirmation}"
+                    type="password"
+                    v-model="password_data.new_password_confirmation"
+                    placeholder="e.g. 9av46FWVABchv48yHa">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container form-actions">
+        <div class="row">
+            <div class="three columns">
+                <br>
+            </div>
+            <div class="three columns">
+                <button
+                    class="verify-email u-full-width"
+                    v-if="!user.email_confirmed && dirty_user.email === user.email && !changing_password"
+                    :disabled="recently_sent_verification || sending_verification_email"
+                    @click="verify_email">
+                    {{ verify_email_button_text }}
+                </button>
+                <br v-else>
+            </div>
+            <div class="three columns">
+                <button
+                    v-if="!saving_password"
+                    class="change-password u-full-width"
+                    @click="changing_password=!changing_password">
+                    {{ changing_password ? 'Cancel' : 'Change Password' }}
+                </button>
+                <br v-else>
+            </div>
+            <div class="three columns">
+                <button
+                    v-if="!changing_password"
+                    class="button-primary save u-full-width"
+                    :disabled="!changed || saving_user || !valid_form"
+                    @click="save(dirty_user)">
+                    {{ save_user_button_text }}
+                </button>
+                <button
+                    v-else
+                    class="button-primary save u-full-width"
+                    :disabled="!enable_change_password_button"
+                    @click="change_password(password_data)">
+                    {{ saving_password ? 'Saving' : 'Change Password' }}
+                </button>
             </div>
         </div>
     </div>
-
 </div>

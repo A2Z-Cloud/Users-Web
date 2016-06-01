@@ -1,12 +1,8 @@
-<div>
-    <div v-if="error">{{error.message}}</div>
-
-    <div v-el:service-panel class="ServicesPanel panel">
-        <infinite-table
-            :columns="['name']"
-            :items="services"
-            :fetch_next="fetch_next"
-            :fetch_next_search="fetch_next_search">
-        </infinite-table>
-    </div>
+<div v-el:service-panel class="ServicesPanel panel">
+    <infinite-table
+        :columns="['name']"
+        :items="services"
+        :fetch_next="fetch_next"
+        :fetch_next_search="fetch_next_search">
+    </infinite-table>
 </div>

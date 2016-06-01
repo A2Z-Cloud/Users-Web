@@ -1,12 +1,29 @@
-<div>
-    <div v-if="error">{{error.message}}</div>
-
-    <div v-el:service-panel class="UsersPanel panel">
-        <infinite-table
-            :columns="['email', 'first_name', 'last_name', 'accepted_invite']"
-            :items="users"
-            :fetch_next="fetch_next"
-            :fetch_next_search="fetch_next_search">
-        </infinite-table>
+<div v-el:service-panel class="UsersPanel panel">
+    <div class="container">
+        <div class="row">
+            <div class="nine columns">
+                <br>
+            </div>
+            <div class="three columns">
+                <button
+                    class="u-full-width"
+                    :class="{'button-primary': !show_create_component}"
+                    @click="show_create_component = !show_create_component">
+                    {{ show_create_component ? 'Cancel' : 'Create New User' }}
+                </button>
+            </div>
+        </div>
     </div>
+
+    <user-creator
+        v-if="show_create_component">
+    </user-creator>
+
+    <infinite-table
+        v-else
+        :columns="['email', 'first_name', 'last_name', 'accepted_invite']"
+        :items="users"
+        :fetch_next="fetch_next"
+        :fetch_next_search="fetch_next_search">
+    </infinite-table>
 </div>

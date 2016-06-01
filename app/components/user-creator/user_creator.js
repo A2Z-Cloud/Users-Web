@@ -2,8 +2,6 @@ import './user_creator.css!'
 import tmpl from './user_creator.html!text'
 import Vue from 'vue'
 
-import { invite_user } from 'app/vuex/actions'
-
 
 export default Vue.extend({
     template: tmpl,
