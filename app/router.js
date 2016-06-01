@@ -12,6 +12,7 @@ import UsersPanel from "./panels/users-panel/users"
 import GroupsPanel from "./panels/groups-panel/groups"
 import InvitePanel from './panels/invite-panel/invite'
 import EmailConfirmation from "./panels/email-confirmation-panel/email_confirmation"
+import UserCreator from './components/user_creator/user_creator'
 
 import { authenticate } from 'app/vuex/actions'
 
@@ -52,6 +53,11 @@ router.map({
     '/confirm-email': {
         name: 'Confirm Email',
         component: EmailConfirmation,
+        authenticated: false,
+    },
+    '/test': {
+        name: 'Test',
+        component: UserCreator,
         authenticated: false,
     },
 })

@@ -3,7 +3,7 @@
 
     <div v-el:service-panel class="UsersPanel panel">
         <infinite-table
-            :columns="['first_name', 'last_name', 'email']"
+            :columns="['email', 'first_name', 'last_name', 'accepted_invite']"
             :items="users"
             :fetch_next="fetch_next"
             :fetch_next_search="fetch_next_search">

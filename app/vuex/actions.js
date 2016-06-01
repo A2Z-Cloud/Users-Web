@@ -1,4 +1,5 @@
-import { email_confirmation_url } from 'app/consts'
+import { email_confirmation_url, invitation_url } from 'app/consts'
+import { User } from 'app/model/user'
 
 
 export const authenticate = function(store) {
@@ -59,8 +60,7 @@ export const save_user = function(store, {email, first_name, last_name, phone}) 
                  current_user.birthday,
                  current_user.zcrm_id,
                  email_confirmation_url,
-                 current_user.id
-             )
+                 current_user.id)
              .then(resolve)
              .catch(handle_error)
     })
@@ -84,8 +84,7 @@ export const change_password = function (store, {old_password, new_password}) {
                  current_user.birthday,
                  current_user.zcrm_id,
                  null,
-                 current_user.id
-             )
+                 current_user.id)
              .then(resolve)
              .catch(handle_error)
     })
@@ -108,6 +107,7 @@ export const filter_users = function(store, {term=null, offset=0, limit=20, orde
     return new Promise((resolve, reject) => {  // eslint-disable-line no-undef
         const handle_success = users => {
             users.forEach(u => store.dispatch('USER_UPDATE', u))
+            users = users.map(u => new User(u))
             resolve(users)
         }
         const handle_error = error => {
@@ -151,6 +151,27 @@ export const filter_groups = function(store, {term=null, offset=0, limit=20, ord
         store.control
              .filter_groups(term, offset, limit, order_by)
              .then(handle_success)
+             .catch(handle_error)
+    })
+}
+
+export const invite_user = function(store, {email, first_name, last_name, phone=null, birthday=null, zcrm_id, send_email_invite=true}) {
+    return new Promise((resolve, reject) => {  // eslint-disable-line no-undef
+        const handle_error = error => {
+            store.dispatch('ERROR_SET', error)
+            reject(error)
+        }
+        store.control
+             .invite_user(
+                 email,
+                 first_name,
+                 last_name,
+                 phone,
+                 birthday,
+                 zcrm_id,
+                 invitation_url,
+                 send_email_invite)
+             .then(resolve)
              .catch(handle_error)
     })
 }

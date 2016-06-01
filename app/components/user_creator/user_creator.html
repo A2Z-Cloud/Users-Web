@@ -1,0 +1,79 @@
+<div class="UserCreator">
+    <div class="container">
+
+        <div class="row">
+            <div class="twleve columns">
+                <div class="form-label">email</div>
+                <input
+                    class="u-full-width"
+                    type="text"
+                    v-model="user.email"
+                    placeholder="bill@billson.net">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="six columns">
+                <div class="form-label">first name</div>
+                <input
+                    class="u-full-width"
+                    type="text"
+                    v-model="user.first_name"
+                    placeholder="e.g. Bill">
+            </div>
+            <div class="six columns">
+                <div class="form-label">last name</div>
+                <input
+                    class="u-full-width"
+                    type="text"
+                    v-model="user.last_name"
+                    placeholder="e.g. Billson">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="six columns">
+                <div class="form-label">crm id</div>
+                <input
+                    class="u-full-width"
+                    type="text"
+                    v-model="user.zcrm_id"
+                    placeholder="e.g. 1770000000551017">
+            </div>
+            <div class="six columns">
+                <input id="email_invite_checkbox" type="checkbox" v-model="user.send_email_invite">
+                <label for="email_invite_checkbox" class="noselect">Send email invitation</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="three columns">
+                <br>
+            </div>
+            <div class="three columns">
+                <button
+                    class="u-full-width"
+                    @click="cancel">
+                    Cancel
+                </button>
+            </div>
+            <div class="three columns">
+                <button
+                    class="button-primary save u-full-width"
+                    :disabled="!enable_create_button"
+                    @click="create_user({finish: true})">
+                    Create
+                </button>
+            </div>
+            <div class="three columns">
+                <button
+                    class="button-primary save u-full-width"
+                    :disabled="!enable_create_button"
+                    @click="create_user({finish: false})">
+                    Create & Finish
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

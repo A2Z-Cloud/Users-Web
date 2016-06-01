@@ -42,6 +42,12 @@ export default Vue.extend({
         },
     },
     methods: {
+        display_item(item, {column}) {
+            if (typeof item[column] === 'function') {
+                return item[column]()
+            }
+            return item[column]
+        },
         search() {
             this.busy_searching = true
             this.search_items   = []
