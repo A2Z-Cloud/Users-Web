@@ -12,7 +12,7 @@ import UsersPanel from "./panels/users-panel/users"
 import GroupsPanel from "./panels/groups-panel/groups"
 import InvitePanel from './panels/invite-panel/invite'
 import EmailConfirmation from "./panels/email-confirmation-panel/email_confirmation"
-import ServiceCreator from './components/service-creator/service_creator'
+import GroupCreator from './components/group-creator/group_creator'
 
 import { authenticate } from 'app/vuex/actions'
 
@@ -57,7 +57,7 @@ router.map({
     },
     '/test': {
         name: 'Test',
-        component: ServiceCreator,
+        component: GroupCreator,
         authenticated: false,
     },
 })

@@ -191,3 +191,20 @@ export const save_service = function(store, {name, secret, cors, sign_in_url, si
              .catch(handle_error)
     })
 }
+
+export const save_group = function(store, {name, zcrm_id=null, zprojects_id=null, zsupport_id=null}) {
+    return new Promise((resolve, reject) => {  // eslint-disable-line no-undef
+        const handle_error = error => {
+            store.dispatch('ERROR_SET', error)
+            reject(error)
+        }
+        store.control
+             .save_group(
+                 name,
+                 zcrm_id,
+                 zprojects_id,
+                 zsupport_id)
+             .then(resolve)
+             .catch(handle_error)
+    })
+}

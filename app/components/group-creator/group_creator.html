@@ -1,0 +1,73 @@
+<div class="GroupCreator">
+    <div class="container">
+
+        <div class="row">
+            <div class="tweleve columns">
+                <div class="form-label">name</div>
+                <input
+                    class="u-full-width"
+                    type="text"
+                    v-model="group.name"
+                    placeholder="e.g. A2Z Cloud">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="six columns">
+                <div class="form-label">zoho crm company id (eu)</div>
+                <input
+                    class="u-full-width"
+                    type="text"
+                    v-model="group.zcrm_id"
+                    placeholder="e.g. 1770000000501001">
+            </div>
+            <div class="six columns">
+                <div class="form-label">zoho projects company id (eu)</div>
+                <input
+                    class="u-full-width"
+                    type="text"
+                    v-model="group.zprojects_id"
+                    placeholder="e.g. 195000000012009">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="six columns">
+                <div class="form-label">zoho support company id (eu)</div>
+                <input
+                    class="u-full-width"
+                    type="text"
+                    v-model="group.zsupport_id"
+                    placeholder="e.g. 40000000032004">
+            </div>
+            <div class="six columns">
+                <br>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container form-actions">
+        <div class="row">
+            <div class="six columns">
+                <br>
+            </div>
+            <div class="three columns">
+                <button
+                    class="button-primary save u-full-width"
+                    :disabled="!enable_create_button"
+                    @click="create_group({finish: false})">
+                    {{ creating_group && !will_finish ? 'Creating' : 'Create' }}
+                </button>
+            </div>
+            <div class="three columns">
+                <button
+                    class="button-primary save u-full-width"
+                    :disabled="!enable_create_button"
+                    @click="create_group({finish: true})">
+                    {{ creating_group && will_finish ? 'Creating' : 'Create & Finish' }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
