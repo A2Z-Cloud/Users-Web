@@ -35,7 +35,7 @@ export default Vue.extend({
         display_table_cell(user, {column}) {
             if (column === 'invite_accepted') return !user.invitation_token
             else if (column === 'invite_link' && !user.invitation_token) return '-'
-            else if (column === 'invite_link' && user.invitation_token) return encodeURI(invite_url + '?email=' + user.email + '&token=' + user.invitation_token)
+            else if (column === 'invite_link' && user.invitation_token) return encodeURI(invite_url) + '?email=' + encodeURIComponent(user.email) + '&token=' + encodeURIComponent(user.invitation_token)
             return user[column]
         },
         close_create_component() {
