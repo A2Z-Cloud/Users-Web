@@ -33,13 +33,22 @@
 
     <div id="Main" v-cloak>
         <div class="content">
-            <div v-if="user && user.type == 'admin'" class="container navigation">
+            <div class="container navigation">
                 <div class="row">
-                    <div class="tweleve columns">
+                    <div class="two columns">
+                        <br>
+                    </div>
+                    <div v-if="user && user.type == 'admin'" class="eight columns">
                         <a v-link="{ path: '/', exact: true }">My Account</a>
                         <a v-link="{ path: '/services', exact: false }">Services</a>
                         <a v-link="{ path: '/users', exact: false }">Users</a>
                         <a v-link="{ path: '/groups', exact: false }">Groups</a>
+                    </div>
+                    <div v-else class="eight columns">
+                        <br>
+                    </div>
+                    <div class="two columns">
+                        <a :href="sign_out_url">Sign Out</a>
                     </div>
                 </div>
             </div>

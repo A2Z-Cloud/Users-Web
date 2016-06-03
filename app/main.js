@@ -38,7 +38,8 @@ System.import(control_url).then(({Control}) => {  // eslint-disable-line no-unde
         vuex: {
             getters:  {
                 user: state => state.user,
-                ws_ready: state => state.auth_url && state.ws_status === 'open',
+                ws_ready: state => state.auth_client_url && state.ws_status === 'open',
+                sign_out_url: state => state.auth_client_url + '/sign-out',
             },
         },
         events: {

@@ -15,6 +15,7 @@ const state = {
     control: null,
     ws_status: null,
     error: null,
+    auth_client_url: null,
     user: null,
     services: [],
     users: [],
@@ -31,6 +32,9 @@ const mutations = {
     },
     ERROR_SET(state, error) {
         state.error = error
+    },
+    AUTH_CLIENT_URL_SET(state, url) {
+        state.auth_client_url = url
     },
     CURRENT_USER_SET(state, user) {
         state.user = user
