@@ -48,7 +48,8 @@
                         <br>
                     </div>
                     <div class="two columns">
-                        <a :href="sign_out_url">Sign Out</a>
+                        <a v-if="user" :href="sign_out_url">Sign Out</a>
+                        <br v-else>
                     </div>
                 </div>
             </div>
