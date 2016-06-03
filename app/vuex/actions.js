@@ -208,3 +208,16 @@ export const save_group = function(store, {name, zcrm_id=null, zprojects_id=null
              .catch(handle_error)
     })
 }
+
+export const get_group = function(store, {id=null, name=null}) {
+    return new Promise((resolve, reject) => {  // eslint-disable-line no-undef
+        const handle_error = error => {
+            store.dispatch('ERROR_SET', error)
+            reject(error)
+        }
+        store.control
+             .get_group(id, name)
+             .then(resolve)
+             .catch(handle_error)
+    })
+}

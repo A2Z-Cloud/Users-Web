@@ -32,3 +32,9 @@ table th,
 table td {
     width: 33%;
 }
+
+.InfiniteTable
+table
+tr.clickable:hover {
+    background-color: rgb(241, 241, 241);
+}

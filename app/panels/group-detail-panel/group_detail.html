@@ -1,0 +1,56 @@
+<div v-el:service-panel class="GroupsPanel panel">
+    <div v-if="error">
+        {{error.message}}
+    </div>
+
+    <div v-if="!changing_password" class="container">
+        <div class="row">
+            <div class="tweleve columns">
+                <div class="form-label">name</div>
+                <input
+                    class="u-full-width"
+                    :class="{'changed': dirty_group.name !== group.name, 'invalid': !dirty_group.name}"
+                    type="text"
+                    v-model="dirty_group.name"
+                    placeholder="e.g. A2Z Cloud">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="six columns">
+                <div class="form-label">zoho crm company id (eu)</div>
+                <input
+                    class="u-full-width"
+                    :class="{'changed': dirty_group.zcrm_id !== group.zcrm_id}"
+                    type="text"
+                    v-model="dirty_group.zcrm_id | nullify"
+                    placeholder="e.g. 1770000000501001">
+            </div>
+            <div class="six columns">
+                <div class="form-label">zoho projects company id (eu)</div>
+                <input
+                    class="u-full-width"
+                    :class="{'changed': dirty_group.zprojects_id !== group.zprojects_id}"
+                    type="text"
+                    v-model="dirty_group.zprojects_id | nullify"
+                    placeholder="e.g. 1770000000501001">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="six columns">
+                <div class="form-label">zoho support company id (eu)</div>
+                <input
+                    class="u-full-width"
+                    :class="{'changed': dirty_group.zsupport_id !== group.zsupport_id}"
+                    type="text"
+                    v-model="dirty_group.zsupport_id | nullify"
+                    placeholder="e.g. 1770000000501001">
+            </div>
+            <div class="six columns">
+                <br>
+            </div>
+        </div>
+
+    </div>
+</div>

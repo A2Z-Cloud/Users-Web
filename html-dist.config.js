@@ -12,7 +12,7 @@ export default {
 		// append the following things to the body
         appends: [
             script({
-                src: 'https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.26/system.js',
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.29/system.js',
             }),
             script({
                 src: 'core.min.js',

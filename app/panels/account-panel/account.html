@@ -10,7 +10,7 @@
                     class="u-full-width"
                     :class="{'changed': dirty_user.first_name !== user.first_name, 'invalid': !valid_first_name}"
                     type="text"
-                    v-model="dirty_user.first_name"
+                    v-model="dirty_user.first_name | nullify"
                     placeholder="e.g. Bill">
             </div>
             <div class="six columns">
@@ -19,7 +19,7 @@
                     class="u-full-width"
                     :class="{'changed': dirty_user.last_name !== user.last_name, 'invalid': !valid_last_name}"
                     type="text"
-                    v-model="dirty_user.last_name"
+                    v-model="dirty_user.last_name | nullify"
                     placeholder="e.g. Billson">
             </div>
         </div>
@@ -37,16 +37,16 @@
                     class="u-full-width"
                     :class="{'changed': dirty_user.email !== user.email, 'unverified': !user.email_confirmed, 'invalid': !valid_dirty_email}"
                     type="text"
-                    v-model="dirty_user.email"
+                    v-model="dirty_user.email | nullify"
                     placeholder="e.g. bill@billson.net">
             </div>
             <div class="six columns">
                 <div class="form-label">phone number</div>
                 <input
                     class="u-full-width"
-                    :class="{'changed': nullify(dirty_user.phone) !== nullify(user.phone)}"
+                    :class="{'changed': dirty_user.phone !== user.phone}"
                     type="text"
-                    v-model="dirty_user.phone"
+                    v-model="dirty_user.phone | nullify"
                     placeholder="e.g. +44 12345 67891">
             </div>
         </div>
@@ -64,7 +64,7 @@
                     class="u-full-width"
                     :class="{'required': !password_data.old_password}"
                     type="password"
-                    v-model="password_data.old_password"
+                    v-model="password_data.old_password | nullify"
                     placeholder="e.g. p4ssw0rd1">
             </div>
             <div class="six columns">
@@ -85,7 +85,7 @@
                     class="u-full-width"
                     :class="{'invalid': new_password_errors.length, 'required': !password_data.new_password}"
                     type="password"
-                    v-model="password_data.new_password"
+                    v-model="password_data.new_password | nullify"
                     placeholder="e.g. 9av46FWVABchv48yHa">
             </div>
             <div class="six columns">
@@ -100,7 +100,7 @@
                     class="u-full-width"
                     :class="{'invalid': confirm_password_errors.length, 'required': !password_data.new_password_confirmation}"
                     type="password"
-                    v-model="password_data.new_password_confirmation"
+                    v-model="password_data.new_password_confirmation | nullify"
                     placeholder="e.g. 9av46FWVABchv48yHa">
             </div>
         </div>

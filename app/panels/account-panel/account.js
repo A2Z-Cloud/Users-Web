@@ -33,10 +33,10 @@ export default Vue.extend({
     }),
     computed: {
         changed() {
-            return this.nullify(this.dirty_user.email)      !== this.nullify(this.user.email)
-                || this.nullify(this.dirty_user.first_name) !== this.nullify(this.user.first_name)
-                || this.nullify(this.dirty_user.last_name)  !== this.nullify(this.user.last_name)
-                || this.nullify(this.dirty_user.phone)      !== this.nullify(this.user.phone)
+            return this.dirty_user.email      !== this.user.email
+                || this.dirty_user.first_name !== this.user.first_name
+                || this.dirty_user.last_name  !== this.user.last_name
+                || this.dirty_user.phone      !== this.user.phone
         },
         verify_email_button_text() {
             if (this.sending_verification_email) return 'Sending'
@@ -106,7 +106,6 @@ export default Vue.extend({
         },
     },
     methods: {
-        nullify: value => (value === '') ? null : value,
         verify_email() {
             this.sending_verification_email = true
             this.recently_sent_verification = true

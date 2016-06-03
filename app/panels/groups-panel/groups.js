@@ -41,5 +41,9 @@ export default Vue.extend({
             const filter = {term, offset, limit:10}
             return this.filter_groups(filter)
         },
+        item_clicked(item) {
+            const name = item.name
+            this.$router.go({name: 'group', params: {name}})
+        },
     },
 })

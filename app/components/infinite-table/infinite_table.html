@@ -25,10 +25,15 @@
                         v-infinite-scroll="nearing_bottom()"
                         infinite-scroll-disabled="disabled"
                         infinite-scroll-distance="10">
-                            <tr v-for='item in display_items' track-by='$index'>
-                                <td v-for="column in columns">
-                                    {{ display_item(item, {column: column}) }}
-                                </td>
+
+                            <tr v-for='item in display_items'
+                                track-by='$index'
+                                :class="{'clickable': this.item_clicked}"
+                                :style="row_style"
+                                @click="_item_clicked(item)">
+                                    <td v-for="column in columns">
+                                        {{ display_item(item, {column: column}) }}
+                                    </td>
                             </tr>
                     </tbody>
                 </table>

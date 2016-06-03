@@ -3,16 +3,16 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from 'app/vuex/store'
 
-import {debug} from './consts'
+import { debug } from './consts'
 
 // -- Route Panels
 import AccountPanel from "./panels/account-panel/account"
 import ServciesPanel from "./panels/services-panel/services"
 import UsersPanel from "./panels/users-panel/users"
 import GroupsPanel from "./panels/groups-panel/groups"
-import InvitePanel from './panels/invite-panel/invite'
+import GroupDetailPanel from "./panels/group-detail-panel/group_detail"
 import EmailConfirmation from "./panels/email-confirmation-panel/email_confirmation"
-import GroupCreator from './components/group-creator/group_creator'
+import InvitePanel from './panels/invite-panel/invite'
 
 import { authenticate } from 'app/vuex/actions'
 
@@ -21,43 +21,44 @@ Vue.use(VueRouter)
 Vue.config.debug = debug
 
 const router = new VueRouter({
-    history: false,
+    history: !debug,
+    hashbang: debug,
 })
 
 router.map({
     '/': {
-        name: 'Account',
+        name: 'account',
         component: AccountPanel,
         authenticated: true,
     },
     '/services': {
-        name: 'Services',
+        name: 'services',
         component: ServciesPanel,
         authenticated: true,
     },
     '/users': {
-        name: 'Users',
+        name: 'users',
         component: UsersPanel,
         authenticated: true,
     },
     '/groups': {
-        name: 'Groups',
+        name: 'groups',
         component: GroupsPanel,
         authenticated: true,
     },
+    '/groups/:name': {
+        name: 'group',
+        component: GroupDetailPanel,
+        authenticated: true,
+    },
     '/invite': {
-        name: 'Invite',
+        name: 'invite',
         component: InvitePanel,
         authenticated: false,
     },
     '/confirm-email': {
-        name: 'Confirm Email',
+        name: 'confirm email',
         component: EmailConfirmation,
-        authenticated: false,
-    },
-    '/test': {
-        name: 'Test',
-        component: GroupCreator,
         authenticated: false,
     },
 })

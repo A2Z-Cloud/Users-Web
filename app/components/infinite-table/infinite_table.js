@@ -5,7 +5,7 @@ import Vue from 'vue'
 
 export default Vue.extend({
     template: tmpl,
-    props: ['columns', 'items', 'fetch_next', 'fetch_next_search', 'display_table_cell'],
+    props: ['columns', 'items', 'fetch_next', 'fetch_next_search', 'display_table_cell', 'item_clicked'],
     data: () => ({
         busy: false,
         busy_searching: false,
@@ -31,6 +31,11 @@ export default Vue.extend({
                 && this.items_exhausted)
                 || (this.searching
                 && this.search_exhausted)
+        },
+        row_style() {
+            return {
+                'cursor': (this.item_clicked) ? 'pointer' : 'auto',
+            }
         },
     },
     ready() {
@@ -83,6 +88,9 @@ export default Vue.extend({
                     this.search_exhausted = true
                     this.busy_searching   = false
                 })
+        },
+        _item_clicked(item) {
+            if (this.item_clicked) this.item_clicked(item)
         },
     },
 })

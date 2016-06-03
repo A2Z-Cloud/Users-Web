@@ -1,1 +1,1 @@
-module.exports = require("npm:debounce@1.0.0/index");
+module.exports = require("npm:debounce@1.0.0/index.js");
