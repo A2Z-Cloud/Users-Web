@@ -93,6 +93,7 @@
                         @keyup="search_members(member_search_term) | debounce 100"
                         placeholder="e.g. Bill Billson">
                     <div
+                        v-if="member_search_term"
                         v-for="member in filtered_searched_members"
                         track-by="id"
                         class="search-box"

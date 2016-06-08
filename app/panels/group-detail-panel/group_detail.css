@@ -28,13 +28,13 @@
 .GroupsPanel
 .search-box.selected {
     color: white;
-    background-color: #0FA0CE;
+    background-color: rgba(15, 160, 206, 0.6);
 }
 
 .GroupsPanel
 .search-box:hover {
     color: white;
-    background-color: rgba(15, 160, 206, 0.6);
+    background-color: #0FA0CE;
 
     cursor: pointer;
 }
