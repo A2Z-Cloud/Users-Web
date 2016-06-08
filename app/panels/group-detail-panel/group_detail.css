@@ -1,0 +1,26 @@
+.GroupsPanel
+.members-area {
+    text-align: left;
+}
+
+.GroupsPanel
+.member-bubble {
+    border-radius: 4px;
+    padding: 2px 4px 2px 8px;
+    margin: 0 4px 0 4px;
+    background: white;
+    color: #0FA0CE;
+    border: #0FA0CE solid 1px;
+}
+
+.GroupsPanel
+.member-bubble
+.lnr:before {
+    vertical-align: middle;
+}
+
+.GroupsPanel
+.member-bubble
+.lnr-cross:hover {
+    color: black;
+}

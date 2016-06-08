@@ -1,56 +1,92 @@
 <div v-el:service-panel class="GroupsPanel panel">
-    <div v-if="error">
-        {{error.message}}
-    </div>
+    <!-- <template v-if="!$loadingRouteData"> -->
 
-    <div v-if="!changing_password" class="container">
-        <div class="row">
-            <div class="tweleve columns">
-                <div class="form-label">name</div>
-                <input
-                    class="u-full-width"
-                    :class="{'changed': dirty_group.name !== group.name, 'invalid': !dirty_group.name}"
-                    type="text"
-                    v-model="dirty_group.name"
-                    placeholder="e.g. A2Z Cloud">
-            </div>
+        <div v-if="error">
+            {{error.message}}
         </div>
 
-        <div class="row">
-            <div class="six columns">
-                <div class="form-label">zoho crm company id (eu)</div>
-                <input
-                    class="u-full-width"
-                    :class="{'changed': dirty_group.zcrm_id !== group.zcrm_id}"
-                    type="text"
-                    v-model="dirty_group.zcrm_id | nullify"
-                    placeholder="e.g. 1770000000501001">
+        <div v-if="group && dirty_group" class="container">
+            <div class="row">
+                <div class="tweleve columns">
+                    <div class="form-label">name</div>
+                    <input
+                        class="u-full-width"
+                        :class="{'changed': dirty_group.name !== group.name, 'invalid': !dirty_group.name}"
+                        type="text"
+                        v-model="dirty_group.name"
+                        placeholder="e.g. A2Z Cloud">
+                </div>
             </div>
-            <div class="six columns">
-                <div class="form-label">zoho projects company id (eu)</div>
-                <input
-                    class="u-full-width"
-                    :class="{'changed': dirty_group.zprojects_id !== group.zprojects_id}"
-                    type="text"
-                    v-model="dirty_group.zprojects_id | nullify"
-                    placeholder="e.g. 1770000000501001">
+
+            <div class="row">
+                <div class="six columns">
+                    <div class="form-label">zoho crm company id (eu)</div>
+                    <input
+                        class="u-full-width"
+                        :class="{'changed': dirty_group.zcrm_id !== group.zcrm_id}"
+                        type="text"
+                        v-model="dirty_group.zcrm_id | nullify"
+                        placeholder="e.g. 1770000000501001">
+                </div>
+                <div class="six columns">
+                    <div class="form-label">zoho projects company id (eu)</div>
+                    <input
+                        class="u-full-width"
+                        :class="{'changed': dirty_group.zprojects_id !== group.zprojects_id}"
+                        type="text"
+                        v-model="dirty_group.zprojects_id | nullify"
+                        placeholder="e.g. 1770000000501001">
+                </div>
             </div>
+
+            <div class="row">
+                <div class="six columns">
+                    <div class="form-label">zoho support company id (eu)</div>
+                    <input
+                        class="u-full-width"
+                        :class="{'changed': dirty_group.zsupport_id !== group.zsupport_id}"
+                        type="text"
+                        v-model="dirty_group.zsupport_id | nullify"
+                        placeholder="e.g. 1770000000501001">
+                </div>
+                <div class="six columns">
+                    <br>
+                </div>
+            </div>
+
         </div>
 
-        <div class="row">
-            <div class="six columns">
-                <div class="form-label">zoho support company id (eu)</div>
-                <input
-                    class="u-full-width"
-                    :class="{'changed': dirty_group.zsupport_id !== group.zsupport_id}"
-                    type="text"
-                    v-model="dirty_group.zsupport_id | nullify"
-                    placeholder="e.g. 1770000000501001">
+        <div class="container">
+
+            <div class="row">
+                <div class="tweleve columns">
+                    <div class="form-label">members</div>
+                    <div class="members-area">
+                        <span class="member-bubble" v-for="membership in group_membership">
+                            <span class="name">{{membership.user.email}}</span>
+                            <span class="lnr lnr-cross delete" @click="remove_member(membership.id)"></span>
+                        </span>
+                    </div>
+                    <input
+                        class="u-full-width"
+                        type="text"
+                        v-model="member_search_term | nullify"
+                        @keyup.enter="add_member({index: focus_index})"
+                        @keyup.up="focus_index = Math.max(0, focus_index-1)"
+                        @keyup.down="focus_index = Math.min(searched_members.length-1, focus_index+1)"
+                        @keyup="search_members(member_search_term) | debounce 100"
+                        placeholder="e.g. Bill Billson">
+                    <div
+                        v-for="member in filtered_searched_members"
+                        track-by="id"
+                        @click="add_member({index: $index})">
+                            <span v-if="$index === focus_index">* </span>
+                            {{member.first_name}} {{member.last_name}} {{member.email}}
+                    </div>
+                </div>
             </div>
-            <div class="six columns">
-                <br>
-            </div>
+
         </div>
 
-    </div>
+    <!-- </template> -->
 </div>

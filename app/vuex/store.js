@@ -20,6 +20,7 @@ const state = {
     services: [],
     users: [],
     groups: [],
+    memberships: [],
 }
 
 
@@ -88,6 +89,19 @@ const mutations = {
     GROUP_DELETE(state, group_id) {
         const index = state.groups.findIndex(g => g.id === group_id)
         if (index !== -1) state.groups.splice(index, 1)
+    },
+    MEMBERSHIP_INSERT(state, membership) {
+        state.memberships.push(membership)
+    },
+    MEMBERSHIP_UPDATE(state, membership) {
+        const index = state.memberships.findIndex(r => r.id === membership.id)
+        const new_membership = merge(state.memberships[index], membership)
+        if (index !== -1) state.memberships.$set(index, new_membership)
+        else state.memberships.push(new_membership)
+    },
+    MEMBERSHIP_DELETE(state, id) {
+        const index = state.memberships.findIndex(m => m.id === id)
+        if (index !== -1) state.memberships.splice(index, 1)
     },
 }
 
