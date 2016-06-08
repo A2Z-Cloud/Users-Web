@@ -56,6 +56,22 @@
 
         </div>
 
+        <div class="container form-actions">
+            <div class="row">
+                <div class="nine columns">
+                    <br>
+                </div>
+                <div class="three columns">
+                    <button
+                        class="button-primary save u-full-width"
+                        :disabled="!changed || saving_group || !valid_form"
+                        @click="save(dirty_group)">
+                        {{ save_group_button_text }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <div class="container">
 
             <div class="row">
@@ -79,8 +95,9 @@
                     <div
                         v-for="member in filtered_searched_members"
                         track-by="id"
+                        class="search-box"
+                        :class="{'selected': $index === focus_index}"
                         @click="add_member({index: $index})">
-                            <span v-if="$index === focus_index">* </span>
                             {{member.first_name}} {{member.last_name}} {{member.email}}
                     </div>
                 </div>

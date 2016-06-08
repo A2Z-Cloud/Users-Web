@@ -193,7 +193,7 @@ export const save_service = function(store, {name, secret, cors, sign_in_url, si
     })
 }
 
-export const save_group = function(store, {name, zcrm_id=null, zprojects_id=null, zsupport_id=null}) {
+export const save_group = function(store, {name, zcrm_id=null, zprojects_id=null, zsupport_id=null, id=null}) {
     return new Promise((resolve, reject) => {
         const handle_error = error => {
             store.dispatch('ERROR_SET', error)
@@ -204,7 +204,8 @@ export const save_group = function(store, {name, zcrm_id=null, zprojects_id=null
                  name,
                  zcrm_id,
                  zprojects_id,
-                 zsupport_id)
+                 zsupport_id,
+                 id)
              .then(resolve)
              .catch(handle_error)
     })

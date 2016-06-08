@@ -24,3 +24,17 @@
 .lnr-cross:hover {
     color: black;
 }
+
+.GroupsPanel
+.search-box.selected {
+    color: white;
+    background-color: #0FA0CE;
+}
+
+.GroupsPanel
+.search-box:hover {
+    color: white;
+    background-color: rgba(15, 160, 206, 0.6);
+
+    cursor: pointer;
+}

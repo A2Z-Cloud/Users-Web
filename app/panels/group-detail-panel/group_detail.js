@@ -2,7 +2,7 @@ import './group_detail.css!'
 import tmpl from './group_detail.html!text'
 import Vue from 'vue'
 
-import { get_group, get_membership, filter_users,
+import { get_group, save_group, get_membership, filter_users,
          save_membership, delete_membership } from 'app/vuex/actions'
 import { clamp } from 'app/utils/clamp'
 
@@ -28,6 +28,24 @@ export default Vue.extend({
         },
     },
     computed: {
+        valid_form() {
+            return this.dirty_group && this.dirty_group.name
+        },
+        changed() {
+            if (this.dirty_group && this.group) {
+                return this.dirty_group.name         !== this.group.name
+                    || this.dirty_group.zcrm_id      !== this.group.zcrm_id
+                    || this.dirty_group.zprojects_id !== this.group.zprojects_id
+                    || this.dirty_group.zsupport_id  !== this.group.zsupport_id
+            }
+            return false
+        },
+        save_group_button_text() {
+            if (!this.valid_form) return 'Complete Form'
+            else if (this.saving_group) return 'Saving'
+            else if (!this.changed) return 'Saved'
+            return 'Save'
+        },
         group() {
             try {return this.groups.filter(g => g.id === this.group_id)[0]}
             catch(error) {return null}
@@ -55,6 +73,7 @@ export default Vue.extend({
         },
         actions: {
             get_group,
+            save_group,
             get_membership,
             filter_users,
             save_membership,
@@ -62,6 +81,13 @@ export default Vue.extend({
         },
     },
     methods: {
+        save(group) {
+            this.saving_group = true
+            const finshed_saving = () => (this.saving_group = false)
+            this.save_group(group)
+                .then(finshed_saving)
+                .catch(finshed_saving)
+        },
         add_member({index}) {
             if (index < this.searched_members.length) {
                 const group_id = this.group.id
