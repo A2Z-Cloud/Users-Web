@@ -3,7 +3,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from 'app/vuex/store'
 
-import { debug } from './consts'
+import { debug, hash_routing } from './consts'
 
 // -- Route Panels
 import AccountPanel from "./panels/account-panel/account"
@@ -21,8 +21,8 @@ Vue.use(VueRouter)
 Vue.config.debug = debug
 
 const router = new VueRouter({
-    history: !debug,
-    hashbang: debug,
+    history: !hash_routing,
+    hashbang: hash_routing,
 })
 
 router.map({
