@@ -1,1 +1,0 @@
-module.exports = require("npm:vue-infinite-scroll@0.2.3/vue-infinite-scroll.js");
