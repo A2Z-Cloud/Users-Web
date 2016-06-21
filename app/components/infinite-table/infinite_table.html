@@ -15,7 +15,7 @@
                 <table class="u-full-width">
                     <thead>
                         <tr>
-                            <th v-for="column in columns">{{column}}</th>
+                            <th v-for="column in columns">{{column | strip_underscores}}</th>
                         </tr>
                     </thead>
                     <tbody

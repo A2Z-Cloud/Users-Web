@@ -11,6 +11,7 @@ import router from './router'
 import store from 'app/vuex/store'
 
 import 'app/filters/nullify'
+import 'app/filters/strip_underscores'
 
 import link_copier from 'app/components/link-copier/link_copier'
 
