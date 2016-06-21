@@ -32,7 +32,15 @@
                                 :style="row_style"
                                 @click="_item_clicked(item)">
                                     <td v-for="column in columns">
-                                        {{ display_item(item, {column: column}) }}
+                                        <template v-if="display_table_cell_type && display_table_cell_type(item, {column: column}) == 'component'">
+                                            <component :is="display_item(item, {column: column})"></component>
+                                        </template>
+                                        <template v-if="display_table_cell_type && display_table_cell_type(item, {column: column}) == 'html'">
+                                            {{{ display_item(item, {column: column}) }}}
+                                        </template>
+                                        <template v-if="!display_table_cell_type || (display_table_cell_type && display_table_cell_type(item, {column: column})) == 'raw'">
+                                            {{ display_item(item, {column: column}) }}
+                                        </template>
                                     </td>
                             </tr>
                     </tbody>

@@ -5,7 +5,15 @@ import Vue from 'vue'
 
 export default Vue.extend({
     template: tmpl,
-    props: ['columns', 'items', 'fetch_next', 'fetch_next_search', 'display_table_cell', 'item_clicked'],
+    props: [
+        'columns',
+        'items',
+        'fetch_next',
+        'fetch_next_search',
+        'display_table_cell_type',
+        'display_table_cell',
+        'item_clicked',
+    ],
     data: () => ({
         busy: false,
         busy_searching: false,
@@ -27,10 +35,8 @@ export default Vue.extend({
             return (this.window_height - this.table_body_distance_from_top - 32) + 'px'
         },
         disabled() {
-            return (!this.searching
-                && this.items_exhausted)
-                || (this.searching
-                && this.search_exhausted)
+            return (!this.searching && this.items_exhausted)
+                || (this.searching && this.search_exhausted)
         },
         row_style() {
             return {
@@ -47,6 +53,10 @@ export default Vue.extend({
         },
     },
     methods: {
+        display_item_is_template(item, {column}) {
+            if (this.display_table_cell_is_template) return this.display_table_cell_is_template(item, {column})
+            return false
+        },
         display_item(item, {column}) {
             if (this.display_table_cell) return this.display_table_cell(item, {column})
             return item[column]

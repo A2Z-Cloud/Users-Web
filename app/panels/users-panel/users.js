@@ -32,10 +32,17 @@ export default Vue.extend({
         },
     },
     methods: {
+        display_table_cell_type(user, {column}) {
+            if (column === 'invite_accepted') return 'html'
+            if (column === 'invite_link' && user.invitation_token) return 'component'
+            return 'raw'
+        },
         display_table_cell(user, {column}) {
-            if (column === 'invite_accepted') return !user.invitation_token
+            if (column === 'invite_accepted' && !user.invitation_token) return '<span class="lnr lnr-checkmark-circle"></span>'
+            else if (column === 'invite_accepted' && user.invitation_token) return '<span class="lnr lnr-cross-circle"></span>'
             else if (column === 'invite_link' && !user.invitation_token) return '-'
-            else if (column === 'invite_link' && user.invitation_token) return encodeURI(invite_url) + '?email=' + encodeURIComponent(user.email) + '&token=' + encodeURIComponent(user.invitation_token)
+            else if (column === 'invite_link' && user.invitation_token) return 'link-copier'
+
             return user[column]
         },
         close_create_component() {
