@@ -14,7 +14,8 @@
 }
 
 .LinkCopier
-.copy-content.active {
+.copy-handle:hover +
+.copy-content {
     display: block;
 }
 
@@ -35,7 +36,7 @@
 }
 
 .LinkCopier
-.copy-value-icon {
+.lnr.copy-value-icon {
     display: inline-block;
     width: 24px;
     height: 24px;
@@ -47,6 +48,8 @@
     box-sizing: border-box;
     border: 1px solid #33C3F0;
     border-right: none;
+
+    background: #FFF;
     color: #33C3F0;
 
     -webkit-border-bottom-left-radius: 50%;
