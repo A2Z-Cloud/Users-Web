@@ -11,6 +11,7 @@ import router from './router'
 import store from 'app/vuex/store'
 
 import 'app/filters/nullify'
+import 'app/filters/strip_underscores'
 
 import ResizeMixin from 'vue-resize-mixin'
 import infinateScroll from 'vue-infinite-scroll'
