@@ -8,7 +8,8 @@
                         type="text"
                         v-model="search_term"
                         placeholder="search..."
-                        v-on:keyup="search | debounce 100">
+                        v-on:keyup="search | debounce 100" v-el:table-search>
+                    <span class="lnr lnr-magnifier" @click="$els.tableSearch.focus()"></span>
                 </div>
             </div>
         </div>

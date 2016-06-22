@@ -39,22 +39,14 @@ span.empty {
 }
 
 .InfiniteTable
-.search-bar:after {
+.search-bar .lnr-magnifier {
     position: absolute;
     top: 7px; right: 10px;
-
-    font-family: Linearicons-Free;
-    content:"\e86f";
-
-    speak: none;
-    font-style: normal;
-    font-weight: 400;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 26px;
+    width: 24px;
+    line-height: 17px;
 }
 
 .InfiniteTable
-input:focus + .search-bar:after {
+input:focus + .lnr-magnifier {
     color: #33C3F0;
 }
