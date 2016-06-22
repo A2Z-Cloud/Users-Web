@@ -40,7 +40,6 @@ export default Vue.extend({
         display_table_cell(user, {column}) {
             if (column === 'invite_accepted' && !user.invitation_token) return '<span class="lnr lnr-checkmark-circle"></span>'
             else if (column === 'invite_accepted' && user.invitation_token) return '<span class="lnr lnr-cross-circle"></span>'
-            else if (column === 'invite_link' && !user.invitation_token) return '-'
             else if (column === 'invite_link' && user.invitation_token) return 'link-copier'
 
             return user[column]

@@ -15,7 +15,11 @@
                 <table class="u-full-width">
                     <thead>
                         <tr>
-                            <th v-for="column in columns">{{column | strip_underscores}}</th>
+                            <th v-for="column in columns">
+                                <slot :name="column + '_header'">
+                                    <span>{{column | strip_underscores}}</span>
+                                </slot>
+                            </th>
                         </tr>
                     </thead>
                     <tbody
@@ -39,7 +43,12 @@
                                             {{{ display_item(item, {column: column}) }}}
                                         </template>
                                         <template v-if="!display_table_cell_type || (display_table_cell_type && display_table_cell_type(item, {column: column})) == 'raw'">
-                                            {{ display_item(item, {column: column}) }}
+                                            <span v-if="display_item(item, {column: column})">
+                                                {{ display_item(item, {column: column}) }}
+                                            </span>
+                                            <span v-else class="empty">
+                                                -
+                                            </span>
                                         </template>
                                     </td>
                             </tr>

@@ -31,19 +31,9 @@ tr.clickable:hover {
 }
 
 .InfiniteTable
-.lnr {
+td
+span.empty {
+    text-align: center;
     display: inline-block;
     width: 100%;
-    text-align: center;
-    font-weight: bold;
-}
-
-.InfiniteTable
-span.lnr.lnr-checkmark-circle {
-    color: #0fab0f;
-}
-
-.InfiniteTable
-span.lnr.lnr-cross-circle {
-    color: #ff2d2d;
 }
