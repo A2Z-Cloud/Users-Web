@@ -32,28 +32,27 @@
     </div>
 
     <div id="Main" v-cloak>
-        <div class="content">
-            <div v-el:navigation class="container navigation">
-                <div class="row">
-                    <div class="two columns">
-                        <br>
-                    </div>
-                    <div v-if="user && user.type == 'admin'" class="eight columns">
-                        <a v-link="{ path: '/', exact: true }">My Account</a>
-                        <a v-link="{ path: '/services', exact: false }">Services</a>
-                        <a v-link="{ path: '/users', exact: false }">Users</a>
-                        <a v-link="{ path: '/groups', exact: false }">Groups</a>
-                    </div>
-                    <div v-else class="eight columns">
-                        <br>
-                    </div>
-                    <div class="two columns">
-                        <a v-if="user" :href="sign_out_url">Sign Out</a>
-                        <br v-else>
-                    </div>
+        <div v-el:navigation class="container navigation">
+            <div class="row">
+                <div class="two columns">
+                    <br>
+                </div>
+                <div v-if="user && user.type == 'admin'" class="eight columns">
+                    <a v-link="{ path: '/', exact: true }">My Account</a>
+                    <a v-link="{ path: '/services', exact: false }">Services</a>
+                    <a v-link="{ path: '/users', exact: false }">Users</a>
+                    <a v-link="{ path: '/groups', exact: false }">Groups</a>
+                </div>
+                <div v-else class="eight columns">
+                    <br>
+                </div>
+                <div class="two columns">
+                    <a v-if="user" :href="sign_out_url">Sign Out</a>
+                    <br v-else>
                 </div>
             </div>
-
+        </div>
+        <div class="content" :style="content_style">
             <router-view></router-view>
         </div>
     </div>
