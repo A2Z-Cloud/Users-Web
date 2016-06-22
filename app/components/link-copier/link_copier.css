@@ -64,7 +64,7 @@
 
 .LinkCopier
 .copy-value:focus {
-    outline: 1px solid #33C3F0;
+    outline: none;
 }
 
 .LinkCopier
