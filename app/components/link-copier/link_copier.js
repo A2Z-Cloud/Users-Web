@@ -10,20 +10,9 @@ import { invite_url } from 'app/consts'
 export default Vue.extend({
     template: tmpl,
     props: ['item'],
-    data: () => ({
-
-    }),
     computed: {
         href() {
             return encodeURI(invite_url) + '?email=' + encodeURIComponent(this.item.email) + '&token=' + encodeURIComponent(this.item.invitation_token)
         },
-    },
-    ready() {
-    },
-    vuex: {
-
-    },
-    methods: {
-
     },
 })
