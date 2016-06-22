@@ -57,7 +57,7 @@ System.import(control_url).then(({Control}) => {  // eslint-disable-line no-unde
             },
             content_style() {
                 return {
-                    height: this.panel_height + 'px',
+                    height: this.content_height + 'px',
                 }
             },
         },

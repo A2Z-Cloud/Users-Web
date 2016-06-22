@@ -8,16 +8,19 @@
                                   not supported by any browser */
 }
 
-body, #Main {
+#Main {
     width: 100%;
     height: 100%;
     margin: 0;
-}
-
-#Main
-.content {
     overflow: auto;
 }
+
+/*#Main
+.content .panel {
+    height: 100%;
+    overflow: auto;
+    box-sizing: border-box;
+}*/
 
 #Main
 .navigation {
