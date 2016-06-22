@@ -6,24 +6,3 @@ span.centre-header {
     display: inline-block;
     width: 100%;
 }
-
-.UsersPanel
-.InfiniteTable
-.lnr {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-}
-
-.UsersPanel
-.InfiniteTable
-span.lnr.lnr-checkmark-circle {
-    color: #0fab0f;
-}
-
-.UsersPanel
-.InfiniteTable
-span.lnr.lnr-cross-circle {
-    color: #ff2d2d;
-}

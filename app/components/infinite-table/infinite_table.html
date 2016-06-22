@@ -37,7 +37,7 @@
                                 @click="_item_clicked(item)">
                                     <td v-for="column in columns">
                                         <template v-if="display_table_cell_type && display_table_cell_type(item, {column: column}) == 'component'">
-                                            <component :is="display_item(item, {column: column})"></component>
+                                            <component :is="display_item(item, {column: column})" :item="item"></component>
                                         </template>
                                         <template v-if="display_table_cell_type && display_table_cell_type(item, {column: column}) == 'html'">
                                             {{{ display_item(item, {column: column}) }}}

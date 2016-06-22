@@ -2,8 +2,6 @@ import './users.css!'
 import tmpl from './users.html!text'
 import Vue from 'vue'
 
-import { invite_url } from 'app/consts'
-
 import { filter_users } from 'app/vuex/actions'
 import infinite_table from 'app/components/infinite-table/infinite_table'
 import user_creator from 'app/components/user-creator/user_creator'
