@@ -6,7 +6,7 @@
 
 .LinkCopier
 .copy-content {
-    display: none;
+    visibility: hidden;
     position: absolute;
     top: 0; left: 0;
     width: 100%;
@@ -15,9 +15,11 @@
 }
 
 .LinkCopier
-.copy-handle:active +
-.copy-content {
-    display: block;
+.copy-handle:hover +
+.copy-content,
+.LinkCopier
+.copy-content:hover {
+    visibility: visible;
 }
 
 .LinkCopier

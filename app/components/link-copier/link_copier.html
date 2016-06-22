@@ -2,8 +2,8 @@
     <div class="copy-handle">
         <span class="lnr lnr-link"></span>
     </div>
-    <div class="copy-content">
+    <div class="copy-content" @mouseOver="$els.copyItem.select()">
         <span class="lnr lnr-link copy-value-icon"></span>
-        <input class="copy-value" :value="href"/>
+        <input class="copy-value" :value="href" v-el:copy-item/>
     </div>
 </div>
