@@ -5,6 +5,19 @@ table {
 }
 
 .InfiniteTable
+.search-bar .lnr-magnifier {
+    position: absolute;
+    top: 7px; right: 10px;
+    width: 24px;
+    line-height: 17px;
+}
+
+.InfiniteTable
+input:focus + .lnr-magnifier {
+    color: #33C3F0;
+}
+
+.InfiniteTable
 table tbody {
     display: block;
     overflow: auto;
