@@ -52,8 +52,13 @@ System.import(control_url).then(({Control}) => {  // eslint-disable-line no-unde
 
                 return this.auth_client_url + '/sign-out?next=' + encodeURIComponent(sign_in_url_return)
             },
-            panel_height() {
+            content_height() {
                 return this.window_size.height - this.$els.navigation.offsetHeight
+            },
+            content_style() {
+                return {
+                    height: this.panel_height + 'px',
+                }
             },
         },
         vuex: {
