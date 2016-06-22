@@ -37,3 +37,24 @@ span.empty {
     display: inline-block;
     width: 100%;
 }
+
+.InfiniteTable
+.search-bar:after {
+    position: absolute;
+    top: 7px; right: 10px;
+
+    font-family: Linearicons-Free;
+    content:"\e86f";
+
+    speak: none;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 26px;
+}
+
+.InfiniteTable
+input:focus + .search-bar:after {
+    color: #33C3F0;
+}

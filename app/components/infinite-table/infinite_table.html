@@ -2,12 +2,14 @@
     <div class="container">
         <div class="row">
             <div class="twleve columns">
-                <input
-                    class="u-full-width"
-                    type="text"
-                    v-model="search_term"
-                    placeholder="search..."
-                    v-on:keyup="search | debounce 100">
+                <div class="search-bar">
+                    <input
+                        class="u-full-width"
+                        type="text"
+                        v-model="search_term"
+                        placeholder="search..."
+                        v-on:keyup="search | debounce 100">
+                </div>
             </div>
         </div>
         <div class="row">
