@@ -73,6 +73,7 @@
         </div>
 
         <div class="container">
+            <hr class="section-break">
 
             <div class="row">
                 <div class="tweleve columns">
@@ -83,23 +84,26 @@
                             <span class="lnr lnr-cross delete" @click="remove_member(membership.id)"></span>
                         </span>
                     </div>
-                    <input
-                        class="u-full-width"
-                        type="text"
-                        v-model="member_search_term | nullify"
-                        @keyup.enter="add_member({index: focus_index})"
-                        @keyup.up="focus_index = Math.max(0, focus_index-1)"
-                        @keyup.down="focus_index = Math.min(searched_members.length-1, focus_index+1)"
-                        @keyup="search_members(member_search_term) | debounce 100"
-                        placeholder="e.g. Bill Billson">
-                    <div
-                        v-if="member_search_term"
-                        v-for="member in filtered_searched_members"
-                        track-by="id"
-                        class="search-box"
-                        :class="{'selected': $index === focus_index}"
-                        @click="add_member({index: $index})">
-                            {{member.first_name}} {{member.last_name}} {{member.email}}
+                    <div class="searchable-lookup">
+                        <input
+                            class="lookup u-full-width"
+                            type="text"
+                            v-model="member_search_term | nullify"
+                            @keyup.enter="add_member({index: focus_index})"
+                            @keyup.up="focus_index = Math.max(0, focus_index-1)"
+                            @keyup.down="focus_index = Math.min(searched_members.length-1, focus_index+1)"
+                            @keyup="search_members(member_search_term) | debounce 100"
+                            placeholder="e.g. Bill Billson">
+                        <div class="search-list" v-if="member_search_term" transition="drop-in">
+                            <div
+                                v-for="member in filtered_searched_members"
+                                track-by="id"
+                                class="search-box"
+                                :class="{'selected': $index === focus_index}"
+                                @click="add_member({index: $index})">
+                                    {{member.first_name}} {{member.last_name}} {{member.email}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
