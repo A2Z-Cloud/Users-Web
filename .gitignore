@@ -1,8 +1,5 @@
 dist
 node_modules
 jspm_packages
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 .htaccess
