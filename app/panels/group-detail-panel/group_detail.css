@@ -9,7 +9,7 @@
 }
 
 .GroupsPanel
-.member-bubble {
+.value-bubble {
     border-radius: 4px;
     padding: 2px 4px 2px 8px;
     margin: 0 4px 0 4px;
@@ -18,15 +18,36 @@
 }
 
 .GroupsPanel
-.member-bubble
+.value-bubble
 .lnr:before {
     vertical-align: middle;
 }
 
 .GroupsPanel
-.member-bubble
+.value-bubble
 .lnr-cross:hover {
     color: black;
+}
+
+.GroupsPanel
+.single-lookup {
+    text-align: left;
+}
+
+.GroupsPanel
+.single-lookup-value {
+    display: none;
+}
+
+.GroupsPanel .single-lookup-entry,
+.GroupsPanel .single-lookup-display {
+    display: inline-block;
+    width: 100%;
+}
+
+.GroupsPanel
+.single-lookup-display {
+    padding: 6px 0;
 }
 
 .GroupsPanel

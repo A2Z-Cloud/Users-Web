@@ -1,0 +1,93 @@
+.SearchableLookup {
+    position: relative;
+    width: 100%;
+    height: 38px;
+    overflow: visible;
+}
+
+.SearchableLookup
+.lookup {
+    margin: 0;
+}
+
+.SearchableLookup
+.searching {
+    position: absolute;
+    top: 6px; right: 6px;
+    text-align: center;
+
+    -webkit-animation: spin 1s infinite linear; /* Chrome, Safari, Opera */
+            animation: spin 1s infinite linear;
+}
+
+.SearchableLookup
+.searching .lnr {
+    -webkit-transform-origin: 50% 50%; /* Chrome, Safari, Opera */
+        -ms-transform-origin: 50% 50%; /* IE 9 */
+            transform-origin: 50% 50%;
+}
+
+.SearchableLookup
+.searching .lnr:before {
+    vertical-align: middle;
+}
+
+.SearchableLookup
+.search-list {
+    position: absolute;
+    z-index: 10;
+
+    width: 100%;
+    overflow: hidden;
+
+    background: #FFF;
+    border-bottom: 1px solid #33C3F0;
+    box-sizing: border-box;
+}
+
+.SearchableLookup
+.search-box.selected {
+    color: #FFF;
+    background-color: rgba(15, 160, 206, 0.6);
+}
+
+.SearchableLookup
+.search-box:hover {
+    color: #FFF;
+    background-color: #0FA0CE;
+
+    cursor: pointer;
+}
+
+.SearchableLookup
+.error-message {
+    color: red;
+    background: #FFF;
+}
+
+/* lookup expand transition */
+/* always present */
+.drop-in-transition {
+    transition: all .5s ease;
+    max-height: 120px;
+}
+
+/* .expand-enter defines the starting state for entering */
+/* .expand-leave defines the ending state for leaving */
+.drop-in-enter, .drop-in-leave {
+    max-height: 0;
+}
+
+/* Spinner Animations */
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}

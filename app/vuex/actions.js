@@ -137,7 +137,7 @@ export const filter_services = function(store, {term=null, offset=0, limit=20, o
     })
 }
 
-export const filter_groups = function(store, {term=null, offset=0, limit=20, order_by='name'}={}) {
+export const filter_groups = function(store, {user_id=null, term=null, offset=0, limit=20, order_by='name'}={}) {
     return new Promise((resolve, reject) => {
         const handle_success = groups => {
             groups.forEach(g => store.dispatch('GROUP_UPDATE', g))
@@ -148,7 +148,24 @@ export const filter_groups = function(store, {term=null, offset=0, limit=20, ord
             reject(error)
         }
         store.control
-             .filter_groups(term, offset, limit, order_by)
+             .filter_groups(user_id, term, offset, limit, order_by)
+             .then(handle_success)
+             .catch(handle_error)
+    })
+}
+
+export const filter_zoho_groups = function(store, {service='crm', term=null, offset=0, limit=20}={}) {
+    return new Promise((resolve, reject) => {
+        const handle_success = groups => {
+            groups.forEach(g => store.dispatch('ZOHO_GROUP_UPDATE', g))
+            resolve(groups)
+        }
+        const handle_error = error => {
+            store.dispatch('ERROR_SET', error)
+            reject(error)
+        }
+        store.control
+             .filter_zoho_groups(service, term, offset, limit)
              .then(handle_success)
              .catch(handle_error)
     })
@@ -227,6 +244,7 @@ export const get_group = function(store, {id=null, name=null}) {
              .catch(handle_error)
     })
 }
+
 
 export const get_membership = function(store, {group_id=null, group_name=null}) {
     return new Promise((resolve, reject) => {

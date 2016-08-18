@@ -3,19 +3,20 @@ import tmpl from './group_detail.html!text'
 import Vue from 'vue'
 
 import { get_group, save_group, get_membership, filter_users,
-         save_membership, delete_membership } from 'app/vuex/actions'
-import { clamp } from 'app/utils/clamp'
+         save_membership, delete_membership, filter_zoho_groups } from 'app/vuex/actions'
+
+import searchable_lookup from 'app/components/searchable-lookup/searchable_lookup'
 
 
 export default Vue.extend({
     template: tmpl,
+    components: {
+        'searchable-lookup': searchable_lookup,
+    },
     data: () => ({
         error: null,
         group_id: null,
         dirty_group: null,
-        member_search_term: null,
-        searched_members: [],
-        focus_index: 0,
     }),
     route: {
         data(transition) {
@@ -53,15 +54,6 @@ export default Vue.extend({
         group_membership() {
             return this.memberships.filter(m => m.group.id === this.group_id)
         },
-        filtered_searched_members() {
-            // remove ones in members already and clamp the focus index in range
-            const member_ids = this.group_membership.map(m => m.user.id)
-            const not_member = m => member_ids.indexOf(m.id) === -1
-            const result     = this.searched_members.filter(not_member)
-            // Clamp the focus index to inbounds of filtered search
-            this.focus_index = clamp(0, this.focus_index, result.length-1)
-            return result
-        },
     },
     ready() {
         this.dirty_group = this.group
@@ -78,6 +70,7 @@ export default Vue.extend({
             filter_users,
             save_membership,
             delete_membership,
+            filter_zoho_groups,
         },
     },
     methods: {
@@ -88,32 +81,48 @@ export default Vue.extend({
                 .then(finshed_saving)
                 .catch(finshed_saving)
         },
-        add_member({index}) {
-            if (index < this.searched_members.length) {
-                const group_id = this.group.id
-                const user_id  = this.filtered_searched_members[index].id
-                const clean_up = () => {
-                    this.focus_index = 0
-                    this.member_search_term = ''
-                }
-                this.save_membership({group_id, user_id})
-                    .then(clean_up)
-                    .catch(clean_up)
+        add_member(member) {
+            if (member != null && member.id != null) {
+                var group_id = this.group.id
+                var user_id  = member.id
+                return this.save_membership({group_id, user_id})
             }
         },
         remove_member(id) {
             this.delete_membership(id)
         },
         search_members(term) {
-            // Add the number of member so can filter out members that
-            // already exist and keep same number of results
-            const limit  = 5 + this.searched_members.length
+            // Limit must be extended to include those already added to group
+            const limit  = 5 + this.group_membership.length
             const filter = {term, offset: 0, limit}
-            this.filter_users(filter)
-                .then(members => (this.searched_members = members))
-                .catch(error => {
-                    this.searched_members = []
-                    this.error = error})
+            return this.filter_users(filter)
+        },
+        filtered_searched_members(records) {
+            // remove members from search
+            const member_ids = this.group_membership.map(m => m.user.id)
+            const not_member = m => member_ids.indexOf(m.id) === -1
+            return records.filter(not_member)
+        },
+        display_search_member(member) {
+            return member.first_name + " " + member.last_name + " - " + member.email
+        },
+        set_zoho_id(record, {service='crm'}={}) {
+            switch (service) {
+                case 'projects':
+                    this.dirty_group.zprojects_id = record.id
+                    break;
+                case 'support':
+                    this.dirty_group.zsupport_id = record.id
+                    break;
+                default:
+                    this.dirty_group.zcrm_id = record.id
+            }
+        },
+        search_zoho_group(term, {service='crm', offset=0, limit=5}={}) {
+            return this.filter_zoho_groups({service, term, offset: 0, limit: 5})
+        },
+        display_zoho_group(record) {
+            return record.name
         },
     },
 })

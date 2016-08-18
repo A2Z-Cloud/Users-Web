@@ -21,6 +21,7 @@ const state = {
     users: [],
     groups: [],
     memberships: [],
+    zoho_groups: [],
 }
 
 
@@ -102,6 +103,12 @@ const mutations = {
     MEMBERSHIP_DELETE(state, id) {
         const index = state.memberships.findIndex(m => m.id === id)
         if (index !== -1) state.memberships.splice(index, 1)
+    },
+    ZOHO_GROUP_UPDATE(state, group) {
+        const index     = state.zoho_groups.findIndex(g => g.id === group.id)
+        const new_group = merge(state.zoho_groups[index], group)
+        if (index !== -1) state.zoho_groups.$set(index, new_group)
+        else state.zoho_groups.push(new_group)
     },
 }
 

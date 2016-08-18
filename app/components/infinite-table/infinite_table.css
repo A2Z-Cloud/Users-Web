@@ -39,6 +39,11 @@ table tr td {
 }
 
 .InfiniteTable
+table tr td::-webkit-scrollbar {
+    display: none;
+}
+
+.InfiniteTable
 table
 tr.clickable:hover {
     background-color: rgb(241, 241, 241);
