@@ -1,0 +1,20 @@
+.EmailConfirmationPanel
+.message {
+    font-size: 3em;
+}
+
+.EmailConfirmationPanel
+.message .success {
+    color: #5EDE5E;
+}
+
+.EmailConfirmationPanel
+.message .error {
+    color: #DE5E5E;
+}
+
+.EmailConfirmationPanel
+.home {
+    padding: 0 35px;
+    margin-top: 25px;
+}
