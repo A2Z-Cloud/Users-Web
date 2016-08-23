@@ -171,6 +171,23 @@ export const filter_zoho_groups = function(store, {service='crm', term=null, off
     })
 }
 
+export const filter_zoho_contacts = function(store, {term=null, offset=0, limit=20}={}) {
+    return new Promise((resolve, reject) => {
+        const handle_success = contacts => {
+            contacts.forEach(c => store.dispatch('ZOHO_CONTACTS_UPDATE', c))
+            resolve(contacts)
+        }
+        const handle_error = error => {
+            store.dispatch('ERROR_SET', error)
+            reject(error)
+        }
+        store.control
+             .filter_zoho_contacts(term, offset, limit)
+             .then(handle_success)
+             .catch(handle_error)
+    })
+}
+
 export const invite_user = function(store, {email, first_name, last_name, phone=null, birthday=null, zcrm_id, send_email_invite=true}) {
     return new Promise((resolve, reject) => {
         const handle_error = error => {

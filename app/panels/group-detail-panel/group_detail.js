@@ -118,7 +118,7 @@ export default Vue.extend({
                     this.dirty_group.zcrm_id = record.id
             }
         },
-        search_zoho_group(term, {service='crm', offset=0, limit=5}={}) {
+        search_zoho_groups(term, {service='crm', offset=0, limit=5}={}) {
             return this.filter_zoho_groups({service, term, offset: 0, limit: 5})
         },
         display_zoho_group(record) {

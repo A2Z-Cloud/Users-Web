@@ -22,6 +22,7 @@ const state = {
     groups: [],
     memberships: [],
     zoho_groups: [],
+    zoho_contacts: [],
 }
 
 
@@ -109,6 +110,12 @@ const mutations = {
         const new_group = merge(state.zoho_groups[index], group)
         if (index !== -1) state.zoho_groups.$set(index, new_group)
         else state.zoho_groups.push(new_group)
+    },
+    ZOHO_CONTACTS_UPDATE(state, contact) {
+        const index       = state.zoho_contacts.findIndex(c => c.id === contact.id)
+        const new_contact = merge(state.zoho_contacts[index], contact)
+        if (index !== -1) state.zoho_contacts.$set(index, new_contact)
+        else state.zoho_contacts.push(new_contact)
     },
 }
 
