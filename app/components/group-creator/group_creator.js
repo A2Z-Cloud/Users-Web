@@ -2,11 +2,16 @@ import './group_creator.css!'
 import tmpl from './group_creator.html!text'
 import Vue from 'vue'
 
-import { save_group } from 'app/vuex/actions'
+import { save_group, filter_zoho_groups } from 'app/vuex/actions'
+
+import searchable_lookup from 'app/components/searchable-lookup/searchable_lookup'
 
 
 export default Vue.extend({
     template: tmpl,
+    components: {
+        'searchable-lookup': searchable_lookup,
+    },
     props: ['completed'],
     data: () => ({
         error: null,
@@ -33,6 +38,7 @@ export default Vue.extend({
         },
         actions: {
             save_group,
+            filter_zoho_groups,
         },
     },
     methods: {
@@ -57,6 +63,24 @@ export default Vue.extend({
             this.save_group(this.group)
                 .then(sending_success)
                 .catch(sending_failure)
+        },
+        search_zoho_groups(term, {service='crm', offset=0, limit=5}={}) {
+            return this.filter_zoho_groups({service, term, offset, limit})
+        },
+        set_zoho_id(record, {service='crm'}={}) {
+            switch (service) {
+                case 'projects':
+                    this.group.zprojects_id = record.id
+                    break;
+                case 'support':
+                    this.group.zsupport_id = record.id
+                    break;
+                default:
+                    this.group.zcrm_id = record.id
+            }
+        },
+        display_zoho_group(record) {
+            return record.name
         },
     },
 })

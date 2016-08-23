@@ -72,7 +72,7 @@ export default Vue.extend({
                 .catch(sending_failure)
         },
         search_zoho_contacts(term, {offset=0, limit=5}={}) {
-            return this.filter_zoho_contacts({term, offset: 0, limit: 5})
+            return this.filter_zoho_contacts({term, offset, limit})
         },
         set_zoho_id(record) {
             this.user.zcrm_id = record.id

@@ -46,6 +46,12 @@
 }
 
 .SearchableLookup
+.search-box {
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.SearchableLookup
 .search-box.selected {
     color: #FFF;
     background-color: rgba(15, 160, 206, 0.6);

@@ -106,6 +106,9 @@ export default Vue.extend({
         display_search_member(member) {
             return member.first_name + " " + member.last_name + " - " + member.email
         },
+        search_zoho_groups(term, {service='crm', offset=0, limit=5}={}) {
+            return this.filter_zoho_groups({service, term, offset, limit})
+        },
         set_zoho_id(record, {service='crm'}={}) {
             switch (service) {
                 case 'projects':
@@ -117,9 +120,6 @@ export default Vue.extend({
                 default:
                     this.dirty_group.zcrm_id = record.id
             }
-        },
-        search_zoho_groups(term, {service='crm', offset=0, limit=5}={}) {
-            return this.filter_zoho_groups({service, term, offset: 0, limit: 5})
         },
         display_zoho_group(record) {
             return record.name
