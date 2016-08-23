@@ -5,10 +5,7 @@ import { Notification } from 'app/model/notification'
 function handle_reject(reject, store) {
     return error => {
         const notification = Notification.from_error(error)
-        store.dispatch('NOTIFICATION_INSERT', notification)
-        setTimeout(
-            () => (store.dispatch('NOTIFICATION_DELETE', notification)),
-            10000)
+        insert_notification(store, notification)
         reject(error)
     }
 }
@@ -26,6 +23,13 @@ export const authenticate = function(store) {
              })
              .catch(handle_error)
     })
+}
+
+export const insert_notification = function(store, notification) {
+    store.dispatch('NOTIFICATION_INSERT', notification)
+    setTimeout(
+        () => (store.dispatch('NOTIFICATION_DELETE', notification)),
+        10000)
 }
 
 export const delete_notification = function(store, notification) {

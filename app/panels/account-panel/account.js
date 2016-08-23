@@ -2,7 +2,9 @@ import './account.css!'
 import tmpl from './account.html!text'
 import Vue from 'vue'
 
-import { save_user, send_email_confirmation, change_password } from 'app/vuex/actions'
+import { Success } from 'app/model/notification'
+
+import { save_user, send_email_confirmation, change_password, insert_notification } from 'app/vuex/actions'
 
 import { password_errors, valid_email } from 'app/utils/validation'
 
@@ -103,6 +105,7 @@ export default Vue.extend({
             save_user,
             send_email_confirmation,
             remote_change_password: change_password,
+            insert_notification,
         },
     },
     methods: {
@@ -149,6 +152,9 @@ export default Vue.extend({
                 this.clear_password_form()
                 this.saving_password = false
                 this.changing_password = false
+                this.insert_notification({
+                    message: 'Password Changed',
+                    type: Success})
             }
             const sending_failure = () => {
                 this.saving_password = false
