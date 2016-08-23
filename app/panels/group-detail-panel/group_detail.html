@@ -28,7 +28,7 @@
                             type="text"
                             v-model="dirty_group.zcrm_id | nullify"
                             placeholder="e.g. 1770000000501001">
-                        <div class="single-lookup-display"v-if="dirty_group.zcrm_id">
+                        <div class="single-lookup-display" v-if="dirty_group.zcrm_id">
                             <span class="value-bubble">
                                 <span class="name">{{ dirty_group.zcrm_id }}</span>
                                 <span class="lnr lnr-cross delete" @click="dirty_group.zcrm_id = null"></span>
@@ -36,7 +36,7 @@
                         </div>
                         <div class="single-lookup-entry" v-else>
                             <searchable-lookup
-                                    :search="search_zoho_group"
+                                    :search="search_zoho_groups"
                                     :skwargs="{service:'crm'}"
                                     :action="set_zoho_id"
                                     :akwargs="{service:'crm'}"
@@ -55,7 +55,7 @@
                             type="text"
                             v-model="dirty_group.zprojects_id | nullify"
                             placeholder="e.g. 1770000000501001">
-                        <div class="single-lookup-display"v-if="dirty_group.zprojects_id">
+                        <div class="single-lookup-display" v-if="dirty_group.zprojects_id">
                             <span class="value-bubble">
                                 <span class="name">{{ dirty_group.zprojects_id }}</span>
                                 <span class="lnr lnr-cross delete" @click="dirty_group.zprojects_id = null"></span>
@@ -63,7 +63,7 @@
                         </div>
                         <div class="single-lookup-entry" v-else>
                             <searchable-lookup
-                                    :search="search_zoho_group"
+                                    :search="search_zoho_groups"
                                     :skwargs="{service:'projects'}"
                                     :action="set_zoho_id"
                                     :akwargs="{service:'projects'}"
@@ -85,7 +85,7 @@
                             type="text"
                             v-model="dirty_group.zsupport_id | nullify"
                             placeholder="e.g. 1770000000501001">
-                        <div class="single-lookup-display"v-if="dirty_group.zsupport_id">
+                        <div class="single-lookup-display" v-if="dirty_group.zsupport_id">
                             <span class="value-bubble">
                                 <span class="name">{{ dirty_group.zsupport_id }}</span>
                                 <span class="lnr lnr-cross delete" @click="dirty_group.zsupport_id = null"></span>
@@ -93,7 +93,7 @@
                         </div>
                         <div class="single-lookup-entry" v-else>
                             <searchable-lookup
-                                    :search="search_zoho_group"
+                                    :search="search_zoho_groups"
                                     :skwargs="{service:'support'}"
                                     :action="set_zoho_id"
                                     :akwargs="{service:'support'}"

@@ -33,12 +33,26 @@
 
         <div class="row">
             <div class="six columns">
-                <div class="form-label">crm id</div>
+                <div class="form-label">zoho crm contact</div>
                 <input
-                    class="u-full-width"
+                    class="u-full-width single-lookup-value"
                     type="text"
                     v-model="user.zcrm_id"
                     placeholder="e.g. 1770000000551017">
+                <div class="single-lookup-display" v-if="user.zcrm_id">
+                    <span class="value-bubble">
+                        <span class="name">{{ user.zcrm_id }}</span>
+                        <span class="lnr lnr-cross delete" @click="user.zcrm_id = null"></span>
+                    </span>
+                </div>
+                <div class="single-lookup-entry" v-else>
+                    <searchable-lookup
+                            :search="search_zoho_contacts"
+                            :action="set_zoho_id"
+                            :display="display_zoho_contact"
+                            placeholder="e.g. Bill Billson">
+                    </searchable-lookup>
+                </div>
             </div>
             <div class="six columns">
                 <input id="email_invite_checkbox" type="checkbox" v-model="user.send_email_invite">
