@@ -23,6 +23,15 @@
 }*/
 
 #Main
+.notification-centre {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+
+    text-align: center;
+}
+
+#Main
 .navigation {
     padding-top: 16px;
 

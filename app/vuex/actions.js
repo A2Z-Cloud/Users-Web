@@ -1,9 +1,21 @@
 import { email_confirmation_url, invite_url } from 'app/consts'
+import { Notification } from 'app/model/notification'
 
+
+function handle_reject(reject, store) {
+    return error => {
+        const notification = Notification.from_error(error)
+        store.dispatch('NOTIFICATION_INSERT', notification)
+        setTimeout(
+            () => (store.dispatch('NOTIFICATION_DELETE', notification)),
+            10000)
+        reject(error)
+    }
+}
 
 export const authenticate = function(store) {
     return new Promise((resolve, reject) => {
-        const handle_error = error => (store.dispatch('ERROR_SET', error))
+        const handle_error = error => (store.dispatch('ERROR_INSERT', error))
         store.control
              .get_current_user()
              .then(({user, auth_client_url}) => {
@@ -16,39 +28,31 @@ export const authenticate = function(store) {
     })
 }
 
+export const delete_notification = function(store, notification) {
+    store.dispatch('NOTIFICATION_DELETE', notification)
+}
+
 export const accept_invite = function(store, {token, email, password}) {
     return new Promise((resolve, reject) => {
-        const handle_error = error => {
-            store.dispatch('ERROR_SET', error)
-            reject(error)
-        }
         store.control
              .accept_invite(token, email, password, email_confirmation_url)
              .then(resolve)
-             .catch(handle_error)
+             .catch(handle_reject(reject, store))
     })
 }
 
 export const confirm_email = function(store, {token}) {
     return new Promise((resolve, reject) => {
-        const handle_error = error => {
-            store.dispatch('ERROR_SET', error)
-            reject(error)
-        }
         store.control
              .confirm_email(token)
              .then(resolve)
-             .catch(handle_error)
+             .catch(handle_reject(reject, store))
     })
 }
 
 export const save_user = function(store, {email, first_name, last_name, phone}) {
     return new Promise((resolve, reject) => {
         const current_user = store.state.user
-        const handle_error = error => {
-            store.dispatch('ERROR_SET', error)
-            reject(error)
-        }
         store.control
              .save_user(
                  email,
@@ -62,17 +66,13 @@ export const save_user = function(store, {email, first_name, last_name, phone}) 
                  email_confirmation_url,
                  current_user.id)
              .then(resolve)
-             .catch(handle_error)
+             .catch(handle_reject(reject, store))
     })
 }
 
 export const change_password = function (store, {old_password, new_password}) {
     return new Promise((resolve, reject) => {
         const current_user = store.state.user
-        const handle_error = error => {
-            store.dispatch('ERROR_SET', error)
-            reject(error)
-        }
         store.control
              .save_user(
                  current_user.email,
@@ -86,20 +86,16 @@ export const change_password = function (store, {old_password, new_password}) {
                  null,
                  current_user.id)
              .then(resolve)
-             .catch(handle_error)
+             .catch(handle_reject(reject, store))
     })
 }
 
 export const send_email_confirmation = function(store) {
     return new Promise((resolve, reject) => {
-        const handle_error = error => {
-            store.dispatch('ERROR_SET', error)
-            reject(error)
-        }
         store.control
              .send_email_confirmation(email_confirmation_url)
              .then(resolve)
-             .catch(handle_error)
+             .catch(handle_reject(reject, store))
     })
 }
 
@@ -109,14 +105,10 @@ export const filter_users = function(store, {term=null, offset=0, limit=20, orde
             users.forEach(u => store.dispatch('USER_UPDATE', u))
             resolve(users)
         }
-        const handle_error = error => {
-            store.dispatch('ERROR_SET', error)
-            reject(error)
-        }
         store.control
              .filter_users(term, offset, limit, order_by)
              .then(handle_success)
-             .catch(handle_error)
+             .catch(handle_reject(reject, store))
     })
 }
 
@@ -126,14 +118,10 @@ export const filter_services = function(store, {term=null, offset=0, limit=20, o
             services.forEach(s => store.dispatch('SERVICE_UPDATE', s))
             resolve(services)
         }
-        const handle_error = error => {
-            store.dispatch('ERROR_SET', error)
-            reject(error)
-        }
         store.control
              .filter_services(term, offset, limit, order_by)
              .then(handle_success)
-             .catch(handle_error)
+             .catch(handle_reject(reject, store))
     })
 }
 
@@ -143,14 +131,10 @@ export const filter_groups = function(store, {user_id=null, term=null, offset=0,
             groups.forEach(g => store.dispatch('GROUP_UPDATE', g))
             resolve(groups)
         }
-        const handle_error = error => {
-            store.dispatch('ERROR_SET', error)
-            reject(error)
-        }
         store.control
              .filter_groups(user_id, term, offset, limit, order_by)
              .then(handle_success)
-             .catch(handle_error)
+             .catch(handle_reject(reject, store))
     })
 }
 
@@ -160,23 +144,15 @@ export const filter_zoho_groups = function(store, {service='crm', term=null, off
             groups.forEach(g => store.dispatch('ZOHO_GROUP_UPDATE', g))
             resolve(groups)
         }
-        const handle_error = error => {
-            store.dispatch('ERROR_SET', error)
-            reject(error)
-        }
         store.control
              .filter_zoho_groups(service, term, offset, limit)
              .then(handle_success)
-             .catch(handle_error)
+             .catch(handle_reject(reject, store))
     })
 }
 
 export const invite_user = function(store, {email, first_name, last_name, phone=null, birthday=null, zcrm_id, send_email_invite=true}) {
     return new Promise((resolve, reject) => {
-        const handle_error = error => {
-            store.dispatch('ERROR_SET', error)
-            reject(error)
-        }
         store.control
              .invite_user(
                  email,
@@ -188,16 +164,12 @@ export const invite_user = function(store, {email, first_name, last_name, phone=
                  invite_url,
                  send_email_invite)
              .then(resolve)
-             .catch(handle_error)
+             .catch(handle_reject(reject, store))
     })
 }
 
 export const save_service = function(store, {name, secret, cors, sign_in_url, sign_out_url}) {
     return new Promise((resolve, reject) => {
-        const handle_error = error => {
-            store.dispatch('ERROR_SET', error)
-            reject(error)
-        }
         store.control
              .save_service(
                  name,
@@ -206,16 +178,12 @@ export const save_service = function(store, {name, secret, cors, sign_in_url, si
                  sign_in_url,
                  sign_out_url)
              .then(resolve)
-             .catch(handle_error)
+             .catch(handle_reject(reject, store))
     })
 }
 
 export const save_group = function(store, {name, zcrm_id=null, zprojects_id=null, zsupport_id=null, id=null}) {
     return new Promise((resolve, reject) => {
-        const handle_error = error => {
-            store.dispatch('ERROR_SET', error)
-            reject(error)
-        }
         store.control
              .save_group(
                  name,
@@ -224,7 +192,7 @@ export const save_group = function(store, {name, zcrm_id=null, zprojects_id=null
                  zsupport_id,
                  id)
              .then(resolve)
-             .catch(handle_error)
+             .catch(handle_reject(reject, store))
     })
 }
 
@@ -234,14 +202,10 @@ export const get_group = function(store, {id=null, name=null}) {
             store.dispatch('GROUP_UPDATE', group)
             resolve(group)
         }
-        const handle_error = error => {
-            store.dispatch('ERROR_SET', error)
-            reject(error)
-        }
         store.control
              .get_group(id, name)
              .then(handle_success)
-             .catch(handle_error)
+             .catch(handle_reject(reject, store))
     })
 }
 
@@ -252,39 +216,27 @@ export const get_membership = function(store, {group_id=null, group_name=null}) 
             memberships.forEach(m => store.dispatch('MEMBERSHIP_UPDATE', m))
             resolve(memberships)
         }
-        const handle_error = error => {
-            store.dispatch('ERROR_SET', error)
-            reject(error)
-        }
         store.control
              .get_membership(group_id, group_name)
              .then(handle_success)
-             .catch(handle_error)
+             .catch(handle_reject(reject, store))
     })
 }
 
 export const save_membership = function(store, {id=null, user_id, group_id, permission='member'}) {
     return new Promise((resolve, reject) => {
-        const handle_error = error => {
-            store.dispatch('ERROR_SET', error)
-            reject(error)
-        }
         store.control
              .save_membership(user_id, group_id, permission, id)
              .then(resolve)
-             .catch(handle_error)
+             .catch(handle_reject(reject, store))
     })
 }
 
 export const delete_membership = function(store, id) {
     return new Promise((resolve, reject) => {
-        const handle_error = error => {
-            store.dispatch('ERROR_SET', error)
-            reject(error)
-        }
         store.control
              .delete_membership(id)
              .then(resolve)
-             .catch(handle_error)
+             .catch(handle_reject(reject, store))
     })
 }

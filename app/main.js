@@ -20,6 +20,8 @@ import infinateScroll from 'vue-infinite-scroll'
 
 import {control_url} from './consts'
 
+import {delete_notification} from 'app/vuex/actions'
+
 
 // –– Control
 System.import(control_url).then(({Control}) => {  // eslint-disable-line no-undef
@@ -67,6 +69,10 @@ System.import(control_url).then(({Control}) => {  // eslint-disable-line no-unde
                 ws_ready: state => state.auth_client_url && state.ws_status === 'open',
                 auth_client_url: state => state.auth_client_url,
                 window_size: state => state.window_size,
+                notifications: state => state.notifications,
+            },
+            actions: {
+                delete_notification,
             },
         },
         events: {

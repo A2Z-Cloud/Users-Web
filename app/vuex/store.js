@@ -14,7 +14,7 @@ const state = {
     },
     control: null,
     ws_status: null,
-    error: null,
+    notifications: [],
     auth_client_url: null,
     user: null,
     services: [],
@@ -32,8 +32,15 @@ const mutations = {
     WS_STATUS_SET(state, status) {
         state.ws_status = status
     },
-    ERROR_SET(state, error) {
-        state.error = error
+    NOTIFICATION_INSERT(state, notification) {
+        const max_length = 5
+        const length     = state.notifications.unshift(notification)
+        if (length > max_length) state.notifications.pop()
+    },
+    NOTIFICATION_DELETE(state, notification) {
+        const index = state.notifications.indexOf(notification)
+        if (index === -1) return
+        state.notifications.splice(index, 1)
     },
     AUTH_CLIENT_URL_SET(state, url) {
         state.auth_client_url = url
