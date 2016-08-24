@@ -6,11 +6,11 @@ import Vue from 'vue'
 export default Vue.extend({
     template: tmpl,
     props: [
-        'active_text',
-        'sending_text',
-        'cooldown_text',
-        'cooldown_duration',
-        'on_click',
+        'activeText',
+        'sendingText',
+        'cooldownText',
+        'cooldownDuration',
+        'onClick',
     ],
     data: () => ({
         sending: false,
@@ -19,9 +19,9 @@ export default Vue.extend({
     }),
     computed: {
         button_text() {
-            if (this.sending) return this.sending_text
-            else if (this.recently_sent) return this.cooldown_text
-            return this.active_text
+            if (this.sending) return this.sendingText
+            else if (this.recently_sent) return this.cooldownText
+            return this.activeText
         },
     },
     methods: {
@@ -32,7 +32,7 @@ export default Vue.extend({
             clearTimeout(this.timeout_id)
 
             const release_now      = () => (this.recently_sent = false)
-            const release_later    = () => (this.timeout_id = setTimeout(release_now, 15000))
+            const release_later    = () => (this.timeout_id = setTimeout(release_now, this.cooldownDuration * 1000))
             const finished_sending = () => (this.sending = false)
             const sending_success  = () => {
                 finished_sending()
@@ -41,7 +41,7 @@ export default Vue.extend({
                 finished_sending()
                 release_now()}
 
-            this.on_click()
+            this.onClick()
                 .then(sending_success)
                 .catch(sending_failure)
         },

@@ -6,7 +6,7 @@ import store from 'app/vuex/store'
 import { debug, hash_routing } from './consts'
 
 // -- Route Panels
-import AccountPanel from "./panels/account-panel/account"
+import UserDetailPanel from "./panels/user-detail-panel/user_detail"
 import ServciesPanel from "./panels/services-panel/services"
 import UsersPanel from "./panels/users-panel/users"
 import GroupsPanel from "./panels/groups-panel/groups"
@@ -27,8 +27,8 @@ const router = new VueRouter({
 
 router.map({
     '/': {
-        name: 'account',
-        component: AccountPanel,
+        name: 'me',
+        component: UserDetailPanel,
         authenticated: true,
     },
     '/services': {
@@ -39,6 +39,11 @@ router.map({
     '/users': {
         name: 'users',
         component: UsersPanel,
+        authenticated: true,
+    },
+    '/users/:id': {
+        name: 'user',
+        component: UserDetailPanel,
         authenticated: true,
     },
     '/groups': {

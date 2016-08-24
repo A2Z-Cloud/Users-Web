@@ -1,23 +1,29 @@
-import './account.css!'
-import tmpl from './account.html!text'
+import './user_detail.css!'
+import tmpl from './user_detail.html!text'
 import Vue from 'vue'
 
 import { Success } from 'app/model/notification'
 
-import { save_user, send_email_confirmation, change_password, insert_notification } from 'app/vuex/actions'
-
 import { password_errors, valid_email } from 'app/utils/validation'
+
+import { merge } from 'app/utils/merge'
+
+import {
+    get_user,
+    save_user,
+    send_invite,
+    send_email_confirmation,
+    change_password,
+    insert_notification } from 'app/vuex/actions'
 
 
 export default Vue.extend({
     template: tmpl,
     data: () => ({
+        user_id: null,
         error: {},
         salutation: 'Hi',
         changing_password: false,
-        sending_verification_email: false,
-        recently_sent_verification: false,
-        recently_sent_timeout_id: null,
         recently_changed_password: false,
         saving_user: false,
         saving_password: false,
@@ -33,17 +39,36 @@ export default Vue.extend({
             new_password_confirmation: '',
         },
     }),
+    route: {
+        data(transition) {
+            const id       = (transition.to.params.id) ? transition.to.params.id : this.signed_in_user.id
+            const promises = [this.get_user({id})]
+            const resolve  = ([user]) => ({dirty_user: merge({}, user), user_id: user.id})
+            return Promise.all(promises).then(resolve)
+        },
+    },
     computed: {
+        user() {
+            const selected = u => u.id === this.user_id
+            const index    = this.users.findIndex(selected)
+            return (index !== -1) ? this.users[index] : null
+        },
+        show_send_user_invite() {
+            return this.user.invitation_token
+                && this.dirty_user.email === this.user.email
+                && !this.changing_password
+        },
+        show_verify_email_button() {
+            return !this.user.email_confirmed
+                && this.dirty_user.email === this.user.email
+                && !this.changing_password
+                && !this.show_send_user_invite
+        },
         changed() {
             return this.dirty_user.email      !== this.user.email
                 || this.dirty_user.first_name !== this.user.first_name
                 || this.dirty_user.last_name  !== this.user.last_name
                 || this.dirty_user.phone      !== this.user.phone
-        },
-        verify_email_button_text() {
-            if (this.sending_verification_email) return 'Sending'
-            else if (this.recently_sent_verification) return 'Check Your Inbox'
-            return 'Verify Email'
         },
         save_user_button_text() {
             if (!this.valid_form) return 'Complete Form'
@@ -89,45 +114,24 @@ export default Vue.extend({
         },
     },
     ready() {
-        this.dirty_user.email      = this.user.email
-        this.dirty_user.first_name = this.user.first_name
-        this.dirty_user.last_name  = this.user.last_name
-        this.dirty_user.phone      = this.user.phone
-
         const salutations = ['Hi', 'Greetings', 'Salut', 'Hallo', 'Ciao', 'Ahoj', 'Hola', 'Hej', 'こんにちは', '你好', 'السلام عليكم', 'שלום', 'Olá', 'سلام']
         this.salutation   = salutations[Math.floor(Math.random()*salutations.length)]
     },
     vuex: {
         getters: {
-            user: state => state.user,
+            signed_in_user: state => state.user,
+            users: state => state.users,
         },
         actions: {
+            get_user,
             save_user,
+            send_invite,
             send_email_confirmation,
             remote_change_password: change_password,
             insert_notification,
         },
     },
     methods: {
-        verify_email() {
-            this.sending_verification_email = true
-            this.recently_sent_verification = true
-            clearTimeout(this.recently_sent_timeout_id)
-            const release_now      = () => (this.recently_sent_verification = false)
-            const release_later    = () => (this.recently_sent_timeout_id = setTimeout(release_now, 15000))
-            const finished_sending = () => (this.sending_verification_email = false)
-            const sending_success  = () => {
-                finished_sending()
-                release_later()
-            }
-            const sending_failure  = () => {
-                finished_sending()
-                release_now()
-            }
-            this.send_email_confirmation()
-                .then(sending_success)
-                .catch(sending_failure)
-        },
         save(user) {
             this.saving_user = true
             this.recently_sent_verification = this.dirty_user.email !== this.user.email || this.recently_sent_verification
@@ -165,6 +169,10 @@ export default Vue.extend({
         },
         clear_password_form() {
             this.password_data.old_password = this.password_data.new_password = this.password_data.new_password_confirmation = ''
+        },
+        send_user_invite() {
+            const user_id = this.user_id
+            return this.send_invite({user_id})
         },
     },
     watch: {

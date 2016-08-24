@@ -53,5 +53,9 @@ export default Vue.extend({
             const filter = {term, offset, limit:10}
             return this.filter_users(filter)
         },
+        item_clicked(item) {
+            const id = item.id
+            this.$router.go({name: 'user', params: {id}})
+        },
     },
 })

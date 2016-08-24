@@ -83,8 +83,8 @@ export default Vue.extend({
         },
         add_member(member) {
             if (member != null && member.id != null) {
-                var group_id = this.group.id
-                var user_id  = member.id
+                const group_id = this.group.id
+                const user_id  = member.id
                 return this.save_membership({group_id, user_id})
             }
         },
@@ -111,14 +111,14 @@ export default Vue.extend({
         },
         set_zoho_id(record, {service='crm'}={}) {
             switch (service) {
-                case 'projects':
-                    this.dirty_group.zprojects_id = record.id
-                    break;
-                case 'support':
-                    this.dirty_group.zsupport_id = record.id
-                    break;
-                default:
-                    this.dirty_group.zcrm_id = record.id
+            case 'projects':
+                this.dirty_group.zprojects_id = record.id
+                break
+            case 'support':
+                this.dirty_group.zsupport_id = record.id
+                break
+            default:
+                this.dirty_group.zcrm_id = record.id
             }
         },
         display_zoho_group(record) {

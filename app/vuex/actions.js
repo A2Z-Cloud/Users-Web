@@ -54,9 +54,21 @@ export const confirm_email = function(store, {token}) {
     })
 }
 
-export const save_user = function(store, {email, first_name, last_name, phone}) {
+export const get_user = function(store, {id=null}) {
     return new Promise((resolve, reject) => {
-        const current_user = store.state.user
+        const handle_success = user => {
+            store.dispatch('USER_UPDATE', user)
+            resolve(user)
+        }
+        store.control
+             .get_user(id)
+             .then(handle_success)
+             .catch(handle_reject(reject, store))
+    })
+}
+
+export const save_user = function(store, {id, zcrm_id, birthday, email, first_name, last_name, phone}) {
+    return new Promise((resolve, reject) => {
         store.control
              .save_user(
                  email,
@@ -65,10 +77,10 @@ export const save_user = function(store, {email, first_name, last_name, phone}) 
                  null,
                  null,
                  phone,
-                 current_user.birthday,
-                 current_user.zcrm_id,
+                 birthday,
+                 zcrm_id,
                  email_confirmation_url,
-                 current_user.id)
+                 id)
              .then(resolve)
              .catch(handle_reject(reject, store))
     })
@@ -89,6 +101,15 @@ export const change_password = function (store, {old_password, new_password}) {
                  current_user.zcrm_id,
                  null,
                  current_user.id)
+             .then(resolve)
+             .catch(handle_reject(reject, store))
+    })
+}
+
+export const send_invite = function(store, {user_id}) {
+    return new Promise((resolve, reject) => {
+        store.control
+             .send_invite(user_id, invite_url)
              .then(resolve)
              .catch(handle_reject(reject, store))
     })
