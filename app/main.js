@@ -14,6 +14,7 @@ import 'app/filters/nullify'
 import 'app/filters/strip_underscores'
 
 import link_copier from 'app/components/link-copier/link_copier'
+import cooldown_button from 'app/components/cooldown-button/cooldown_button'
 
 import ResizeMixin from 'vue-resize-mixin'
 import infinateScroll from 'vue-infinite-scroll'
@@ -27,6 +28,7 @@ import {delete_notification} from 'app/vuex/actions'
 System.import(control_url).then(({Control}) => {  // eslint-disable-line no-undef
     Vue.use(infinateScroll)
     Vue.component('link-copier', link_copier)
+    Vue.component('cooldown-button', cooldown_button)
 
     router.start({
         store,
