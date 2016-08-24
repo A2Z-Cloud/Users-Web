@@ -5,7 +5,7 @@
     </div>
 
     <div v-if="!$loadingRouteData">
-        <div v-if="$route.query.name" class="greeting">{{salutation}}, {{user.first_name}} {{user.last_name}}</div>
+        <div v-if="!$route.params.id" class="greeting">{{salutation}}, {{user.first_name}} {{user.last_name}}</div>
 
         <!-- Edit account details -->
         <div v-if="!changing_password" class="container">
@@ -120,15 +120,6 @@
                 </div>
                 <div class="three columns">
                     <cooldown-button
-                        class="invite-email u-full-width"
-                        v-if="show_send_user_invite"
-                        active-text="Email Invite"
-                        sending-text="Sending"
-                        cooldown-text="In Their Inbox"
-                        cooldown-duration=15
-                        :on-click="send_user_invite">
-                    </cooldown-button>
-                    <cooldown-button
                         class="verify-email u-full-width"
                         v-if="show_verify_email_button"
                         active-text="Verify Email"
@@ -137,16 +128,25 @@
                         cooldown-duration=15
                         :on-click="send_email_confirmation">
                     </cooldown-button>
-                    <br v-if="!show_send_user_invite && !show_verify_email_button">
+                    <br v-else>
                 </div>
                 <div class="three columns">
+                    <cooldown-button
+                        class="invite-email u-full-width"
+                        v-if="show_send_user_invite"
+                        active-text="Email Invite"
+                        sending-text="Sending"
+                        cooldown-text="In Their Inbox"
+                        cooldown-duration=15
+                        :on-click="send_user_invite">
+                    </cooldown-button>
                     <button
-                        v-if="!saving_password"
+                        v-if="show_change_password_button"
                         class="change-password u-full-width"
                         @click="changing_password=!changing_password">
                         {{ changing_password ? 'Cancel' : 'Change Password' }}
                     </button>
-                    <br v-else>
+                    <br v-if="!show_send_user_invite && !show_change_password_button">
                 </div>
                 <div class="three columns">
                     <button

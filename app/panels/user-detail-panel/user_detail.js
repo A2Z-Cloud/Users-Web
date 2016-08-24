@@ -53,16 +53,24 @@ export default Vue.extend({
             const index    = this.users.findIndex(selected)
             return (index !== -1) ? this.users[index] : null
         },
+        editing_signed_in_user() {
+            return this.user_id === this.signed_in_user.id
+        },
         show_send_user_invite() {
             return this.user.invitation_token
                 && this.dirty_user.email === this.user.email
-                && !this.changing_password
         },
         show_verify_email_button() {
-            return !this.user.email_confirmed
+            return this.editing_signed_in_user
+                && !this.user.email_confirmed
                 && this.dirty_user.email === this.user.email
                 && !this.changing_password
                 && !this.show_send_user_invite
+        },
+        show_change_password_button() {
+            return this.editing_signed_in_user
+                && !this.user.invitation_token
+                && !this.saving_password
         },
         changed() {
             return this.dirty_user.email      !== this.user.email
