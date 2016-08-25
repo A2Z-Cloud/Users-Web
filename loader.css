@@ -40,7 +40,7 @@ body {
 }
 .mpc_preloader_inner:before {
     opacity: 0.5;
-    background-color: #2A6BAE;
+    background-color: #0FA0CE;
     -webkit-transform: translateZ(0px) translate(-50%, 0%);
     transform: translateZ(0px) translate(-50%, 0%);
     -webkit-animation-fill-mode: both;
@@ -50,7 +50,7 @@ body {
 }
 .mpc_preloader_inner:after {
     opacity: 0.5;
-    background-color: #38933A;
+    background-color: rgb(148, 148, 148);
     -webkit-transform: translateZ(0px) translate(75%, 0%);
     transform: translateZ(0px) translate(75%, 0%);
     -webkit-animation-fill-mode: both;
