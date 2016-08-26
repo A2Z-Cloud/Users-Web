@@ -55,7 +55,7 @@ export default Vue.extend({
         },
         item_clicked(item) {
             const id = item.id
-            this.$router.go({name: 'user', params: {id}})
+            this.$router.go({name: 'users', params: {id}})
         },
     },
 })
