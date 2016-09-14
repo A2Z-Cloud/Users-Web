@@ -4,3 +4,4 @@ jspm_packages
 
 .htaccess
 consts.js
+.DS_Store
