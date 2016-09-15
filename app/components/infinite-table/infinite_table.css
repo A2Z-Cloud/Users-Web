@@ -1,40 +1,76 @@
 /* Scrolling body tables */
 .InfiniteTable
 table {
-    display: table;
     width: 100%;
 }
 
 .InfiniteTable
-table thead,
+.search-bar .lnr-magnifier {
+    position: absolute;
+    top: 7px; right: 10px;
+    width: 24px;
+    line-height: 17px;
+    cursor: pointer;
+}
+
 .InfiniteTable
-table tbody {
-    float: left;
-    width: 100%;
+input:focus + .lnr-magnifier {
+    color: #33C3F0;
 }
 
 .InfiniteTable
 table tbody {
+    display: block;
     overflow: auto;
-    /*height: 150px; apply your own height*/
+    width: 100%;
+    /*height: 150px; Height applied dynamically in js*/
 }
 
 .InfiniteTable
 table tr {
-    width: 100%;
     display: table;
-    text-align: left;
+    width: 100%;
+    table-layout: fixed;
 }
 
 .InfiniteTable
-table th,
+table tr td {
+    overflow: auto;
+}
+
 .InfiniteTable
-table td {
-    width: 33%;
+table tr td::-webkit-scrollbar {
+    display: none;
 }
 
 .InfiniteTable
 table
 tr.clickable:hover {
-    background-color: rgb(241, 241, 241);
+    background-color: #FBFBFB;
+}
+
+.InfiniteTable
+td
+span.empty {
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+}
+
+.InfiniteTable
+.lnr {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.InfiniteTable
+span.lnr.lnr-checkmark-circle {
+    color: #1EAEDB;
+}
+
+.InfiniteTable
+span.lnr.lnr-cross-circle {
+    color: #A0A0A0;
 }

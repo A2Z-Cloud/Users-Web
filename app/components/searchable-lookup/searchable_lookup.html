@@ -1,0 +1,27 @@
+<div class="SearchableLookup">
+    <input
+        class="lookup u-full-width"
+        type="text"
+        v-model="term | nullify"
+        @blur="term = null"
+        @keyup.esc="term = null"
+        @keyup.enter="do_action(filtered_results[focus_index])"
+        @keyup.up="focus_index = Math.max(0, focus_index-1)"
+        @keyup.down="focus_index = Math.min(results.length-1, focus_index+1)"
+        @keyup="do_search() | debounce 200"
+        :placeholder="placeholder">
+    <div class="searching" v-if="searching">
+        <span class="lnr lnr-sync"></span>
+    </div>
+    <div class="search-list" v-if="term" transition="drop-in">
+        <div class="error-message" v-if="error">
+            {{error}}
+        </div>
+        <div v-for="result in filtered_results"
+             class="search-box"
+             :class="{'selected': $index === focus_index}"
+             @click="do_action(result)">
+                {{ display(result) }}
+        </div>
+    </div>
+</div>

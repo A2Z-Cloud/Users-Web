@@ -1,0 +1,8 @@
+
+.UsersPanel
+.InfiniteTable
+span.centre-header {
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+}

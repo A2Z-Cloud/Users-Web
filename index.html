@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- favicon -->
-    <link rel="icon" type="image/png" href="favicon.ico" />
+    <link rel="icon" type="image/png" href="/favicon.ico" />
 
     <!-- font imports -->
     <link rel='stylesheet' type='text/css' href="https://fonts.googleapis.com/css?family=PT+Mono" />
@@ -32,34 +32,39 @@
     </div>
 
     <div id="Main" v-cloak>
-        <div class="content">
-            <div class="container navigation">
-                <div class="row">
-                    <div class="two columns">
-                        <br>
-                    </div>
-                    <div v-if="user && user.type == 'admin'" class="eight columns">
-                        <a v-link="{ path: '/', exact: true }">My Account</a>
-                        <a v-link="{ path: '/services', exact: false }">Services</a>
-                        <a v-link="{ path: '/users', exact: false }">Users</a>
-                        <a v-link="{ path: '/groups', exact: false }">Groups</a>
-                    </div>
-                    <div v-else class="eight columns">
-                        <br>
-                    </div>
-                    <div class="two columns">
-                        <a v-if="user" :href="sign_out_url">Sign Out</a>
-                        <br v-else>
-                    </div>
+        <!-- <div class="notification-centre">
+            <div :class="['notification', notification.type]" v-for="notification in notifications">
+                <span>{{ notification.message }}</span>
+                <span class="lnr lnr-cross" @click="delete_notification(notification)"></span>
+            </div>
+        </div> -->
+        <div v-el:navigation class="container navigation">
+            <div class="row">
+                <div class="two columns">
+                    <br>
+                </div>
+                <div v-if="user && user.type == 'admin'" class="eight columns">
+                    <a v-link="{ path: '/', exact: true }">My Account</a>
+                    <a v-link="{ path: '/services', exact: false }">Services</a>
+                    <a v-link="{ path: '/users', exact: false }">Users</a>
+                    <a v-link="{ path: '/groups', exact: false }">Groups</a>
+                </div>
+                <div v-else class="eight columns">
+                    <br>
+                </div>
+                <div class="two columns">
+                    <a v-if="user" :href="sign_out_url">Sign Out</a>
+                    <br v-else>
                 </div>
             </div>
-
+        </div>
+        <div class="content" :style="content_style">
             <router-view></router-view>
         </div>
     </div>
 
-    <script type="text/javascript" src="jspm_packages/system.js"></script>
-    <script type="text/javascript" src="config.js"></script>
+    <script type="text/javascript" src="/jspm_packages/system.js"></script>
+    <script type="text/javascript" src="/config.js"></script>
     <script type="text/javascript">
         System.import("app/main");
     </script>

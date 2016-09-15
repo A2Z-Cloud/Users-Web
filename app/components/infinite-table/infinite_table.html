@@ -1,21 +1,28 @@
 <div class="InfiniteTable">
     <div class="container">
         <div class="row">
-            <div class="twleve columns">
-                <input
-                    class="u-full-width"
-                    type="text"
-                    v-model="search_term"
-                    placeholder="search..."
-                    v-on:keyup="search | debounce 100">
+            <div class="twelve columns">
+                <div class="search-bar">
+                    <input
+                        class="u-full-width"
+                        type="text"
+                        v-model="search_term"
+                        placeholder="search..."
+                        v-on:keyup="search | debounce 100" v-el:table-search>
+                    <span class="lnr lnr-magnifier" @click="$els.tableSearch.focus()"></span>
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="twleve columns">
+            <div class="twelve columns">
                 <table class="u-full-width">
                     <thead>
                         <tr>
-                            <th v-for="column in columns">{{column}}</th>
+                            <th v-for="column in columns">
+                                <slot :name="column + '_header'">
+                                    <span>{{column | strip_underscores}}</span>
+                                </slot>
+                            </th>
                         </tr>
                     </thead>
                     <tbody
@@ -32,7 +39,20 @@
                                 :style="row_style"
                                 @click="_item_clicked(item)">
                                     <td v-for="column in columns">
-                                        {{ display_item(item, {column: column}) }}
+                                        <template v-if="display_table_cell_type && display_table_cell_type(item, {column: column}) == 'component'">
+                                            <component :is="display_item(item, {column: column})" :item="item"></component>
+                                        </template>
+                                        <template v-if="display_table_cell_type && display_table_cell_type(item, {column: column}) == 'html'">
+                                            {{{ display_item(item, {column: column}) }}}
+                                        </template>
+                                        <template v-if="!display_table_cell_type || (display_table_cell_type && display_table_cell_type(item, {column: column})) == 'raw'">
+                                            <span v-if="display_item(item, {column: column})">
+                                                {{ display_item(item, {column: column}) }}
+                                            </span>
+                                            <span v-else class="empty">
+                                                -
+                                            </span>
+                                        </template>
                                     </td>
                             </tr>
                     </tbody>

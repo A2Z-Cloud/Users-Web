@@ -1,5 +1,5 @@
 <div class="GroupCreator">
-    <div class="container">
+    <div class="container form-detail">
 
         <div class="row">
             <div class="tweleve columns">
@@ -14,31 +14,79 @@
 
         <div class="row">
             <div class="six columns">
-                <div class="form-label">zoho crm company id (eu)</div>
+                <div class="form-label">zoho crm company (eu)</div>
                 <input
-                    class="u-full-width"
+                    class="u-full-width single-lookup-value"
                     type="text"
                     v-model="group.zcrm_id"
                     placeholder="e.g. 1770000000501001">
+                <div class="single-lookup-display" v-if="group.zcrm_id">
+                    <span class="value-bubble">
+                        <span class="name">{{ group.zcrm_id }}</span>
+                        <span class="lnr lnr-cross delete" @click="group.zcrm_id = null"></span>
+                    </span>
+                </div>
+                <div class="single-lookup-entry" v-else>
+                    <searchable-lookup
+                            :search="search_zoho_groups"
+                            :skwargs="{service:'crm'}"
+                            :action="set_zoho_id"
+                            :akwargs="{service:'crm'}"
+                            :display="display_zoho_group"
+                            placeholder="e.g. A2Z Cloud">
+                    </searchable-lookup>
+                </div>
             </div>
             <div class="six columns">
-                <div class="form-label">zoho projects company id (eu)</div>
+                <div class="form-label">zoho projects company (eu)</div>
                 <input
-                    class="u-full-width"
+                    class="u-full-width single-lookup-value"
                     type="text"
                     v-model="group.zprojects_id"
                     placeholder="e.g. 195000000012009">
+                <div class="single-lookup-display" v-if="group.zprojects_id">
+                    <span class="value-bubble">
+                        <span class="name">{{ group.zprojects_id }}</span>
+                        <span class="lnr lnr-cross delete" @click="group.zprojects_id = null"></span>
+                    </span>
+                </div>
+                <div class="single-lookup-entry" v-else>
+                    <searchable-lookup
+                            :search="search_zoho_groups"
+                            :skwargs="{service:'projects'}"
+                            :action="set_zoho_id"
+                            :akwargs="{service:'projects'}"
+                            :display="display_zoho_group"
+                            placeholder="e.g. A2Z Cloud">
+                    </searchable-lookup>
+                </div>
             </div>
         </div>
 
         <div class="row">
             <div class="six columns">
-                <div class="form-label">zoho support company id (eu)</div>
+                <div class="form-label">zoho support company (eu)</div>
                 <input
-                    class="u-full-width"
+                    class="u-full-width single-lookup-value"
                     type="text"
                     v-model="group.zsupport_id"
                     placeholder="e.g. 40000000032004">
+                <div class="single-lookup-display" v-if="group.zsupport_id">
+                    <span class="value-bubble">
+                        <span class="name">{{ group.zsupport_id }}</span>
+                        <span class="lnr lnr-cross delete" @click="group.zsupport_id = null"></span>
+                    </span>
+                </div>
+                <div class="single-lookup-entry" v-else>
+                    <searchable-lookup
+                            :search="search_zoho_groups"
+                            :skwargs="{service:'support'}"
+                            :action="set_zoho_id"
+                            :akwargs="{service:'support'}"
+                            :display="display_zoho_group"
+                            placeholder="e.g. A2Z Cloud">
+                    </searchable-lookup>
+                </div>
             </div>
             <div class="six columns">
                 <br>

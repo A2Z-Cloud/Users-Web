@@ -11,16 +11,24 @@ import router from './router'
 import store from 'app/vuex/store'
 
 import 'app/filters/nullify'
+import 'app/filters/strip_underscores'
+
+import link_copier from 'app/components/link-copier/link_copier'
+import cooldown_button from 'app/components/cooldown-button/cooldown_button'
 
 import ResizeMixin from 'vue-resize-mixin'
 import infinateScroll from 'vue-infinite-scroll'
 
 import {control_url} from './consts'
 
+import {delete_notification} from 'app/vuex/actions'
+
 
 // –– Control
 System.import(control_url).then(({Control}) => {  // eslint-disable-line no-undef
     Vue.use(infinateScroll)
+    Vue.component('link-copier', link_copier)
+    Vue.component('cooldown-button', cooldown_button)
 
     router.start({
         store,
@@ -48,12 +56,25 @@ System.import(control_url).then(({Control}) => {  // eslint-disable-line no-unde
 
                 return this.auth_client_url + '/sign-out?next=' + encodeURIComponent(sign_in_url_return)
             },
+            content_height() {
+                return this.window_size.height - this.$els.navigation.offsetHeight
+            },
+            content_style() {
+                return {
+                    height: this.content_height + 'px',
+                }
+            },
         },
         vuex: {
             getters:  {
                 user: state => state.user,
                 ws_ready: state => state.auth_client_url && state.ws_status === 'open',
                 auth_client_url: state => state.auth_client_url,
+                window_size: state => state.window_size,
+                notifications: state => state.notifications,
+            },
+            actions: {
+                delete_notification,
             },
         },
         events: {

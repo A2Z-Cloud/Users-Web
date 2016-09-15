@@ -2,8 +2,6 @@ import './users.css!'
 import tmpl from './users.html!text'
 import Vue from 'vue'
 
-import { invite_url } from 'app/consts'
-
 import { filter_users } from 'app/vuex/actions'
 import infinite_table from 'app/components/infinite-table/infinite_table'
 import user_creator from 'app/components/user-creator/user_creator'
@@ -32,10 +30,16 @@ export default Vue.extend({
         },
     },
     methods: {
+        display_table_cell_type(user, {column}) {
+            if (column === 'invite_accepted') return 'html'
+            if (column === 'invite_link' && user.invitation_token) return 'component'
+            return 'raw'
+        },
         display_table_cell(user, {column}) {
-            if (column === 'invite_accepted') return !user.invitation_token
-            else if (column === 'invite_link' && !user.invitation_token) return '-'
-            else if (column === 'invite_link' && user.invitation_token) return encodeURI(invite_url) + '?email=' + encodeURIComponent(user.email) + '&token=' + encodeURIComponent(user.invitation_token)
+            if (column === 'invite_accepted' && !user.invitation_token) return '<span class="lnr lnr-checkmark-circle"></span>'
+            else if (column === 'invite_accepted' && user.invitation_token) return '<span class="lnr lnr-cross-circle"></span>'
+            else if (column === 'invite_link' && user.invitation_token) return 'link-copier'
+
             return user[column]
         },
         close_create_component() {
@@ -48,6 +52,10 @@ export default Vue.extend({
         fetch_next_search(term, offset=0) {
             const filter = {term, offset, limit:10}
             return this.filter_users(filter)
+        },
+        item_clicked(item) {
+            const id = item.id
+            this.$router.go({name: 'users', params: {id}})
         },
     },
 })

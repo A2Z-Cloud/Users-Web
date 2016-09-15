@@ -14,13 +14,15 @@ const state = {
     },
     control: null,
     ws_status: null,
-    error: null,
+    notifications: [],
     auth_client_url: null,
     user: null,
     services: [],
     users: [],
     groups: [],
     memberships: [],
+    zoho_groups: [],
+    zoho_contacts: [],
 }
 
 
@@ -31,8 +33,15 @@ const mutations = {
     WS_STATUS_SET(state, status) {
         state.ws_status = status
     },
-    ERROR_SET(state, error) {
-        state.error = error
+    NOTIFICATION_INSERT(state, notification) {
+        const max_length = 5
+        const length     = state.notifications.unshift(notification)
+        if (length > max_length) state.notifications.pop()
+    },
+    NOTIFICATION_DELETE(state, notification) {
+        const index = state.notifications.indexOf(notification)
+        if (index === -1) return
+        state.notifications.splice(index, 1)
     },
     AUTH_CLIENT_URL_SET(state, url) {
         state.auth_client_url = url
@@ -102,6 +111,18 @@ const mutations = {
     MEMBERSHIP_DELETE(state, id) {
         const index = state.memberships.findIndex(m => m.id === id)
         if (index !== -1) state.memberships.splice(index, 1)
+    },
+    ZOHO_GROUP_UPDATE(state, group) {
+        const index     = state.zoho_groups.findIndex(g => g.id === group.id)
+        const new_group = merge(state.zoho_groups[index], group)
+        if (index !== -1) state.zoho_groups.$set(index, new_group)
+        else state.zoho_groups.push(new_group)
+    },
+    ZOHO_CONTACTS_UPDATE(state, contact) {
+        const index       = state.zoho_contacts.findIndex(c => c.id === contact.id)
+        const new_contact = merge(state.zoho_contacts[index], contact)
+        if (index !== -1) state.zoho_contacts.$set(index, new_contact)
+        else state.zoho_contacts.push(new_contact)
     },
 }
 

@@ -1,0 +1,93 @@
+.LinkCopier {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.LinkCopier
+.copy-content {
+    visibility: hidden;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.LinkCopier
+.copy-handle:hover +
+.copy-content,
+.LinkCopier
+.copy-content:hover {
+    visibility: visible;
+}
+
+.LinkCopier
+.copy-handle {
+    width: 24px;
+    height: 24px;
+    margin: auto;
+}
+
+.LinkCopier
+.copy-handle .lnr {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+
+    line-height: 14px;
+    vertical-align: top;
+    font-weight: bold;
+
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border-radius: 50%;
+}
+
+.LinkCopier
+.copy-handle:hover .lnr {
+    border-color: #33C3F0;
+    color: #33C3F0;
+}
+
+.LinkCopier
+.copy-value {
+    height: 24px;
+    width: 80%;
+    margin: 0;
+    vertical-align: top;
+    box-sizing: border-box;
+    border: 1px solid #33C3F0;
+    border-left: none;
+    background: #FFF;
+}
+
+.LinkCopier
+.copy-value:focus {
+    outline: none;
+}
+
+.LinkCopier
+.lnr.copy-value-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: -4px;
+
+    line-height: 14px;
+    vertical-align: top;
+
+    box-sizing: border-box;
+    border: 1px solid #33C3F0;
+    border-right: none;
+
+    background: #FFF;
+    color: #33C3F0;
+
+    -webkit-border-bottom-left-radius: 50%;
+    -webkit-border-top-left-radius:    50%;
+    -moz-border-radius-bottomleft:     50%;
+       -moz-border-radius-topleft:     50%;
+            border-bottom-left-radius: 50%;
+            border-top-left-radius:    50%;
+}

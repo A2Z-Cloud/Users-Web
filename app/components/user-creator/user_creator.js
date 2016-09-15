@@ -2,11 +2,16 @@ import './user_creator.css!'
 import tmpl from './user_creator.html!text'
 import Vue from 'vue'
 
-import { invite_user } from 'app/vuex/actions'
+import { invite_user, filter_zoho_contacts } from 'app/vuex/actions'
+
+import searchable_lookup from 'app/components/searchable-lookup/searchable_lookup'
 
 
 export default Vue.extend({
     template: tmpl,
+    components: {
+        'searchable-lookup': searchable_lookup,
+    },
     props: ['completed'],
     data: () => ({
         error: null,
@@ -38,6 +43,7 @@ export default Vue.extend({
         },
         actions: {
             invite_user,
+            filter_zoho_contacts,
         },
     },
     methods: {
@@ -64,6 +70,20 @@ export default Vue.extend({
             this.invite_user(this.user)
                 .then(sending_success)
                 .catch(sending_failure)
+        },
+        search_zoho_contacts(term, {offset=0, limit=5}={}) {
+            return this.filter_zoho_contacts({term, offset, limit})
+        },
+        set_zoho_id(record) {
+            this.user.zcrm_id = record.id
+        },
+        display_zoho_contact(record) {
+            let full_name  = record.first_name ? record.first_name : ""
+                full_name += record.last_name  ? " " + record.last_name : ""
+
+            if(full_name == "") full_name = "[No Name]"
+
+            return full_name
         },
     },
 })

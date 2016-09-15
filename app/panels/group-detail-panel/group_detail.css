@@ -1,10 +1,15 @@
 .GroupsPanel
+.section-break {
+    border-style: dashed;
+}
+
+.GroupsPanel
 .members-area {
     text-align: left;
 }
 
 .GroupsPanel
-.member-bubble {
+.value-bubble {
     border-radius: 4px;
     padding: 2px 4px 2px 8px;
     margin: 0 4px 0 4px;
@@ -13,27 +18,34 @@
 }
 
 .GroupsPanel
-.member-bubble
+.value-bubble
 .lnr:before {
     vertical-align: middle;
 }
 
 .GroupsPanel
-.member-bubble
+.value-bubble
 .lnr-cross:hover {
     color: black;
 }
 
 .GroupsPanel
-.search-box.selected {
-    color: white;
-    background-color: rgba(15, 160, 206, 0.6);
+.single-lookup {
+    text-align: left;
 }
 
 .GroupsPanel
-.search-box:hover {
-    color: white;
-    background-color: #0FA0CE;
+.single-lookup-value {
+    display: none;
+}
 
-    cursor: pointer;
+.GroupsPanel .single-lookup-entry,
+.GroupsPanel .single-lookup-display {
+    display: inline-block;
+    width: 100%;
+}
+
+.GroupsPanel
+.single-lookup-display {
+    padding: 6px 0;
 }

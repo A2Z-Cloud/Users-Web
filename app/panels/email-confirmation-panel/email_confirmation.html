@@ -1,5 +1,9 @@
-<div v-if="error">{{error.message}}</div>
-
-<div v-if="success">
-    Email confirmed
+<div class="EmailConfirmationPanel panel">
+    <div class="container">
+        <div class="message">
+            <div class="error"   v-if="error">{{error.message}}</div>
+            <div class="success" v-if="success">Email Confirmed</div>
+        </div>
+        <a class="button button-primary home" v-link="{ path: '/', exact: true }">Home</a>
+    </div>
 </div>
