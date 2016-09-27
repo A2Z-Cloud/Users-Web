@@ -167,7 +167,3 @@ input[type="button"].button-primary:disabled {
 .tool-tip-message.warning {
     color: rgb(170, 57, 57);
 }
-
-.form-actions {
-    padding-top: 32px;
-}

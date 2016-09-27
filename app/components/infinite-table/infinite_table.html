@@ -35,7 +35,7 @@
 
                             <tr v-for='item in display_items'
                                 track-by='$index'
-                                :class="{'clickable': this.item_clicked}"
+                                :class="{'clickable': this.item_clicked, 'even': !($index % 2)}"
                                 :style="row_style"
                                 @click="_item_clicked(item)">
                                     <td v-for="column in columns">
@@ -57,6 +57,28 @@
                             </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+        <div class="row form-actions">
+            <div class="three columns">
+                <slot name="footer-one">
+                    <br v-el:footer-one-default>
+                </slot>
+            </div>
+            <div class="three columns">
+                <slot name="footer-two">
+                    <br v-el:footer-two-default>
+                </slot>
+            </div>
+            <div class="three columns">
+                <slot name="footer-three">
+                    <br v-el:footer-three-default>
+                </slot>
+            </div>
+            <div class="three columns">
+                <slot name="footer-three">
+                    <br v-el:footer-four-default>
+                </slot>
             </div>
         </div>
     </div>

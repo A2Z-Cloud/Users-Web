@@ -31,8 +31,17 @@ export default Vue.extend({
             if (this.searching) return this.search_items
             return this.items
         },
+        show_action_bar() {
+            // Any defaults missing then slots have been given
+            return !this.$els.footerOneDefault
+                || !this.$els.footerTwoDefault
+                || !this.$els.footerThreeDefault
+                || !this.$els.footerFourDefault
+        },
         table_height() {
-            return (this.window_height - this.table_body_distance_from_top - 32) + 'px'
+            let height = (this.window_height - this.table_body_distance_from_top - 32)
+            height     = (this.show_action_bar) ? height - 48 : height
+            return height + 'px'
         },
         disabled() {
             return (!this.searching && this.items_exhausted)
