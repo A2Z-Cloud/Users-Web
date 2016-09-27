@@ -54,8 +54,11 @@
                 </div>
             </div>
             <div class="six columns">
-                <label for="email_invite_checkbox" class="noselect">send email invitation</label>
-                <input id="email_invite_checkbox" type="checkbox" v-model="user.send_email_invite">
+                <div class="form-label">send email invitation</div>
+                <div class="switch">
+                    <input id="email_invite_checkbox"  class="toggle" type="checkbox" v-model="user.send_email_invite">
+                    <label for="email_invite_checkbox" class="toggle-item"></label>
+                </div>
             </div>
         </div>
 
