@@ -40,7 +40,7 @@ export default Vue.extend({
         },
         table_height() {
             let height = (this.window_height - this.table_body_distance_from_top - 32)
-            height     = (this.show_action_bar) ? height - 48 : height
+            height     = (this.show_action_bar) ? height - 38 : height
             return height + 'px'
         },
         disabled() {

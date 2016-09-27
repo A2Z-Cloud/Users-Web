@@ -1,7 +1,13 @@
-/* Scrolling body tables */
+.InfiniteTable {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
 .InfiniteTable
 table {
     width: 100%;
+    margin: 0;
 }
 
 .InfiniteTable
@@ -45,14 +51,14 @@ table tr td::-webkit-scrollbar {
 
 .InfiniteTable
 table
-tr.even {
-    background-color: #FBFBFB;
+tr:nth-child(even) {
+    background-color: #FCFCFC;
 }
 
 .InfiniteTable
 table
 tr.clickable:hover {
-    background-color: rgb(237, 249, 255);
+    background-color: #EDF9FF;
 }
 
 .InfiniteTable

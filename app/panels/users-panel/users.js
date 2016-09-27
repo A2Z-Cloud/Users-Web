@@ -46,11 +46,11 @@ export default Vue.extend({
             this.show_create_component = false
         },
         fetch_next(offset=0) {
-            const filter = {offset, limit:10}
+            const filter = {offset, limit:20}
             return this.filter_users(filter)
         },
         fetch_next_search(term, offset=0) {
-            const filter = {term, offset, limit:10}
+            const filter = {term, offset, limit:20}
             return this.filter_users(filter)
         },
         item_clicked(item) {

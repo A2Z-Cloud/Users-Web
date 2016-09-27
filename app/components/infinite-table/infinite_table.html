@@ -1,5 +1,5 @@
 <div class="InfiniteTable">
-    <div class="container">
+    <div class="container full-height">
         <div class="row">
             <div class="twelve columns">
                 <div class="search-bar">
@@ -35,7 +35,7 @@
 
                             <tr v-for='item in display_items'
                                 track-by='$index'
-                                :class="{'clickable': this.item_clicked, 'even': !($index % 2)}"
+                                :class="{'clickable': this.item_clicked}"
                                 :style="row_style"
                                 @click="_item_clicked(item)">
                                     <td v-for="column in columns">
@@ -59,7 +59,7 @@
                 </table>
             </div>
         </div>
-        <div class="row form-actions">
+        <div class="row table-actions">
             <div class="three columns">
                 <slot name="footer-one">
                     <br v-el:footer-one-default>
@@ -76,7 +76,7 @@
                 </slot>
             </div>
             <div class="three columns">
-                <slot name="footer-three">
+                <slot name="footer-four">
                     <br v-el:footer-four-default>
                 </slot>
             </div>
