@@ -177,7 +177,6 @@ input[type="button"].button-primary:disabled {
 .tool-tip-message.warning {
     color: rgb(170, 57, 57);
 }
-<<<<<<< HEAD
 
 .form-actions {
     padding-top: 32px;
@@ -241,5 +240,3 @@ input.toggle { display: none; }
 }
 .toggle:checked + .toggle-item::before { background-color: #1EAEDB; }
 .toggle:checked + .toggle-item::after  { margin-left: 15px; }
-=======
->>>>>>> slotted-cancel
