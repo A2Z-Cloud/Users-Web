@@ -1,16 +1,34 @@
 <div class="InfiniteTable">
     <div class="container full-height">
-        <div class="row">
-            <div class="twelve columns">
-                <div class="search-bar">
-                    <input
-                        class="u-full-width"
-                        type="text"
-                        v-model="search_term"
-                        placeholder="search..."
-                        v-on:keyup="search | debounce 100" v-el:table-search>
-                    <span class="lnr lnr-magnifier" @click="$els.tableSearch.focus()"></span>
-                </div>
+        <div class="row action-bar">
+            <div class="search-bar">
+                <input
+                    class="u-full-width"
+                    type="text"
+                    v-model="search_term"
+                    placeholder="search..."
+                    v-on:keyup="search | debounce 100" v-el:table-search>
+                <span class="lnr lnr-magnifier" @click="$els.tableSearch.focus()"></span>
+            </div>
+            <div class="action-item" :class="{'spacer': !$els.actionOneDefault}">
+                <slot name="action-one">
+                    <br v-el:action-one-default>
+                </slot>
+            </div>
+            <div class="action-item" :class="{'spacer': !$els.actionTwoDefault}">
+                <slot name="action-two">
+                    <br v-el:action-two-default>
+                </slot>
+            </div>
+            <div class="action-item" :class="{'spacer': !$els.actionThreeDefault}">
+                <slot name="action-three">
+                    <br v-el:action-three-default>
+                </slot>
+            </div>
+            <div class="action-item" :class="{'spacer': !$els.actionFourDefault}">
+                <slot name="action-four">
+                    <br v-el:action-four-default>
+                </slot>
             </div>
         </div>
         <div class="row">
@@ -28,7 +46,7 @@
                     <tbody
                         v-else
                         v-el:table-body
-                        :style="{height: table_height}"
+                        :style="{maxHeight: table_height}"
                         v-infinite-scroll="nearing_bottom()"
                         infinite-scroll-disabled="disabled"
                         infinite-scroll-distance="10">
@@ -57,28 +75,6 @@
                             </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-        <div class="row table-actions">
-            <div class="three columns">
-                <slot name="footer-one">
-                    <br v-el:footer-one-default>
-                </slot>
-            </div>
-            <div class="three columns">
-                <slot name="footer-two">
-                    <br v-el:footer-two-default>
-                </slot>
-            </div>
-            <div class="three columns">
-                <slot name="footer-three">
-                    <br v-el:footer-three-default>
-                </slot>
-            </div>
-            <div class="three columns">
-                <slot name="footer-four">
-                    <br v-el:footer-four-default>
-                </slot>
             </div>
         </div>
     </div>

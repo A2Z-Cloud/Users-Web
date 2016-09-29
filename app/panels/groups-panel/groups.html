@@ -21,8 +21,7 @@
         :item_clicked="item_clicked">
 
         <button
-            slot="footer-one"
-            class="u-full-width"
+            slot="action-one"
             :class="{'button-primary': !show_create_component}"
             @click="show_create_component = !show_create_component">
             {{ show_create_component ? 'Cancel' : 'Create New Group' }}

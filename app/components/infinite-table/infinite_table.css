@@ -4,10 +4,45 @@
     height: 100%;
 }
 
+
+/* –––– ACTIONS –––– */
+
 .InfiniteTable
-table {
+.action-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.InfiniteTable
+.action-bar .test {
+    background-color: red;
+}
+
+.InfiniteTable
+.action-bar .spacer {
+    margin-left: 15px;
+}
+
+.InfiniteTable
+.action-bar .action-item
+button {
+    min-width: 200px;
+    box-sizing: border-box;
+    margin-bottom: 0px;
+}
+
+.InfiniteTable
+.action-bar
+.search-bar {
+    position: relative;
     width: 100%;
-    margin: 0;
+}
+
+.InfiniteTable
+.action-bar .search-bar
+input {
+    margin-bottom: 0;
 }
 
 .InfiniteTable
@@ -22,6 +57,15 @@ table {
 .InfiniteTable
 input:focus + .lnr-magnifier {
     color: #33C3F0;
+}
+
+
+/* –––– TABLE –––– */
+
+.InfiniteTable
+table {
+    width: 100%;
+    margin-bottom: 1.5rem;
 }
 
 .InfiniteTable
@@ -42,6 +86,17 @@ table tr {
 .InfiniteTable
 table tr td {
     overflow: auto;
+    padding: 10px 15px;
+}
+
+.InfiniteTable
+table tr td:first-child {
+    padding-left: 0;
+}
+
+.InfiniteTable
+table tr td:last-child {
+    padding-right: 0;
 }
 
 .InfiniteTable
