@@ -40,7 +40,9 @@
                     placeholder="e.g. 1770000000551017">
                 <div class="single-lookup-display" v-if="user.zcrm_id">
                     <span class="value-bubble">
-                        <span class="name">{{ user.zcrm_id }}</span>
+                        <a class="name" :href="'https://crm.zoho.eu/crm/EntityInfo.do?module=Contacts&id='+user.zcrm_id">
+                            {{ zoho_contact }}
+                        </a>
                         <span class="lnr lnr-cross delete" @click="user.zcrm_id = null"></span>
                     </span>
                 </div>

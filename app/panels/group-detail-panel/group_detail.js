@@ -3,7 +3,7 @@ import tmpl from './group_detail.html!text'
 import Vue from 'vue'
 
 import { get_group, save_group, get_membership, filter_users,
-         save_membership, delete_membership, filter_zoho_groups } from 'app/vuex/actions'
+         save_membership, delete_membership, filter_zoho_groups, get_zoho_group } from 'app/vuex/actions'
 
 import searchable_lookup from 'app/components/searchable-lookup/searchable_lookup'
 
@@ -24,7 +24,21 @@ export default Vue.extend({
             const promises = [
                 this.get_group({name}),
                 this.get_membership({group_name: name})]
-            const resolve  = ([group]) => ({dirty_group: group, group_id: group.id})
+
+            const resolve  = ([group]) => {
+                const result = { dirty_group: group, group_id: group.id }
+
+                const zoho_promises = [
+                    this.get_zoho_group({service: 'crm',      id: group.zcrm_id}),
+                    this.get_zoho_group({service: 'projects', id: group.zprojects_id}),
+                    this.get_zoho_group({service: 'support',  id: group.zsupport_id})]
+
+                const finish = () => result
+                return Promise.all(zoho_promises)
+                              .catch(finish)
+                              .then(finish)
+            }
+
             return Promise.all(promises).then(resolve)
         },
     },
@@ -60,8 +74,9 @@ export default Vue.extend({
     },
     vuex: {
         getters: {
-            memberships: state => state.memberships,
             groups: state => state.groups,
+            memberships: state => state.memberships,
+            zoho_groups: state => state.zoho_groups,
         },
         actions: {
             get_group,
@@ -71,6 +86,7 @@ export default Vue.extend({
             save_membership,
             delete_membership,
             filter_zoho_groups,
+            get_zoho_group,
         },
     },
     methods: {
@@ -123,6 +139,10 @@ export default Vue.extend({
         },
         display_zoho_group(record) {
             return record.name
+        },
+        zoho_account_name(id, service) {
+            const groups = this.zoho_groups.filter(zg => (zg.id === id && zg.service === service))
+            return (groups.length === 1) ? groups[0].name : null
         },
     },
 })

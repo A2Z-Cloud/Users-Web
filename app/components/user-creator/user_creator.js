@@ -2,7 +2,7 @@ import './user_creator.css!'
 import tmpl from './user_creator.html!text'
 import Vue from 'vue'
 
-import { invite_user, filter_zoho_contacts } from 'app/vuex/actions'
+import { invite_user, filter_zoho_contacts, get_zoho_contact } from 'app/vuex/actions'
 
 import searchable_lookup from 'app/components/searchable-lookup/searchable_lookup'
 
@@ -26,6 +26,7 @@ export default Vue.extend({
             zcrm_id: '',
             send_email_invite: true,
         },
+        zoho_contact: '',
     }),
     computed: {
         enable_create_button() {
@@ -43,7 +44,8 @@ export default Vue.extend({
         },
         actions: {
             invite_user,
-            filter_zoho_contacts,
+            get_zoho_contact,
+            filter_zoho_contacts
         },
     },
     methods: {
@@ -76,6 +78,10 @@ export default Vue.extend({
         },
         set_zoho_id(record) {
             this.user.zcrm_id = record.id
+
+            // display the zoho contact name in the value bubble
+            this.zoho_contact = "loading..."
+            this.load_zoho_contact(record.id)
         },
         display_zoho_contact(record) {
             let full_name  = record.first_name ? record.first_name : ""
@@ -85,5 +91,14 @@ export default Vue.extend({
 
             return full_name
         },
+        load_zoho_contact(id) {
+            this.get_zoho_contact(id).then((contact) => {
+                let name = contact.last_name
+                if(contact.first_name) name = contact.first_name + " " + name
+
+                // set the display name
+                this.zoho_contact = name
+            })
+        }
     },
 })
