@@ -1,23 +1,15 @@
 <div v-el:service-panel class="ServicesPanel panel">
-    <div class="container">
-        <div class="row">
-            <div class="nine columns">
-                <br>
-            </div>
-            <div class="three columns">
-                <button
-                    class="u-full-width"
-                    :class="{'button-primary': !show_create_component}"
-                    @click="show_create_component = !show_create_component">
-                    {{ show_create_component ? 'Cancel' : 'Create New Service' }}
-                </button>
-            </div>
-        </div>
-    </div>
-
     <service-creator
         v-if="show_create_component"
         :completed="close_create_component">
+
+        <button
+            slot="footer-one"
+            class="u-full-width"
+            :class="{'button-primary': !show_create_component}"
+            @click="show_create_component = !show_create_component">
+            {{ show_create_component ? 'Cancel' : 'Create New Service' }}
+        </button>
     </service-creator>
 
     <infinite-table
@@ -26,5 +18,12 @@
         :items="services"
         :fetch_next="fetch_next"
         :fetch_next_search="fetch_next_search">
+
+        <button
+            slot="action-one"
+            :class="{'button-primary': !show_create_component}"
+            @click="show_create_component = !show_create_component">
+            {{ show_create_component ? 'Cancel' : 'Create New Service' }}
+        </button>
     </infinite-table>
 </div>

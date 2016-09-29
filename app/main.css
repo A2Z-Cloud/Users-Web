@@ -94,7 +94,7 @@ textarea.invalid {
 button {
     border-radius: 0;
     overflow: hidden;
-    padding: 0;
+    padding: 0 10px;
 }
 
 .button:disabled,
@@ -114,10 +114,16 @@ input[type="button"].button-primary:disabled {
 }
 
 .panel {
+    height: 100%;
+    box-sizing: border-box;
     padding-top: 32px;
 
     text-align: center;
     align-content: center;
+}
+
+.form-actions {
+    margin-top: 32px;
 }
 
 .greeting {
@@ -134,7 +140,11 @@ input[type="button"].button-primary:disabled {
     font-style: italic;
 }
 
-/* vertical aligns linearicons */
+.full-height {
+    height: 100%;
+}
+
+/* vertical aligns linaricons */
 .lnr:before {
     vertical-align: sub;
 }
@@ -167,6 +177,7 @@ input[type="button"].button-primary:disabled {
 .tool-tip-message.warning {
     color: rgb(170, 57, 57);
 }
+<<<<<<< HEAD
 
 .form-actions {
     padding-top: 32px;
@@ -230,3 +241,5 @@ input.toggle { display: none; }
 }
 .toggle:checked + .toggle-item::before { background-color: #1EAEDB; }
 .toggle:checked + .toggle-item::after  { margin-left: 15px; }
+=======
+>>>>>>> slotted-cancel

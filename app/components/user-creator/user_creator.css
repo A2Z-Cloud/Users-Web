@@ -1,6 +1,12 @@
+.UserCreator {
+    position: relative;
+    height: 100%;
+}
+
 .UserCreator
 .form-detail {
     text-align: left;
+    height: 100%;
 }
 
 .UserCreator
