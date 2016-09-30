@@ -1,0 +1,34 @@
+.ValueBubble  {
+    border-radius: 4px;
+    padding: 2px 4px 2px 8px;
+    margin: 0 4px 0 4px;
+    background: #33C3F0;
+    color: white;
+}
+
+.ValueBubble a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.ValueBubble.value-error {
+    background-color: #DC5E5E;
+}
+
+.ValueBubble.value-error::before {
+    content: "Unknown";
+}
+
+.ValueBubble.value-error a {
+    display: none;
+}
+
+.ValueBubble
+.lnr:before {
+    vertical-align: middle;
+}
+
+.ValueBubble
+.lnr-cross:hover {
+    color: black;
+}

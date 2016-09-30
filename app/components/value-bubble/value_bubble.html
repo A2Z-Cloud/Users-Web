@@ -1,0 +1,6 @@
+<span class="ValueBubble" :class="{'value-error': this.error}">
+    <a class="name" v-link="link" v-if="link_type == 'router'">{{ show }}</a>
+    <a class="name" :href="link" v-if="link_type == 'href'">{{ show }}</a>
+    <span class="name" v-if="!link">{{ show }}</span>
+    <span class="lnr lnr-cross delete" @click="pop"></span>
+</span>

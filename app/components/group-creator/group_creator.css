@@ -4,27 +4,6 @@
 }
 
 .GroupCreator
-.value-bubble {
-    border-radius: 4px;
-    padding: 2px 4px 2px 8px;
-    margin: 0 4px 0 4px;
-    background: #33C3F0;
-    color: white;
-}
-
-.GroupCreator
-.value-bubble
-.lnr:before {
-    vertical-align: middle;
-}
-
-.GroupCreator
-.value-bubble
-.lnr-cross:hover {
-    color: black;
-}
-
-.GroupCreator
 .single-lookup {
     text-align: left;
 }

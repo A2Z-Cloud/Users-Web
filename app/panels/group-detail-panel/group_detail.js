@@ -6,12 +6,14 @@ import { get_group, save_group, get_membership, filter_users,
          save_membership, delete_membership, filter_zoho_groups, get_zoho_group } from 'app/vuex/actions'
 
 import searchable_lookup from 'app/components/searchable-lookup/searchable_lookup'
+import value_bubble from 'app/components/value-bubble/value_bubble'
 
 
 export default Vue.extend({
     template: tmpl,
     components: {
         'searchable-lookup': searchable_lookup,
+        'value-bubble': value_bubble,
     },
     data: () => ({
         error: null,
@@ -25,15 +27,13 @@ export default Vue.extend({
                 this.get_group({name}),
                 this.get_membership({group_name: name})]
 
-            const resolve  = ([group]) => {
-                const result = { dirty_group: group, group_id: group.id }
-
+            const resolve = ([group]) => {
                 const zoho_promises = [
                     this.get_zoho_group({service: 'crm',      id: group.zcrm_id}),
                     this.get_zoho_group({service: 'projects', id: group.zprojects_id}),
                     this.get_zoho_group({service: 'support',  id: group.zsupport_id})]
 
-                const finish = () => result
+                const finish = () => ({ dirty_group: group, group_id: group.id })
                 return Promise.all(zoho_promises)
                               .catch(finish)
                               .then(finish)
@@ -113,36 +113,30 @@ export default Vue.extend({
             const filter = {term, offset: 0, limit}
             return this.filter_users(filter)
         },
-        filtered_searched_members(records) {
+        filter_searched_members(records) {
             // remove members from search
             const member_ids = this.group_membership.map(m => m.user.id)
             const not_member = m => member_ids.indexOf(m.id) === -1
             return records.filter(not_member)
         },
-        display_search_member(member) {
+        format_searched_member(member) {
             return member.first_name + " " + member.last_name + " - " + member.email
         },
         search_zoho_groups(term, {service='crm', offset=0, limit=5}={}) {
             return this.filter_zoho_groups({service, term, offset, limit})
         },
         set_zoho_id(record, {service='crm'}={}) {
-            switch (service) {
-            case 'projects':
-                this.dirty_group.zprojects_id = record.id
-                break
-            case 'support':
-                this.dirty_group.zsupport_id = record.id
-                break
-            default:
-                this.dirty_group.zcrm_id = record.id
-            }
+            if(service == 'crm')           this.dirty_group.zcrm_id      = record.id
+            else if(service == 'projects') this.dirty_group.zprojects_id = record.id
+            else if(service == 'support')  this.dirty_group.zsupport_id  = record.id
         },
-        display_zoho_group(record) {
-            return record.name
+        format_zoho_group(record) {
+            // if value was not set to the record then return it (may be 'unknown' or 'undefined')
+            return record && record.name ? record.name : record
         },
         zoho_account_name(id, service) {
             const groups = this.zoho_groups.filter(zg => (zg.id === id && zg.service === service))
-            return (groups.length === 1) ? groups[0].name : null
+            return (groups.length === 1) ? groups[0].name : 'unknown'
         },
     },
 })

@@ -10,48 +10,6 @@
 }
 
 .UserCreator
-.value-bubble {
-    border-radius: 4px;
-    padding: 2px 4px 2px 8px;
-    margin: 0 4px 0 4px;
-    background: #33C3F0;
-    color: white;
-}
-
-.UserCreator
-.value-bubble a {
-    color: inherit;
-    text-decoration: none;
-}
-
-.UserCreator
-.value-bubble.value-error {
-    background-color: red;
-}
-
-.UserCreator
-.value-bubble.value-error::before {
-    content: "Unknown";
-}
-
-.UserCreator
-.value-bubble.value-error a {
-    display: none;
-}
-
-.UserCreator
-.value-bubble
-.lnr:before {
-    vertical-align: middle;
-}
-
-.UserCreator
-.value-bubble
-.lnr-cross:hover {
-    color: black;
-}
-
-.UserCreator
 .single-lookup {
     text-align: left;
 }
