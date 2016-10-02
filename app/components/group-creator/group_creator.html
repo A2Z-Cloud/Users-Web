@@ -21,10 +21,11 @@
                     v-model="group.zcrm_id"
                     placeholder="e.g. 1770000000501001">
                 <div class="single-lookup-display" v-if="group.zcrm_id">
-                    <span class="value-bubble">
-                        <span class="name">{{ group.zcrm_id }}</span>
-                        <span class="lnr lnr-cross delete" @click="group.zcrm_id = null"></span>
-                    </span>
+                    <value-bubble
+                        :display="zoho_account('crm')"
+                        :format="format_zoho_group"
+                        :pop="()=>(dirty_group.zcrm_id = null)">
+                    </value-bubble>
                 </div>
                 <div class="single-lookup-entry" v-else>
                     <searchable-lookup
@@ -32,7 +33,7 @@
                             :skwargs="{service:'crm'}"
                             :action="set_zoho_id"
                             :akwargs="{service:'crm'}"
-                            :display="display_zoho_group"
+                            :format="format_zoho_group"
                             placeholder="e.g. A2Z Cloud">
                     </searchable-lookup>
                 </div>
@@ -45,10 +46,11 @@
                     v-model="group.zprojects_id"
                     placeholder="e.g. 195000000012009">
                 <div class="single-lookup-display" v-if="group.zprojects_id">
-                    <span class="value-bubble">
-                        <span class="name">{{ group.zprojects_id }}</span>
-                        <span class="lnr lnr-cross delete" @click="group.zprojects_id = null"></span>
-                    </span>
+                    <value-bubble
+                        :display="zoho_account('projects')"
+                        :format="format_zoho_group"
+                        :pop="()=>(dirty_group.zprojects_id = null)">
+                    </value-bubble>
                 </div>
                 <div class="single-lookup-entry" v-else>
                     <searchable-lookup
@@ -56,7 +58,7 @@
                             :skwargs="{service:'projects'}"
                             :action="set_zoho_id"
                             :akwargs="{service:'projects'}"
-                            :display="display_zoho_group"
+                            :format="format_zoho_group"
                             placeholder="e.g. A2Z Cloud">
                     </searchable-lookup>
                 </div>
@@ -72,10 +74,11 @@
                     v-model="group.zsupport_id"
                     placeholder="e.g. 40000000032004">
                 <div class="single-lookup-display" v-if="group.zsupport_id">
-                    <span class="value-bubble">
-                        <span class="name">{{ group.zsupport_id }}</span>
-                        <span class="lnr lnr-cross delete" @click="group.zsupport_id = null"></span>
-                    </span>
+                    <value-bubble
+                        :display="zoho_account('support')"
+                        :format="format_zoho_group"
+                        :pop="()=>(dirty_group.zsupport_id = null)">
+                    </value-bubble>
                 </div>
                 <div class="single-lookup-entry" v-else>
                     <searchable-lookup
@@ -83,7 +86,7 @@
                             :skwargs="{service:'support'}"
                             :action="set_zoho_id"
                             :akwargs="{service:'support'}"
-                            :display="display_zoho_group"
+                            :format="format_zoho_group"
                             placeholder="e.g. A2Z Cloud">
                     </searchable-lookup>
                 </div>
@@ -97,24 +100,35 @@
 
     <div class="container form-actions">
         <div class="row">
-            <div class="six columns">
-                <br>
+            <div class="three columns">
+                <slot name="footer-one">
+                    <br>
+                </slot>
             </div>
             <div class="three columns">
-                <button
-                    class="button-primary save u-full-width"
-                    :disabled="!enable_create_button"
-                    @click="create_group({finish: false})">
-                    {{ creating_group && !will_finish ? 'Creating' : 'Create' }}
-                </button>
+                <slot name="footer-two">
+                    <br>
+                </slot>
             </div>
             <div class="three columns">
-                <button
-                    class="button-primary save u-full-width"
-                    :disabled="!enable_create_button"
-                    @click="create_group({finish: true})">
-                    {{ creating_group && will_finish ? 'Creating' : 'Create & Finish' }}
-                </button>
+                <slot name="footer-three">
+                    <button
+                        class="button-primary save u-full-width"
+                        :disabled="!enable_create_button"
+                        @click="create_group({finish: false})">
+                        {{ creating_group && !will_finish ? 'Creating' : 'Create' }}
+                    </button>
+                </slot>
+            </div>
+            <div class="three columns">
+                <slot name="footer-three">
+                    <button
+                        class="button-primary save u-full-width"
+                        :disabled="!enable_create_button"
+                        @click="create_group({finish: true})">
+                        {{ creating_group && will_finish ? 'Creating' : 'Create & Finish' }}
+                    </button>
+                </slot>
             </div>
         </div>
     </div>

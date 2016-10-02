@@ -2,15 +2,17 @@ import './user_creator.css!'
 import tmpl from './user_creator.html!text'
 import Vue from 'vue'
 
-import { invite_user, filter_zoho_contacts } from 'app/vuex/actions'
+import { invite_user, filter_zoho_contacts, get_zoho_contact } from 'app/vuex/actions'
 
 import searchable_lookup from 'app/components/searchable-lookup/searchable_lookup'
+import value_bubble from 'app/components/value-bubble/value_bubble'
 
 
 export default Vue.extend({
     template: tmpl,
     components: {
         'searchable-lookup': searchable_lookup,
+        'value-bubble': value_bubble,
     },
     props: ['completed'],
     data: () => ({
@@ -34,8 +36,9 @@ export default Vue.extend({
                 && this.user.last_name
                 && !this.creating_user
         },
-    },
-    ready() {
+        zoho_contact() {
+            return this.user.zcrm_id ? this.get_zoho_contact(this.user.zcrm_id) : 'unknown'
+        }
     },
     vuex: {
         getters: {
@@ -43,7 +46,8 @@ export default Vue.extend({
         },
         actions: {
             invite_user,
-            filter_zoho_contacts,
+            get_zoho_contact,
+            filter_zoho_contacts
         },
     },
     methods: {
@@ -77,13 +81,17 @@ export default Vue.extend({
         set_zoho_id(record) {
             this.user.zcrm_id = record.id
         },
-        display_zoho_contact(record) {
-            let full_name  = record.first_name ? record.first_name : ""
-                full_name += record.last_name  ? " " + record.last_name : ""
-
-            if(full_name == "") full_name = "[No Name]"
-
-            return full_name
+        format_zoho_contact(contact) {
+            let name = contact
+            // attempt to parse name
+            if(contact && contact.last_name) {
+                name = contact.last_name
+                if(contact.first_name) name = contact.first_name + " " + name
+            }
+            return name
         },
+        clear_zoho_contact() {
+            this.user.zcrm_id = null
+        }
     },
 })

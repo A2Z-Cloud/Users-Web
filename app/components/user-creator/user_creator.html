@@ -39,49 +39,62 @@
                     v-model="user.zcrm_id"
                     placeholder="e.g. 1770000000551017">
                 <div class="single-lookup-display" v-if="user.zcrm_id">
-                    <span class="value-bubble">
-                        <span class="name">{{ user.zcrm_id }}</span>
-                        <span class="lnr lnr-cross delete" @click="user.zcrm_id = null"></span>
-                    </span>
+                    <value-bubble
+                        :display="zoho_contact"
+                        :format="format_zoho_contact"
+                        :pop="clear_zoho_contact">
+                    </value-bubble>
                 </div>
                 <div class="single-lookup-entry" v-else>
                     <searchable-lookup
                             :search="search_zoho_contacts"
                             :action="set_zoho_id"
-                            :display="display_zoho_contact"
+                            :format="format_zoho_contact"
                             placeholder="e.g. Bill Billson">
                     </searchable-lookup>
                 </div>
             </div>
             <div class="six columns">
-                <label for="email_invite_checkbox" class="noselect">send email invitation</label>
-                <input id="email_invite_checkbox" type="checkbox" v-model="user.send_email_invite">
+                <div class="form-label">send email invitation</div>
+                <div class="switch">
+                    <input id="email_invite_checkbox"  class="toggle" type="checkbox" v-model="user.send_email_invite">
+                    <label for="email_invite_checkbox" class="toggle-item"></label>
+                </div>
             </div>
         </div>
 
-    </div>
-
-    <div class="container form-actions">
-        <div class="row">
-            <div class="six columns">
-                <br>
+        <div class="row form-actions">
+            <div class="three columns">
+                <slot name="footer-one">
+                    <br>
+                </slot>
             </div>
             <div class="three columns">
-                <button
-                    class="button-primary save u-full-width"
-                    :disabled="!enable_create_button"
-                    @click="create_user({finish: false})">
-                    {{ creating_user && !will_finish ? 'Creating' : 'Create' }}
-                </button>
+                <slot name="footer-two">
+                    <br>
+                </slot>
             </div>
             <div class="three columns">
-                <button
-                    class="button-primary save u-full-width"
-                    :disabled="!enable_create_button"
-                    @click="create_user({finish: true})">
-                    {{ creating_user && will_finish ? 'Creating' : 'Create & Finish' }}
-                </button>
+                <slot name="footer-three">
+                    <button
+                        class="button-primary save u-full-width"
+                        :disabled="!enable_create_button"
+                        @click="create_user({finish: false})">
+                        {{ creating_user && !will_finish ? 'Creating' : 'Create' }}
+                    </button>
+                </slot>
+            </div>
+            <div class="three columns">
+                <slot name="footer-three">
+                    <button
+                        class="button-primary save u-full-width"
+                        :disabled="!enable_create_button"
+                        @click="create_user({finish: true})">
+                        {{ creating_user && will_finish ? 'Creating' : 'Create & Finish' }}
+                    </button>
+                </slot>
             </div>
         </div>
+
     </div>
 </div>

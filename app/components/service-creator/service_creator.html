@@ -54,25 +54,37 @@
 
     <div class="container form-actions">
         <div class="row">
-            <div class="six columns">
-                <br>
+            <div class="three columns">
+                <slot name="footer-one">
+                    <br>
+                </slot>
             </div>
             <div class="three columns">
-                <button
-                    class="button-primary save u-full-width"
-                    :disabled="!enable_create_button"
-                    @click="create_service({finish: false})">
-                    {{ creating_service && !will_finish ? 'Creating' : 'Create' }}
-                </button>
+                <slot name="footer-two">
+                    <br>
+                </slot>
             </div>
             <div class="three columns">
-                <button
-                    class="button-primary save u-full-width"
-                    :disabled="!enable_create_button"
-                    @click="create_service({finish: true})">
-                    {{ creating_service && will_finish ? 'Creating' : 'Create & Finish' }}
-                </button>
+                <slot name="footer-three">
+                    <button
+                        class="button-primary save u-full-width"
+                        :disabled="!enable_create_button"
+                        @click="create_service({finish: false})">
+                        {{ creating_service && !will_finish ? 'Creating' : 'Create' }}
+                    </button>
+                </slot>
+            </div>
+            <div class="three columns">
+                <slot name="footer-three">
+                    <button
+                        class="button-primary save u-full-width"
+                        :disabled="!enable_create_button"
+                        @click="create_service({finish: true})">
+                        {{ creating_service && will_finish ? 'Creating' : 'Create & Finish' }}
+                    </button>
+                </slot>
             </div>
         </div>
     </div>
+
 </div>

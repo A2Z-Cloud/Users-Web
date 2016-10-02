@@ -8,7 +8,7 @@
         @keyup.enter="do_action(filtered_results[focus_index])"
         @keyup.up="focus_index = Math.max(0, focus_index-1)"
         @keyup.down="focus_index = Math.min(results.length-1, focus_index+1)"
-        @keyup="do_search() | debounce 200"
+        @keyup="do_search() | debounce 500"
         :placeholder="placeholder">
     <div class="searching" v-if="searching">
         <span class="lnr lnr-sync"></span>
@@ -21,7 +21,7 @@
              class="search-box"
              :class="{'selected': $index === focus_index}"
              @click="do_action(result)">
-                {{ display(result) }}
+                {{ format ? format(result) : result }}
         </div>
     </div>
 </div>

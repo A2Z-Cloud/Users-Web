@@ -13,7 +13,7 @@ export default Vue.extend({
         'filter',
         'action',
         'akwargs',
-        'display',
+        'format',
         'placeholder',
     ],
     data: () => ({

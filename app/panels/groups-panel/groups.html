@@ -1,23 +1,15 @@
 <div v-el:service-panel class="GroupsPanel panel">
-    <div class="container">
-        <div class="row">
-            <div class="nine columns">
-                <br>
-            </div>
-            <div class="three columns">
-                <button
-                    class="u-full-width"
-                    :class="{'button-primary': !show_create_component}"
-                    @click="show_create_component = !show_create_component">
-                    {{ show_create_component ? 'Cancel' : 'Create New Group' }}
-                </button>
-            </div>
-        </div>
-    </div>
-
     <group-creator
         v-if="show_create_component"
         :completed="close_create_component">
+
+        <button
+            slot="footer-one"
+            class="u-full-width"
+            :class="{'button-primary': !show_create_component}"
+            @click="show_create_component = !show_create_component">
+            {{ show_create_component ? 'Cancel' : 'Create New Group' }}
+        </button>
     </group-creator>
 
     <infinite-table
@@ -27,5 +19,12 @@
         :fetch_next="fetch_next"
         :fetch_next_search="fetch_next_search"
         :item_clicked="item_clicked">
+
+        <button
+            slot="action-one"
+            :class="{'button-primary': !show_create_component}"
+            @click="show_create_component = !show_create_component">
+            {{ show_create_component ? 'Cancel' : 'Create New Group' }}
+        </button>
     </infinite-table>
 </div>
