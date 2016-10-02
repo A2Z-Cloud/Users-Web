@@ -163,6 +163,19 @@ export const filter_groups = function(store, {user_id=null, term=null, offset=0,
     })
 }
 
+export const get_zoho_group = function(store, {service='crm', id}) {
+    return new Promise((resolve, reject) => {
+        const handle_success = group => {
+            store.dispatch('ZOHO_GROUP_UPDATE', group)
+            resolve(group)
+        }
+        store.control
+             .get_zoho_group(id, service)
+             .then(handle_success)
+             .catch(handle_reject(reject, store))
+    })
+}
+
 export const filter_zoho_groups = function(store, {service='crm', term=null, offset=0, limit=20}={}) {
     return new Promise((resolve, reject) => {
         const handle_success = groups => {
@@ -171,6 +184,19 @@ export const filter_zoho_groups = function(store, {service='crm', term=null, off
         }
         store.control
              .filter_zoho_groups(service, term, offset, limit)
+             .then(handle_success)
+             .catch(handle_reject(reject, store))
+    })
+}
+
+export const get_zoho_contact = function(store, id) {
+    return new Promise((resolve, reject) => {
+        const handle_success = contact => {
+            store.dispatch('ZOHO_CONTACTS_UPDATE', contact)
+            resolve(contact)
+        }
+        store.control
+             .get_zoho_contact(id)
              .then(handle_success)
              .catch(handle_reject(reject, store))
     })

@@ -39,16 +39,17 @@
                     v-model="user.zcrm_id"
                     placeholder="e.g. 1770000000551017">
                 <div class="single-lookup-display" v-if="user.zcrm_id">
-                    <span class="value-bubble">
-                        <span class="name">{{ user.zcrm_id }}</span>
-                        <span class="lnr lnr-cross delete" @click="user.zcrm_id = null"></span>
-                    </span>
+                    <value-bubble
+                        :display="zoho_contact"
+                        :format="format_zoho_contact"
+                        :pop="clear_zoho_contact">
+                    </value-bubble>
                 </div>
                 <div class="single-lookup-entry" v-else>
                     <searchable-lookup
                             :search="search_zoho_contacts"
                             :action="set_zoho_id"
-                            :display="display_zoho_contact"
+                            :format="format_zoho_contact"
                             placeholder="e.g. Bill Billson">
                     </searchable-lookup>
                 </div>

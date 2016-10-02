@@ -1,3 +1,8 @@
+.GroupsPanel {
+    position: relative;
+    height: 100%;
+}
+
 .GroupsPanel
 .section-break {
     border-style: dashed;
@@ -6,27 +11,6 @@
 .GroupsPanel
 .members-area {
     text-align: left;
-}
-
-.GroupsPanel
-.value-bubble {
-    border-radius: 4px;
-    padding: 2px 4px 2px 8px;
-    margin: 0 4px 0 4px;
-    background: #33C3F0;
-    color: white;
-}
-
-.GroupsPanel
-.value-bubble
-.lnr:before {
-    vertical-align: middle;
-}
-
-.GroupsPanel
-.value-bubble
-.lnr-cross:hover {
-    color: black;
 }
 
 .GroupsPanel
