@@ -14,11 +14,20 @@ import {
     send_invite,
     send_email_confirmation,
     change_password,
-    insert_notification } from 'app/vuex/actions'
+    insert_notification,
+    filter_zoho_contacts,
+    get_zoho_contact } from 'app/vuex/actions'
+
+import searchable_lookup from 'app/components/searchable-lookup/searchable_lookup'
+import value_bubble from 'app/components/value-bubble/value_bubble'
 
 
 export default Vue.extend({
     template: tmpl,
+    components: {
+        'searchable-lookup': searchable_lookup,
+        'value-bubble': value_bubble,
+    },
     data: () => ({
         user_id: null,
         error: {},
@@ -32,6 +41,7 @@ export default Vue.extend({
             first_name: '',
             last_name: '',
             phone: '',
+            zcrm_id: '',
         },
         password_data: {
             old_password: '',
@@ -52,6 +62,9 @@ export default Vue.extend({
             const selected = u => u.id === this.user_id
             const index    = this.users.findIndex(selected)
             return (index !== -1) ? this.users[index] : null
+        },
+        zoho_contact() {
+            return this.dirty_user.zcrm_id ? this.get_zoho_contact(this.dirty_user.zcrm_id) : 'unknown'
         },
         editing_signed_in_user() {
             return this.user_id === this.signed_in_user.id
@@ -77,6 +90,7 @@ export default Vue.extend({
                 || this.dirty_user.first_name !== this.user.first_name
                 || this.dirty_user.last_name  !== this.user.last_name
                 || this.dirty_user.phone      !== this.user.phone
+                || this.dirty_user.zcrm_id    !== this.user.zcrm_id
         },
         save_user_button_text() {
             if (!this.valid_form) return 'Complete Form'
@@ -137,6 +151,8 @@ export default Vue.extend({
             send_email_confirmation,
             remote_change_password: change_password,
             insert_notification,
+            get_zoho_contact,
+            filter_zoho_contacts,
         },
     },
     methods: {
@@ -157,6 +173,24 @@ export default Vue.extend({
             this.save_user(user)
                 .then(sending_success)
                 .catch(sending_failure)
+        },
+        search_zoho_contacts(term, {offset=0, limit=5}={}) {
+            return this.filter_zoho_contacts({term, offset, limit})
+        },
+        set_zoho_id(record) {
+            this.dirty_user.zcrm_id = record.id
+        },
+        format_zoho_contact(contact) {
+            let name = contact
+            // attempt to parse name
+            if(contact && contact.last_name) {
+                name = contact.last_name
+                if(contact.first_name) name = contact.first_name + " " + name
+            }
+            return name
+        },
+        clear_zoho_contact() {
+            this.dirty_user.zcrm_id = null
         },
         change_password(password_data) {
             this.saving_password = true

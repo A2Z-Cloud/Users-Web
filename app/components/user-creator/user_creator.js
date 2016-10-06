@@ -38,7 +38,7 @@ export default Vue.extend({
         },
         zoho_contact() {
             return this.user.zcrm_id ? this.get_zoho_contact(this.user.zcrm_id) : 'unknown'
-        }
+        },
     },
     vuex: {
         getters: {
@@ -47,7 +47,7 @@ export default Vue.extend({
         actions: {
             invite_user,
             get_zoho_contact,
-            filter_zoho_contacts
+            filter_zoho_contacts,
         },
     },
     methods: {

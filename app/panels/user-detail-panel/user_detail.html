@@ -5,10 +5,11 @@
     </div>
 
     <div v-if="!$loadingRouteData">
+        <img class="logo" src="https://s3-eu-west-1.amazonaws.com/com-a2zcloud-assets/images/logo/a2zcloud.svg" v-if="signed_in_user.type != 'admin'"/>
         <div v-if="!$route.params.id" class="greeting">{{salutation}}, {{user.first_name}} {{user.last_name}}</div>
 
         <!-- Edit account details -->
-        <div v-if="!changing_password" class="container">
+        <div v-if="!changing_password" class="container form-detail">
             <div class="row">
                 <div class="six columns">
                     <div class="form-label">first name</div>
@@ -29,14 +30,16 @@
                         placeholder="e.g. Billson">
                 </div>
             </div>
-
             <div class="row">
                 <div class="six columns">
-                    <div class="form-label">
+                    <div class="form-label" :class="{warning: !user.email_confirmed}">
                         email address
-                        <div v-if="!user.email_confirmed" class="tool-tip-container u-pull-right">
+                        <div v-if="!user.email_confirmed" class="tool-tip-container">
                             <span class="lnr lnr-warning unverified tool-tip-icon"></span>
-                            <div class="tool-tip-message warning">Unverified email address; follow verification link in your email. <br>Resend email by clicking 'Verify Email' bellow.</div>
+                            <div class="tool-tip-message">
+                                Unverified email address; follow the verification link in your email.<br>
+                                You can re-send the email by clicking 'Verify Email' below.
+                            </div>
                         </div>
                     </div>
                     <input
@@ -56,7 +59,34 @@
                         placeholder="e.g. +44 12345 67891">
                 </div>
             </div>
-
+            <div class="row" v-if="$route.params.id && signed_in_user.type == 'admin'">
+                <div class="six columns">
+                    <div class="form-label">zoho crm contact</div>
+                    <input
+                        class="u-full-width single-lookup-value"
+                        type="text"
+                        v-model="dirty_user.zcrm_id"
+                        placeholder="e.g. 1770000000551017">
+                    <div class="single-lookup-display" v-if="dirty_user.zcrm_id">
+                        <value-bubble
+                            :display="zoho_contact"
+                            :format="format_zoho_contact"
+                            :pop="clear_zoho_contact">
+                        </value-bubble>
+                    </div>
+                    <div class="single-lookup-entry" v-else>
+                        <searchable-lookup
+                                :search="search_zoho_contacts"
+                                :action="set_zoho_id"
+                                :format="format_zoho_contact"
+                                placeholder="e.g. Bill Billson">
+                        </searchable-lookup>
+                    </div>
+                </div>
+                <div class="six columns">
+                    <br>
+                </div>
+            </div>
         </div>
 
         <!-- Change password -->

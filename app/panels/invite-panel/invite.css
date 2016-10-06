@@ -1,0 +1,10 @@
+.InvitePanel {
+    position: relative;
+    width: 100%;
+}
+
+.InvitePanel
+.logo {
+    width: 150px;
+    max-width: 100%;
+}
