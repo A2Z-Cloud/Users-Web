@@ -1,5 +1,5 @@
 <button
-    :disabled="recently_sent || sending"
+    :disabled="recently_sent || sending || disabled"
     @click="go">
     {{ button_text }}
 </button>

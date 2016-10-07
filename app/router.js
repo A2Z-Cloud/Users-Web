@@ -13,6 +13,8 @@ import GroupsPanel from "./panels/groups-panel/groups"
 import GroupDetailPanel from "./panels/group-detail-panel/group_detail"
 import EmailConfirmation from "./panels/email-confirmation-panel/email_confirmation"
 import InvitePanel from './panels/invite-panel/invite'
+import ForgotPasswordPanel from './panels/forgot-password-panel/forgot_password'
+import ResetPasswordPanel from './panels/reset-password-panel/reset_password'
 
 import { authenticate } from 'app/vuex/actions'
 
@@ -64,6 +66,16 @@ router.map({
     '/confirm-email': {
         name: 'confirm email',
         component: EmailConfirmation,
+        authenticated: false,
+    },
+    '/forgot-password': {
+        name: 'forgot password',
+        component: ForgotPasswordPanel,
+        authenticated: false,
+    },
+    '/reset-password': {
+        name: 'reset password',
+        component: ResetPasswordPanel,
         authenticated: false,
     },
 })

@@ -5,13 +5,14 @@ import Vue from 'vue'
 
 export default Vue.extend({
     template: tmpl,
-    props: [
-        'activeText',
-        'sendingText',
-        'cooldownText',
-        'cooldownDuration',
-        'onClick',
-    ],
+    props: {
+        activeText: {default: ''},
+        sendingText: {default: ''},
+        cooldownText: {default: ''},
+        cooldownDuration: {default: 15},
+        onClick: {default: null},
+        disabled: {default: false},
+    },
     data: () => ({
         sending: false,
         recently_sent: false,
