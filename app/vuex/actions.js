@@ -131,9 +131,7 @@ export const send_password_reset = function(store, {email}) {
 export const reset_password = function (store, {token, new_password}) {
     return new Promise((resolve, reject) => {
         store.control
-             .reset_password(
-                 token,
-                 new_password)
+             .reset_password(token, new_password)
              .then(resolve)
              .catch(handle_reject(reject, store))
     })
