@@ -130,19 +130,10 @@ export const send_password_reset = function(store, {email}) {
 
 export const reset_password = function (store, {token, new_password}) {
     return new Promise((resolve, reject) => {
-        const current_user = store.state.user
         store.control
-             .save_user(
-                 current_user.email,
-                 current_user.first_name,
-                 current_user.last_name,
-                 old_password,
-                 new_password,
-                 current_user.phone,
-                 current_user.birthday,
-                 current_user.zcrm_id,
-                 null,
-                 current_user.id)
+             .reset_password(
+                 token,
+                 new_password)
              .then(resolve)
              .catch(handle_reject(reject, store))
     })
