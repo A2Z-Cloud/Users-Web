@@ -27,7 +27,7 @@ export default Vue.extend({
             const new_password = this.new_password
             return this.reset_password({token, new_password})
                        .then(() => (console.log('success')))
-                       .catch(() => console.log('error'))
+                       .catch(() => (console.log('error')))
         },
     },
     events: {
