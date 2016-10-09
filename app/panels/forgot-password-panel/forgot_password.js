@@ -10,6 +10,7 @@ export default Vue.extend({
     template: tmpl,
     data: () => ({
         email: '',
+        error: null,
     }),
     computed: {
         enable_button() {
@@ -26,10 +27,12 @@ export default Vue.extend({
     },
     methods: {
         request_reset() {
-            const email = this.email
-            return this.send_password_reset({email})
-                       .then(() => (console.log('success')))
-                       .catch(() => console.log('error'))
+            if(valid_email(this.email)) {
+                const email = this.email
+                return this.send_password_reset({email})
+                           .then(r => (console.log('success')))
+                           .catch(e => (this.error=e.message))
+            }
         },
     },
     events: {
