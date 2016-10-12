@@ -36,9 +36,6 @@ export default Vue.extend({
             return this.visible ? 'text' : 'password'
         },
     },
-    ready() {
-
-    },
     vuex: {
         actions: {
             reset_password,
@@ -54,8 +51,5 @@ export default Vue.extend({
                            .catch(e => (this.error=e.message))
             }
         },
-    },
-    events: {
-
     },
 })
