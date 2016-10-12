@@ -2,6 +2,7 @@ import './user_creator.css!'
 import tmpl from './user_creator.html!text'
 import Vue from 'vue'
 
+import { valid_email } from 'app/utils/validation'
 import { invite_user, filter_zoho_contacts, get_zoho_contact } from 'app/vuex/actions'
 
 import searchable_lookup from 'app/components/searchable-lookup/searchable_lookup'
@@ -35,10 +36,14 @@ export default Vue.extend({
                 && this.user.first_name
                 && this.user.last_name
                 && !this.creating_user
+                && this.is_valid_email
         },
         zoho_contact() {
             return this.user.zcrm_id ? this.get_zoho_contact(this.user.zcrm_id) : 'unknown'
-        }
+        },
+        is_valid_email() {
+            return valid_email(this.user.email)
+        },
     },
     vuex: {
         getters: {
@@ -47,7 +52,7 @@ export default Vue.extend({
         actions: {
             invite_user,
             get_zoho_contact,
-            filter_zoho_contacts
+            filter_zoho_contacts,
         },
     },
     methods: {
@@ -92,6 +97,6 @@ export default Vue.extend({
         },
         clear_zoho_contact() {
             this.user.zcrm_id = null
-        }
+        },
     },
 })
