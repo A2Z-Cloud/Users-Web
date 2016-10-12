@@ -13,11 +13,12 @@ import store from 'app/vuex/store'
 import 'app/filters/nullify'
 import 'app/filters/strip_underscores'
 
-import link_copier from 'app/components/link-copier/link_copier'
-import cooldown_button from 'app/components/cooldown-button/cooldown_button'
+import LinkCopier from 'app/components/link-copier/link_copier'
+import CooldownButton from 'app/components/cooldown-button/cooldown_button'
 
 import ResizeMixin from 'vue-resize-mixin'
 import infinateScroll from 'vue-infinite-scroll'
+import InfiniteLoading from 'vue-infinite-loading'
 
 import {control_url} from './consts'
 
@@ -27,11 +28,12 @@ import {delete_notification} from 'app/vuex/actions'
 // –– Control
 System.import(control_url).then(({Control}) => {  // eslint-disable-line no-undef
     Vue.use(infinateScroll)
-    Vue.component('link-copier', link_copier)
-    Vue.component('cooldown-button', cooldown_button)
+    Vue.component('link-copier', LinkCopier)
+    Vue.component('cooldown-button', CooldownButton)
 
     router.start({
         store,
+        components: [InfiniteLoading],
         mixins: [ResizeMixin],
         ready() {
             // catch websocket broadcasts

@@ -14,6 +14,7 @@
       "skeleton-css": "npm:skeleton-css@^2.0.4",
       "text": "github:systemjs/plugin-text@^0.0.7",
       "vue": "npm:vue@^1.0.20",
+      "vue-infinite-loading": "npm:vue-infinite-loading@1.1.0",
       "vue-infinite-scroll": "npm:vue-infinite-scroll@^0.2.3",
       "vue-resize-mixin": "npm:vue-resize-mixin@^1.0.1",
       "vue-router": "npm:vue-router@^0.7.13",

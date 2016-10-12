@@ -46,10 +46,7 @@
                     <tbody
                         v-else
                         v-el:table-body
-                        :style="{maxHeight: table_height}"
-                        v-infinite-scroll="nearing_bottom()"
-                        infinite-scroll-disabled="disabled"
-                        infinite-scroll-distance="10">
+                        :style="{maxHeight: table_height}">
 
                             <tr v-for='item in display_items'
                                 track-by='$index'
