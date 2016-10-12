@@ -1,3 +1,9 @@
+init:
+	- rm -rf dist
+	- rm -rf jspm_packages
+	- rm -rf node_modules
+	npm install
+	jspm install
 build:
 	mv app/consts.js app/consts_debug.js && mv app/consts_dist.js app/consts.js
 	- rm -rf dist
