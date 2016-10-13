@@ -3,7 +3,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from 'app/vuex/store'
 
-import { debug, hash_routing } from './consts'
+import { debug, hash_routing, surpress_auth_redirect } from './consts'
 
 // -- Route Panels
 import UserDetailPanel from "./panels/user-detail-panel/user_detail"
@@ -71,7 +71,9 @@ router.map({
 
 router.beforeEach(function({to, next}) {
     if (to.authenticated && store.state.user === null) {
-        const go_auth = auth_url => (window.location = auth_url)
+        const go_auth = auth_url => {
+            if (!surpress_auth_redirect) window.location = auth_url
+            else console.log("No cookie present. User not logged in. Redirect suppresed: " + auth_url)}
         authenticate(store).then(next).catch(go_auth)
     } else {
         next()
