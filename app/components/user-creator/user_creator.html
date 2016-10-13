@@ -5,6 +5,7 @@
                 <div class="form-label">email</div>
                 <input
                     class="u-full-width"
+                    :class="{'invalid': user.email && !is_valid_email, 'required': !user.email}"
                     type="text"
                     v-model="user.email"
                     placeholder="bill@billson.net">
@@ -16,6 +17,7 @@
                 <div class="form-label">first name</div>
                 <input
                     class="u-full-width"
+                    :class="{'required': !user.first_name}"
                     type="text"
                     v-model="user.first_name"
                     placeholder="e.g. Bill">
@@ -24,6 +26,7 @@
                 <div class="form-label">last name</div>
                 <input
                     class="u-full-width"
+                    :class="{'required': !user.last_name}"
                     type="text"
                     v-model="user.last_name"
                     placeholder="e.g. Billson">

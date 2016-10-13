@@ -1,4 +1,4 @@
-import { email_confirmation_url, invite_url } from 'app/consts'
+import { email_confirmation_url, invite_url, reset_password_url } from 'app/consts'
 import { Notification } from 'app/model/notification'
 
 
@@ -110,6 +110,28 @@ export const send_invite = function(store, {user_id}) {
     return new Promise((resolve, reject) => {
         store.control
              .send_invite(user_id, invite_url)
+             .then(resolve)
+             .catch(handle_reject(reject, store))
+    })
+}
+
+export const send_password_reset = function(store, {email}) {
+    return new Promise((resolve, reject) => {
+        store.control
+             .send_password_reset(
+                email,
+                reset_password_url,
+                email_confirmation_url,
+                invite_url)
+             .then(resolve)
+             .catch(handle_reject(reject, store))
+    })
+}
+
+export const reset_password = function (store, {token, new_password}) {
+    return new Promise((resolve, reject) => {
+        store.control
+             .reset_password(token, new_password)
              .then(resolve)
              .catch(handle_reject(reject, store))
     })
