@@ -218,6 +218,10 @@ input[type="button"].button-primary:disabled {
     visibility: visible;
 }
 
+.tool-tip-message.warning {
+    color: #DA6B6B;
+}
+
 .form-actions {
     padding-top: 32px;
 }
