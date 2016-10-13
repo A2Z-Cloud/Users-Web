@@ -34,31 +34,15 @@
 #Main
 .navigation {
     padding-top: 16px;
+
     text-align: center;
 }
 
 #Main
 .navigation
-.columns:first-child {
-    text-align: left;
-}
-
-#Main
-.navigation
-.columns:last-child {
-    text-align: right;
-}
-
-#Main
-.navigation .logo
-.logo-icon {
-    height: 24px;
-}
-
-#Main
-.navigation
 a {
-    padding: 0 8px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 #Main
@@ -169,53 +153,29 @@ input[type="button"].button-primary:disabled {
     color: #DA6B6B;
 }
 
-.form-label.warning {
-    position: relative;
-    width: 100%;
-    color: #DA6B6B;
-}
-
-.form-label
 .tool-tip-container {
-    position: absolute;
-    left: 0; right: 0;
-    top: 0;
-    text-align: right;
+    position: relative;
 }
 
-.form-label
-.tool-tip-container
-.tool-tip-icon::before {
-    vertical-align: baseline;
-}
-
-.form-label
-.tool-tip-container
 .tool-tip-message {
     visibility: hidden;
-
     position: absolute;
-    left: 0; right: 0;
-    top: 24px;
-
+    right: 0;
+    width: 300px;
     z-index: 1;
-    min-height: 38px;
-
-    box-sizing: border-box;
-    padding: 8px 10px;
-    border: 1px solid #DA6B6B;
-    text-align: left;
     font-size: smaller;
-
-    background: #FFF;
-    -webkit-box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
-       -moz-box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
-            box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
+    background: white;
+    padding: 8px;
+    border: 1px solid #bbb
 }
 
-.form-label:hover
+.tool-tip-container:hover
 .tool-tip-message {
     visibility: visible;
+}
+
+.tool-tip-message.warning {
+    color: #DA6B6B;
 }
 
 .form-actions {
