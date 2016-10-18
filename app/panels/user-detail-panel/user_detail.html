@@ -13,41 +13,41 @@
             <div class="row">
                 <div class="six columns">
                     <div class="form-label">first name</div>
-                    <input
-                        class="u-full-width"
-                        :class="{'changed': dirty_user.first_name !== user.first_name, 'invalid': !valid_first_name}"
-                        type="text"
-                        v-model="dirty_user.first_name | nullify"
-                        placeholder="e.g. Bill">
+                    <div class="form-value" :class="{'changed': dirty_user.first_name !== user.first_name}">
+                        <tooltip-input
+                            :value.sync="dirty_user.first_name | nullify"
+                            :show="!valid_first_name"
+                            placeholder="e.g. Bill"
+                            icon="lnr-warning"
+                            message="First name is required."
+                            color="#DA6B6B"></tooltip-input>
+                    </div>
                 </div>
                 <div class="six columns">
                     <div class="form-label">last name</div>
-                    <input
-                        class="u-full-width"
-                        :class="{'changed': dirty_user.last_name !== user.last_name, 'invalid': !valid_last_name}"
-                        type="text"
-                        v-model="dirty_user.last_name | nullify"
-                        placeholder="e.g. Billson">
+                    <div class="form-value" :class="{'changed': dirty_user.last_name !== user.last_name}">
+                        <tooltip-input
+                            :value.sync="dirty_user.last_name | nullify"
+                            :show="!valid_last_name"
+                            placeholder="e.g. Billson"
+                            icon="lnr-warning"
+                            message="Last name is required."
+                            color="#DA6B6B"></tooltip-input>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="six columns">
-                    <div class="form-label" :class="{warning: !user.email_confirmed}">
-                        email address
-                        <div v-if="!user.email_confirmed" class="tool-tip-container">
-                            <span class="lnr lnr-warning unverified tool-tip-icon"></span>
-                            <div class="tool-tip-message">
-                                Unverified email address; follow the verification link in your email.<br>
-                                You can re-send the email by clicking 'Verify Email' below.
-                            </div>
-                        </div>
+                    <div class="form-label">email address</div>
+                    <div class="form-value" :class="{'changed': dirty_user.email !== user.email}">
+                        <tooltip-input
+                            :value.sync="dirty_user.email | nullify"
+                            :show="!user.email_confirmed || !valid_dirty_email"
+                            placeholder="e.g. bill@billson.net"
+                            icon="lnr-warning"
+                            :message="email_warning"
+                            :color="valid_dirty_email && !user.email_confirmed ? '#FFC107': '#DA6B6B'"></tooltip-input>
                     </div>
-                    <input
-                        class="u-full-width"
-                        :class="{'changed': dirty_user.email !== user.email, 'unverified': !user.email_confirmed, 'invalid': !valid_dirty_email}"
-                        type="text"
-                        v-model="dirty_user.email | nullify"
-                        placeholder="e.g. bill@billson.net">
                 </div>
                 <div class="six columns">
                     <div class="form-label">phone number</div>
@@ -93,15 +93,15 @@
         <div v-else class="container">
             <div class="row">
                 <div class="six columns">
-                    <div class="form-label">
-                        current password
-                    </div>
-                    <input
-                        class="u-full-width"
-                        :class="{'required': !password_data.old_password}"
-                        type="password"
-                        v-model="password_data.old_password | nullify"
-                        placeholder="e.g. p4ssw0rd1">
+                    <div class="form-label">current password</div>
+                    <tooltip-input
+                        :value.sync="password_data.old_password | nullify"
+                        :show="!password_data.old_password"
+                        placeholder="e.g. p4ssw0rd1"
+                        icon="lnr-warning"
+                        message="Old password is required."
+                        color="#DA6B6B"
+                        :type="password_visible ? 'text' : 'password'"></tooltip-input>
                 </div>
                 <div class="six columns">
                     <br>
@@ -110,34 +110,26 @@
 
             <div class="row">
                 <div class="six columns">
-                    <div class="form-label">
-                        new password
-                        <div v-if="new_password_errors.length" class="tool-tip-container u-pull-right">
-                            <span class="lnr lnr-warning tool-tip-icon u-pull-right"></span>
-                            <div class="tool-tip-message warning"><span v-for="error in new_password_errors">{{error}}</span></div>
-                        </div>
-                    </div>
-                    <input
-                        class="u-full-width"
-                        :class="{'invalid': new_password_errors.length, 'required': !password_data.new_password}"
-                        type="password"
-                        v-model="password_data.new_password | nullify"
-                        placeholder="e.g. 9av46FWVABchv48yHa">
+                    <div class="form-label">new password</div>
+                    <tooltip-input
+                        :value.sync="password_data.new_password | nullify"
+                        :show="new_password_errors.length || !password_data.new_password"
+                        placeholder="e.g. 9av46FWVABchv48yHa"
+                        icon="lnr-warning"
+                        :message="!password_data.new_password ? 'New password is required.' : new_password_errors"
+                        color="#DA6B6B"
+                        :type="password_visible ? 'text' : 'password'"></tooltip-input>
                 </div>
                 <div class="six columns">
-                    <div class="form-label">
-                        confirm new password
-                        <div v-if="confirm_password_errors.length" class="tool-tip-container u-pull-right">
-                            <span class="lnr lnr-warning tool-tip-icon u-pull-right"></span>
-                            <div class="tool-tip-message warning"><span v-for="error in confirm_password_errors">{{error}}</span></div>
-                        </div>
-                    </div>
-                    <input
-                        class="u-full-width"
-                        :class="{'invalid': confirm_password_errors.length, 'required': !password_data.new_password_confirmation}"
-                        type="password"
-                        v-model="password_data.new_password_confirmation | nullify"
-                        placeholder="e.g. 9av46FWVABchv48yHa">
+                    <div class="form-label">confirm new password</div>
+                    <tooltip-input
+                        :value.sync="password_data.new_password_confirmation | nullify"
+                        :show="confirm_password_errors.length || !password_data.new_password_confirmation"
+                        placeholder="e.g. 9av46FWVABchv48yHa"
+                        icon="lnr-warning"
+                        :message="!password_data.new_password_confirmation ? 'You must confirm a new password.' : confirm_password_errors"
+                        color="#DA6B6B"
+                        :type="password_visible ? 'text' : 'password'"></tooltip-input>
                 </div>
             </div>
 
@@ -146,6 +138,12 @@
         <div class="container form-actions">
             <div class="row">
                 <div class="three columns">
+                    <button
+                        v-if="changing_password"
+                        class="change-password u-full-width"
+                        @click="changing_password=false">
+                        Cancel
+                    </button>
                     <br>
                 </div>
                 <div class="three columns">
@@ -173,10 +171,16 @@
                     <button
                         v-if="show_change_password_button"
                         class="change-password u-full-width"
-                        @click="changing_password=!changing_password">
-                        {{ changing_password ? 'Cancel' : 'Change Password' }}
+                        @click="changing_password=true">
+                        Change Password
                     </button>
-                    <br v-if="!show_send_user_invite && !show_change_password_button">
+                    <button
+                        v-if="changing_password"
+                        class="u-full-width"
+                        @click="password_visible = !password_visible">
+                        Show Password
+                    </button>
+                    <br v-if="!show_send_user_invite && !changing_password && !show_change_password_button">
                 </div>
                 <div class="three columns">
                     <button

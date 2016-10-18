@@ -6,12 +6,18 @@ import { accept_invite } from 'app/vuex/actions'
 
 import { password_errors, valid_email } from 'app/utils/validation'
 
+import tooltip_input from 'app/components/tooltip-input/tooltip_input'
+
 
 export default Vue.extend({
     template: tmpl,
+    components: {
+        'tooltip-input': tooltip_input,
+    },
     data: () => ({
         error: {},
         creating_account: false,
+        password_visible: false,
         payload: {
             token: '',
             email: '',
@@ -39,6 +45,10 @@ export default Vue.extend({
                 && !this.new_password_errors.length
                 && !this.invalid_password_confirmation
                 && !this.creating_account
+        },
+        email_warning() {
+            if( !this.payload.email  ) return "Email is required."
+            if( !this.is_valid_email ) return "Invalid email. Try something like bill@billson.net instead."
         },
     },
     ready() {

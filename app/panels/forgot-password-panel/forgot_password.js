@@ -9,9 +9,14 @@ import { send_password_reset } from 'app/vuex/actions'
 import { get_query_param } from 'app/utils/url_helpers'
 import { valid_email } from 'app/utils/validation'
 
+import tooltip_input from 'app/components/tooltip-input/tooltip_input'
+
 
 export default Vue.extend({
     template: tmpl,
+    components: {
+        'tooltip-input': tooltip_input,
+    },
     data: () => ({
         return_address: null,
         email: '',
@@ -37,9 +42,16 @@ export default Vue.extend({
                 this.error = null
                 const email = this.email
                 return this.send_password_reset({email})
-                           .then(r => {this.cooldown_redirect()})
-                           .catch(e => (this.error=e.message))
+                           .then(this.cooldown_redirect)
+                           .catch(this.handle_error)
             }
+        },
+        handle_error(error) {
+            this.error = error.original_payload.message
+            
+            // get the main input element, clear and set focus
+            this.email = null
+            this.$els.mainInput.getElementsByTagName("input")[0].focus()
         },
         cooldown_redirect() {
             if(this.error == null) {

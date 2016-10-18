@@ -1,0 +1,8 @@
+<div class="TooltipInput" :style="{color: color, borderColor: color}">
+    <input class="u-full-width" :class="{triggered: show}"
+           :type="field_type" v-model="value" :placeholder="placeholder"/>
+    <div v-if="show" class="tooltip-container">
+        <span class="lnr tooltip-icon u-pull-right" :class="active_icon"></span>
+        <div class="tooltip-message" v-if="message">{{{message}}}</div>
+    </div>
+</div>

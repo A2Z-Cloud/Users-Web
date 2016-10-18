@@ -20,6 +20,7 @@ import {
 
 import searchable_lookup from 'app/components/searchable-lookup/searchable_lookup'
 import value_bubble from 'app/components/value-bubble/value_bubble'
+import tooltip_input from 'app/components/tooltip-input/tooltip_input'
 
 
 export default Vue.extend({
@@ -27,6 +28,7 @@ export default Vue.extend({
     components: {
         'searchable-lookup': searchable_lookup,
         'value-bubble': value_bubble,
+        'tooltip-input': tooltip_input,
     },
     data: () => ({
         user_id: null,
@@ -48,6 +50,7 @@ export default Vue.extend({
             new_password: '',
             new_password_confirmation: '',
         },
+        password_visible: false,
     }),
     route: {
         data(transition) {
@@ -83,6 +86,7 @@ export default Vue.extend({
         show_change_password_button() {
             return this.editing_signed_in_user
                 && !this.user.invitation_token
+                && !this.changing_password
                 && !this.saving_password
         },
         changed() {
@@ -99,10 +103,10 @@ export default Vue.extend({
             return 'Save'
         },
         valid_first_name() {
-            return this.dirty_user.first_name.length > 0
+            return this.dirty_user.first_name && this.dirty_user.first_name.length > 0
         },
         valid_last_name() {
-            return this.dirty_user.last_name.length > 0
+            return this.dirty_user.last_name && this.dirty_user.last_name.length > 0
         },
         valid_dirty_email() {
             return valid_email(this.dirty_user.email)
@@ -120,7 +124,7 @@ export default Vue.extend({
             const {new_password, new_password_confirmation} = this.password_data
             const errors = []
             if (new_password && new_password_confirmation && new_password !== new_password_confirmation) {
-                errors.push("New password and confirmation do not match")
+                errors.push("New password and confirmation do not match.")
             }
             return errors
         },
@@ -133,6 +137,23 @@ export default Vue.extend({
                 && !this.confirm_password_errors.length
                 && new_password === new_password_confirmation
                 && !this.saving_password
+        },
+        email_warning() {
+            let warning = ""
+            if( !this.valid_dirty_email ) {
+                warning += this.dirty_user.email ?
+                           "Invalid email. Try something like bill@billson.net instead." :
+                           "Email is required."
+            }
+            else if( !this.user.email_confirmed ) {
+                warning += "To verify this email address you will need to follow a link sent to your inbox.<br>"
+
+                // message needs to be different if saving or resending
+                warning += this.dirty_user.email == this.user.email ?
+                           "You can re-send the email by clicking 'Verify Email' below." :
+                           "Clicking 'Save' below will send the email."
+            }
+            return warning != "" ? warning : null
         },
     },
     ready() {

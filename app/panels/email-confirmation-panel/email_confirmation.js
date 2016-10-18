@@ -11,7 +11,7 @@ export default Vue.extend({
         'user',
     ],
     data: () => ({
-        error: {},
+        error: null,
         success: false,
     }),
     computed: {

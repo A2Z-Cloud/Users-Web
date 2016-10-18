@@ -8,9 +8,14 @@ import { reset_password } from 'app/vuex/actions'
 
 import { password_errors } from 'app/utils/validation'
 
+import tooltip_input from 'app/components/tooltip-input/tooltip_input'
+
 
 export default Vue.extend({
     template: tmpl,
+    components: {
+        'tooltip-input': tooltip_input,
+    },
     data: () => ({
         new_password: '',
         new_password_confirm: '',
@@ -39,6 +44,17 @@ export default Vue.extend({
         },
         field_type() {
             return this.visible ? 'text' : 'password'
+        },
+        display_password_errors() {
+            let message = ""
+            let i, item, items = this.new_password_errors.length
+
+            // put errors on new lines
+            for(i=0; i<items; i++) {
+                message += "<div>" + this.new_password_errors[i] + "</div>"
+            }
+
+            return message == "" ? null : message
         },
     },
     vuex: {
@@ -69,6 +85,11 @@ export default Vue.extend({
             else {
                 this.error=payload.message
             }
+
+            // get the main input element, clear and set focus
+            this.new_password = null
+            this.new_password_confirm = null
+            this.$els.mainInput.getElementsByTagName("input")[0].focus()
         },
         sign_in_redirect() {
             // redirect back to users at root url
