@@ -15,11 +15,6 @@
 }
 
 .InfiniteTable
-.action-bar .test {
-    background-color: red;
-}
-
-.InfiniteTable
 .action-bar .spacer {
     margin-left: 15px;
 }
@@ -42,21 +37,32 @@ button {
 .InfiniteTable
 .action-bar .search-bar
 input {
+    position: relative;
+    left: -12px;
+    width: calc(100% - 24px);
+    box-sizing: border-box;
     margin-bottom: 0;
 }
 
 .InfiniteTable
-.search-bar .lnr-magnifier {
+.search-bar .search-icon {
     position: absolute;
-    top: 7px; right: 10px;
-    width: 24px;
-    line-height: 17px;
+    top: 0; right: 0;
+
+    height: 38px; width: 24px;
+    line-height: 38px;
+    text-align: center;
+
+    box-sizing: border-box;
+    border-bottom: 1px solid #D1D1D1;
     cursor: pointer;
+    color: #D1D1D1;
 }
 
 .InfiniteTable
-input:focus + .lnr-magnifier {
+input:focus + .search-icon {
     color: #33C3F0;
+    border-color: #33C3F0;
 }
 
 

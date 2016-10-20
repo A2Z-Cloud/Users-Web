@@ -38,23 +38,24 @@
                 <span class="lnr lnr-cross" @click="delete_notification(notification)"></span>
             </div>
         </div> -->
-        <div v-el:navigation class="container navigation">
-            <div class="row">
-                <div class="two columns">
-                    <br>
-                </div>
-                <div v-if="user && user.type == 'admin'" class="eight columns">
-                    <a v-link="{ path: '/', exact: true }">My Account</a>
-                    <a v-link="{ path: '/services', exact: false }">Services</a>
-                    <a v-link="{ path: '/users', exact: false }">Users</a>
-                    <a v-link="{ path: '/groups', exact: false }">Groups</a>
-                </div>
-                <div v-else class="eight columns">
-                    <br>
-                </div>
-                <div class="two columns">
-                    <a v-if="user" :href="sign_out_url">Sign Out</a>
+        <div class="container navigation" v-el:navigation>
+            <div class="row" v-if="user">
+                <div class="two columns logo">
+                    <img class="logo-icon" v-if="user.type == 'admin' && $route.name != 'invite'"
+                         src="https://s3-eu-west-1.amazonaws.com/com-a2zcloud-assets/images/logo/a2zcloud.svg"/>
                     <br v-else>
+                </div>
+                <div class="eight columns">
+                    <div v-if="user.type == 'admin'">
+                        <a v-link="{ path: '/', exact: true }">My Account</a>
+                        <a v-link="{ path: '/services', exact: false }">Services</a>
+                        <a v-link="{ path: '/users', exact: false }">Users</a>
+                        <a v-link="{ path: '/groups', exact: false }">Groups</a>
+                    </div>
+                    <br v-else>
+                </div>
+                <div class="two columns">
+                    <a :href="sign_out_url">Sign Out</a>
                 </div>
             </div>
         </div>

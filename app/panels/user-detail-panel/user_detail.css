@@ -1,6 +1,45 @@
+.UserDetailPanel {
+    position: relative;
+    width: 100%;
+}
+
+.UserDetailPanel
+.logo {
+    width: 150px;
+    max-width: 100%;
+    margin-top: -50px;
+}
+
+.UserCreator
+.form-detail {
+    text-align: left;
+    height: 100%;
+}
 
 .UserDetailPanel
 .form-label
 .unverified {
     font-weight: normal;
+}
+
+.UserDetailPanel
+.single-lookup {
+    text-align: left;
+}
+
+.UserDetailPanel
+.single-lookup-value {
+    display: none;
+}
+
+.UserDetailPanel .single-lookup-entry,
+.UserDetailPanel .single-lookup-display {
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+}
+
+.UserDetailPanel
+.single-lookup-display {
+    padding: 6px 0;
 }

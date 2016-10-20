@@ -2,53 +2,44 @@
 
     <!-- Create password -->
     <div v-else class="container">
-
+        <img class="logo" src="https://s3-eu-west-1.amazonaws.com/com-a2zcloud-assets/images/logo/a2zcloud.svg"/>
         <div class="greeting">Welcome. Let's set up your account</div>
 
         <div class="row">
             <div class="tweleve columns">
-                <div class="form-label">
-                    email
-                </div>
-                <input
-                    class="u-full-width"
-                    :class="{'invalid': !is_valid_email, 'required': !payload.email}"
-                    type="email"
-                    v-model="payload.email"
-                    placeholder="e.g. bill@billson.net">
+                <div class="form-label">email</div>
+                <tooltip-input
+                    :value.sync="payload.email"
+                    :show="!payload.email || !is_valid_email"
+                    placeholder="e.g. bill@billson.net"
+                    icon="lnr-warning"
+                    :message="email_warning"
+                    color="#DA6B6B"></tooltip-input>
             </div>
         </div>
 
         <div class="row">
             <div class="six columns">
-                <div class="form-label">
-                    password
-                    <div v-if="payload.password && new_password_errors.length" class="tool-tip-container u-pull-right">
-                        <span class="lnr lnr-warning tool-tip-icon u-pull-right"></span>
-                        <div class="tool-tip-message warning"><span v-for="error in new_password_errors">{{error}}</span></div>
-                    </div>
-                </div>
-                <input
-                    class="u-full-width"
-                    :class="{'invalid': new_password_errors.length, 'required': !payload.password}"
-                    type="password"
-                    v-model="payload.password"
-                    placeholder="e.g. 9av46FWVABchv48yHa">
+                <div class="form-label">password</div>
+                <tooltip-input
+                    :value.sync="payload.password"
+                    :show="new_password_errors.length || !payload.password"
+                    placeholder="e.g. 9av46FWVABchv48yHa"
+                    icon="lnr-warning"
+                    :message="!payload.password ? 'A password is required.' : new_password_errors"
+                    color="#DA6B6B"
+                    :type="password_visible ? 'text' : 'password'"></tooltip-input>
             </div>
             <div class="six columns">
-                <div class="form-label">
-                    confirm password
-                    <div v-if="invalid_password_confirmation" class="tool-tip-container u-pull-right">
-                        <span class="lnr lnr-warning tool-tip-icon u-pull-right"></span>
-                        <div class="tool-tip-message warning">Doesn't match previous password</div>
-                    </div>
-                </div>
-                <input
-                    class="u-full-width"
-                    :class="{'invalid': invalid_password_confirmation, 'required': !payload.password_confirmation}"
-                    type="password"
-                    v-model="payload.password_confirmation"
-                    placeholder="e.g. 9av46FWVABchv48yHa">
+                <div class="form-label">confirm password</div>
+                <tooltip-input
+                    :value.sync="payload.password_confirmation"
+                    :show="invalid_password_confirmation || !payload.password_confirmation"
+                    placeholder="e.g. 9av46FWVABchv48yHa"
+                    icon="lnr-warning"
+                    :message="!payload.password_confirmation ? 'You must confirm your password.' : 'Your password and confirmation do not match.'"
+                    color="#DA6B6B"
+                    :type="password_visible ? 'text' : 'password'"></tooltip-input>
             </div>
         </div>
 
@@ -56,10 +47,17 @@
 
     <div class="container form-actions">
         <div class="row">
-            <div class="six columns">
+            <div class="four columns">
                 <br>
             </div>
-            <div class="six columns">
+            <div class="four columns">
+                <button
+                    class="u-full-width"
+                    @click="password_visible = !password_visible">
+                    Show Password
+                </button>
+            </div>
+            <div class="four columns">
                 <button
                     class="button-primary save u-full-width"
                     :disabled="!enable_create_account_button"

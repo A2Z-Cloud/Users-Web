@@ -6,7 +6,7 @@ export const password_errors = function(password) {
     const {min_length} = password_requirements
     const errors       = []
     if (password && password.length < min_length) {
-        errors.push('Password must be atleast ' + min_length + ' characters long')
+        errors.push('Passwords must be at least ' + min_length + ' characters long.')
     }
     return errors
 }

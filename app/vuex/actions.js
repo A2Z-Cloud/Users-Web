@@ -12,7 +12,7 @@ function handle_reject(reject, store) {
 
 export const authenticate = function(store) {
     return new Promise((resolve, reject) => {
-        const handle_error = error => (store.dispatch('ERROR_INSERT', error))
+        const handle_error = error => (store.dispatch('ERROR_SET', error))
         store.control
              .get_current_user()
              .then(({user, auth_client_url}) => {

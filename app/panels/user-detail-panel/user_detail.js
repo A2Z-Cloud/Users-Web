@@ -14,11 +14,22 @@ import {
     send_invite,
     send_email_confirmation,
     change_password,
-    insert_notification } from 'app/vuex/actions'
+    insert_notification,
+    filter_zoho_contacts,
+    get_zoho_contact } from 'app/vuex/actions'
+
+import searchable_lookup from 'app/components/searchable-lookup/searchable_lookup'
+import value_bubble from 'app/components/value-bubble/value_bubble'
+import tooltip_input from 'app/components/tooltip-input/tooltip_input'
 
 
 export default Vue.extend({
     template: tmpl,
+    components: {
+        'searchable-lookup': searchable_lookup,
+        'value-bubble': value_bubble,
+        'tooltip-input': tooltip_input,
+    },
     data: () => ({
         user_id: null,
         error: {},
@@ -32,12 +43,14 @@ export default Vue.extend({
             first_name: '',
             last_name: '',
             phone: '',
+            zcrm_id: '',
         },
         password_data: {
             old_password: '',
             new_password: '',
             new_password_confirmation: '',
         },
+        password_visible: false,
     }),
     route: {
         data(transition) {
@@ -52,6 +65,9 @@ export default Vue.extend({
             const selected = u => u.id === this.user_id
             const index    = this.users.findIndex(selected)
             return (index !== -1) ? this.users[index] : null
+        },
+        zoho_contact() {
+            return this.dirty_user.zcrm_id ? this.get_zoho_contact(this.dirty_user.zcrm_id) : 'unknown'
         },
         editing_signed_in_user() {
             return this.user_id === this.signed_in_user.id
@@ -70,6 +86,7 @@ export default Vue.extend({
         show_change_password_button() {
             return this.editing_signed_in_user
                 && !this.user.invitation_token
+                && !this.changing_password
                 && !this.saving_password
         },
         changed() {
@@ -77,6 +94,7 @@ export default Vue.extend({
                 || this.dirty_user.first_name !== this.user.first_name
                 || this.dirty_user.last_name  !== this.user.last_name
                 || this.dirty_user.phone      !== this.user.phone
+                || this.dirty_user.zcrm_id    !== this.user.zcrm_id
         },
         save_user_button_text() {
             if (!this.valid_form) return 'Complete Form'
@@ -85,10 +103,10 @@ export default Vue.extend({
             return 'Save'
         },
         valid_first_name() {
-            return this.dirty_user.first_name.length > 0
+            return this.dirty_user.first_name && this.dirty_user.first_name.length > 0
         },
         valid_last_name() {
-            return this.dirty_user.last_name.length > 0
+            return this.dirty_user.last_name && this.dirty_user.last_name.length > 0
         },
         valid_dirty_email() {
             return valid_email(this.dirty_user.email)
@@ -106,7 +124,7 @@ export default Vue.extend({
             const {new_password, new_password_confirmation} = this.password_data
             const errors = []
             if (new_password && new_password_confirmation && new_password !== new_password_confirmation) {
-                errors.push("New password and confirmation do not match")
+                errors.push("New password and confirmation do not match.")
             }
             return errors
         },
@@ -119,6 +137,23 @@ export default Vue.extend({
                 && !this.confirm_password_errors.length
                 && new_password === new_password_confirmation
                 && !this.saving_password
+        },
+        email_warning() {
+            let warning = ""
+            if( !this.valid_dirty_email ) {
+                warning += this.dirty_user.email ?
+                           "Invalid email. Try something like bill@billson.net instead." :
+                           "Email is required."
+            }
+            else if( !this.user.email_confirmed ) {
+                warning += "To verify this email address you will need to follow a link sent to your inbox.<br>"
+
+                // message needs to be different if saving or resending
+                warning += this.dirty_user.email == this.user.email ?
+                           "You can re-send the email by clicking 'Verify Email' below." :
+                           "Clicking 'Save' below will send the email."
+            }
+            return warning != "" ? warning : null
         },
     },
     ready() {
@@ -137,6 +172,8 @@ export default Vue.extend({
             send_email_confirmation,
             remote_change_password: change_password,
             insert_notification,
+            get_zoho_contact,
+            filter_zoho_contacts,
         },
     },
     methods: {
@@ -157,6 +194,24 @@ export default Vue.extend({
             this.save_user(user)
                 .then(sending_success)
                 .catch(sending_failure)
+        },
+        search_zoho_contacts(term, {offset=0, limit=5}={}) {
+            return this.filter_zoho_contacts({term, offset, limit})
+        },
+        set_zoho_id(record) {
+            this.dirty_user.zcrm_id = record.id
+        },
+        format_zoho_contact(contact) {
+            let name = contact
+            // attempt to parse name
+            if(contact && contact.last_name) {
+                name = contact.last_name
+                if(contact.first_name) name = contact.first_name + " " + name
+            }
+            return name
+        },
+        clear_zoho_contact() {
+            this.dirty_user.zcrm_id = null
         },
         change_password(password_data) {
             this.saving_password = true
