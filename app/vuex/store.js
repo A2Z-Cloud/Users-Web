@@ -14,6 +14,7 @@ const state = {
     },
     control: null,
     ws_status: null,
+    error: null,
     notifications: [],
     auth_client_url: null,
     user: null,
@@ -32,6 +33,9 @@ const mutations = {
     },
     WS_STATUS_SET(state, status) {
         state.ws_status = status
+    },
+    ERROR_SET(state, error) {
+        state.error = error
     },
     NOTIFICATION_INSERT(state, notification) {
         const max_length = 5
