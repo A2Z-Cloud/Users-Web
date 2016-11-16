@@ -17,6 +17,7 @@ import ForgotPasswordPanel from './panels/forgot-password-panel/forgot_password'
 import ResetPasswordPanel from './panels/reset-password-panel/reset_password'
 
 import { authenticate } from 'app/vuex/actions'
+import { create_sign_out_url } from 'app/utils/url_helpers'
 
 
 Vue.use(VueRouter)
@@ -83,7 +84,10 @@ router.map({
 
 router.beforeEach(function({to, next}) {
     if (to.authenticated && store.state.user === null) {
-        const go_auth = auth_url => {
+        const go_auth = auth_client_url => {
+            const router_mode = to.router.mode
+            const redirect_path = to.path
+            const auth_url = create_sign_out_url({router_mode, auth_client_url, redirect_path})
             if (!surpress_auth_redirect) window.location = auth_url
             else console.log("No cookie present. User not logged in. Redirect suppresed: " + auth_url)}
         authenticate(store).then(next).catch(go_auth)
