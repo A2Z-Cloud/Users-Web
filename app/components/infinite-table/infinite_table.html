@@ -57,20 +57,22 @@
                                 :style="row_style"
                                 @click="_item_clicked(item)">
                                     <td v-for="column in columns">
-                                        <template v-if="display_table_cell_type && display_table_cell_type(item, {column: column}) == 'component'">
-                                            <component :is="display_item(item, {column: column})" :item="item"></component>
-                                        </template>
-                                        <template v-if="display_table_cell_type && display_table_cell_type(item, {column: column}) == 'html'">
-                                            {{{ display_item(item, {column: column}) }}}
-                                        </template>
-                                        <template v-if="!display_table_cell_type || (display_table_cell_type && display_table_cell_type(item, {column: column})) == 'raw'">
-                                            <span v-if="display_item(item, {column: column})">
-                                                {{ display_item(item, {column: column}) }}
-                                            </span>
-                                            <span v-else class="empty">
-                                                -
-                                            </span>
-                                        </template>
+                                        <div class="pad">
+                                            <template v-if="display_table_cell_type && display_table_cell_type(item, {column: column}) == 'component'">
+                                                <component :is="display_item(item, {column: column})" :item="item"></component>
+                                            </template>
+                                            <template v-if="display_table_cell_type && display_table_cell_type(item, {column: column}) == 'html'">
+                                                {{{ display_item(item, {column: column}) }}}
+                                            </template>
+                                            <template v-if="!display_table_cell_type || (display_table_cell_type && display_table_cell_type(item, {column: column})) == 'raw'">
+                                                <span v-if="display_item(item, {column: column})">
+                                                    {{ display_item(item, {column: column}) }}
+                                                </span>
+                                                <span v-else class="empty">
+                                                    -
+                                                </span>
+                                            </template>
+                                        </div>
                                     </td>
                             </tr>
                     </tbody>

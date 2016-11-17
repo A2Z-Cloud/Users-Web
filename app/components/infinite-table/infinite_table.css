@@ -91,9 +91,30 @@ table tr {
 
 .InfiniteTable
 table tr td {
+    padding: 0;
+    border-bottom: none;
+}
+
+/* BEGIN SCROLLBAR BORDER FIX */
+.InfiniteTable
+table tr td:after {
+    content: "\a0";
+    display: block;
+    line-height: 0px;
+    border-top: 1px solid #E1E1E1;
+}
+
+.InfiniteTable
+table tr td .pad {
     overflow: auto;
     padding: 10px 15px;
 }
+
+.InfiniteTable
+table tr td .pad::-webkit-scrollbar {
+    display: none;
+}
+/* END */
 
 .InfiniteTable
 table tr td:first-child {
@@ -103,11 +124,6 @@ table tr td:first-child {
 .InfiniteTable
 table tr td:last-child {
     padding-right: 0;
-}
-
-.InfiniteTable
-table tr td::-webkit-scrollbar {
-    display: none;
 }
 
 .InfiniteTable
