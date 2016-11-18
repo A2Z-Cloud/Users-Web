@@ -1,14 +1,16 @@
 body {
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-size: 16px;
+    line-height: 18px;
 }
 
 .noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none;   /* Chrome/Safari/Opera */
-  -khtml-user-select: none;    /* Konqueror */
-  -moz-user-select: none;      /* Firefox */
-  -ms-user-select: none;       /* Internet Explorer/Edge */
-  user-select: none;           /* Non-prefixed version, currently not supported by any browser */
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Chrome/Safari/Opera */
+       -khtml-user-select: none; /* Konqueror */
+         -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently not supported by any browser */
 }
 
 #Main {
@@ -158,6 +160,11 @@ input[type="button"].button-primary:disabled {
 
 .form-actions {
     padding-top: 32px;
+}
+
+.single-lookup-display {
+    line-height: 38px;
+    margin-bottom: 10px;
 }
 
 

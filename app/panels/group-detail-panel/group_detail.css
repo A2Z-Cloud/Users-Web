@@ -11,6 +11,7 @@
 .GroupsPanel
 .members-area {
     text-align: left;
+    line-height: 38px;
 }
 
 .GroupsPanel
@@ -27,9 +28,4 @@
 .GroupsPanel .single-lookup-display {
     display: inline-block;
     width: 100%;
-}
-
-.GroupsPanel
-.single-lookup-display {
-    padding: 6px 0;
 }

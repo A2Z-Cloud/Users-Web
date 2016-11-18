@@ -117,13 +117,13 @@ table tr td .pad::-webkit-scrollbar {
 /* END */
 
 .InfiniteTable
-table tr td:first-child {
-    padding-left: 0;
+table tr th:first-child {
+    padding-left: 15px;
 }
 
 .InfiniteTable
-table tr td:last-child {
-    padding-right: 0;
+table tr th:last-child {
+    padding-right: 15px;
 }
 
 .InfiniteTable
