@@ -1,0 +1,15 @@
+.ServicesPanel {}
+
+.ServicesPanel
+.service {
+    width: 100%;
+}
+
+.ServicesPanel
+.service .lnr {
+    display: inline;
+    width: auto;
+    float: right;
+    clear: both;
+    color: #DA6B6B;
+}

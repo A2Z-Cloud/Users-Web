@@ -15,9 +15,7 @@
     <infinite-table
         v-else
         :columns="['name']"
-        :items="groups"
-        :fetch_next="fetch_next"
-        :fetch_next_search="fetch_next_search"
+        :fetch="fetch"
         :item_clicked="item_clicked">
 
         <button

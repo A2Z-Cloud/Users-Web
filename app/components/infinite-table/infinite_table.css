@@ -65,6 +65,16 @@ input:focus + .search-icon {
     border-color: #33C3F0;
 }
 
+.InfiniteTable
+.active.search-icon span {
+    -webkit-transform-origin: 50% 50%; /* Chrome, Safari, Opera */
+        -ms-transform-origin: 50% 50%; /* IE 9 */
+            transform-origin: 50% 50%;
+
+    -webkit-animation: spin 1s infinite linear; /* Chrome, Safari, Opera */
+            animation: spin 1s infinite linear;
+}
+
 
 /* –––– TABLE –––– */
 
@@ -87,6 +97,7 @@ table tr {
     display: table;
     width: 100%;
     table-layout: fixed;
+    overflow: hidden;
 }
 
 .InfiniteTable
@@ -162,4 +173,24 @@ span.lnr.lnr-checkmark-circle {
 .InfiniteTable
 span.lnr.lnr-cross-circle {
     color: #A0A0A0;
+}
+
+.InfiniteTable
+.placeholder {
+    text-align: center;
+    color: #CCC;
+}
+
+/* Spinner Animations */
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
 }

@@ -53,7 +53,7 @@ System.import(control_url).then(({Control}) => {  // eslint-disable-line no-unde
                 return create_sign_out_url({router_mode, auth_client_url, redirect_path})
             },
             content_height() {
-                return this.window_size.height - this.$els.navigation.offsetHeight
+                return this.window_size.height - this.$els.navigation.getBoundingClientRect().height
             },
             content_style() {
                 return {

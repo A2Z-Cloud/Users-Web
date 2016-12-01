@@ -32,12 +32,12 @@
     </div>
 
     <div id="Main" v-cloak>
-        <!-- <div class="notification-centre">
+        <div class="notification-centre">
             <div :class="['notification', notification.type]" v-for="notification in notifications">
                 <span>{{ notification.message }}</span>
                 <span class="lnr lnr-cross" @click="delete_notification(notification)"></span>
             </div>
-        </div> -->
+        </div>
         <div class="container navigation" v-el:navigation>
             <div class="row" v-if="user">
                 <div class="two columns logo">
@@ -52,7 +52,9 @@
                         <a v-link="{ path: '/users', exact: false }">Users</a>
                         <a v-link="{ path: '/groups', exact: false }">Groups</a>
                     </div>
-                    <br v-else>
+                    <div class="logo" v-else>
+                        <img class="logo-banner" src="https://s3-eu-west-1.amazonaws.com/com-a2zcloud-assets/images/logo/a2zcloud.svg"/>
+                    </div>
                 </div>
                 <div class="two columns">
                     <a :href="sign_out_url">Sign Out</a>

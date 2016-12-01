@@ -21,15 +21,6 @@ body {
 }
 
 #Main
-.notification-centre {
-    position: absolute;
-    z-index: 1;
-    width: 100%;
-
-    text-align: center;
-}
-
-#Main
 .navigation {
     padding-top: 16px;
     padding-bottom: 32px;
@@ -52,6 +43,12 @@ body {
 .navigation .logo
 .logo-icon {
     height: 24px;
+}
+
+#Main
+.navigation .logo
+.logo-banner {
+    width: 85px;
 }
 
 #Main
@@ -128,6 +125,10 @@ input[type="button"].button-primary:disabled {
     color: rgb(148, 148, 148);
 }
 
+.content {
+    overflow: auto;
+}
+
 .panel {
     height: 100%;
     box-sizing: border-box;
@@ -138,11 +139,6 @@ input[type="button"].button-primary:disabled {
 
 .form-actions {
     margin-top: 32px;
-}
-
-.greeting {
-    padding-bottom: 32px;
-    font-size: xx-large;
 }
 
 .form-label {
@@ -165,6 +161,44 @@ input[type="button"].button-primary:disabled {
 .single-lookup-display {
     line-height: 38px;
     margin-bottom: 10px;
+}
+
+hr.section-break {
+    border-style: dashed;
+}
+
+.greeting {
+    padding-bottom: 32px;
+    font-size: xx-large;
+    line-height: initial;
+}
+
+
+/* ––––– NOTIFICATIONS ––––– */
+
+#Main
+.notification-centre {
+    position: absolute;
+    left: 5px; top: 5px;
+    z-index: 1;
+}
+
+#Main
+.notification-centre
+.notification {
+    text-align: center;
+    padding: 5px;
+    border-radius: 4px;
+
+    background-color: #33c3f0;
+    color: #ffffff;
+}
+
+#Main
+.notification-centre
+.notification.error {
+    background-color: #fbbaba;
+    color: #e61f1f;
 }
 
 

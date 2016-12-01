@@ -33,13 +33,21 @@ export default Vue.extend({
         close_create_component() {
             this.show_create_component = false
         },
-        fetch_next(offset=0) {
-            const filter = {offset, limit:20}
+        fetch(term, offset=0) {
+            const filter = {all_services:true, term, offset, limit:20}
             return this.filter_services(filter)
+                       .then(items => this.services.filter(s => items.includes(s.id))
+                                                   .sort((a,b) => items.indexOf(a.id) > items.indexOf(b.id)))
         },
-        fetch_next_search(term, offset=0) {
-            const filter = {term, offset, limit:20}
-            return this.filter_services(filter)
+        display_table_cell_type(service, {column}) {
+            return 'html'
+        },
+        display_table_cell(service, {column}) {
+            const broken_link = service.client_url ? "" : "<span class='lnr lnr-warning'></span>"
+            return "<div class='service'>"+service.name+broken_link+"</div>"
+        },
+        item_clicked(service) {
+            if(service.client_url) window.location = service.client_url
         },
     },
 })

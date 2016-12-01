@@ -17,10 +17,8 @@ export default Vue.extend({
         error: null,
         show_create_component: false,
     }),
-    computed: {
-    },
-    ready() {
-    },
+    computed: {},
+    ready() {},
     vuex: {
         getters: {
             users: state => state.users,
@@ -30,6 +28,15 @@ export default Vue.extend({
         },
     },
     methods: {
+        close_create_component() {
+            this.show_create_component = false
+        },
+        fetch(term, offset=0) {
+            const filter = {term, offset, limit:20}
+            return this.filter_users(filter)
+                       .then(items => this.users.filter(u => items.includes(u.id))
+                                                .sort((a,b) => items.indexOf(a.id) > items.indexOf(b.id)))
+        },
         display_table_cell_type(user, {column}) {
             if (column === 'invite_accepted') return 'html'
             if (column === 'invite_link' && user.invitation_token) return 'component'
@@ -41,17 +48,6 @@ export default Vue.extend({
             else if (column === 'invite_link' && user.invitation_token) return 'link-copier'
 
             return user[column]
-        },
-        close_create_component() {
-            this.show_create_component = false
-        },
-        fetch_next(offset=0) {
-            const filter = {offset, limit:20}
-            return this.filter_users(filter)
-        },
-        fetch_next_search(term, offset=0) {
-            const filter = {term, offset, limit:20}
-            return this.filter_users(filter)
         },
         item_clicked(item) {
             const id = item.id

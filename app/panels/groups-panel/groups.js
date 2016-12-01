@@ -33,13 +33,11 @@ export default Vue.extend({
         close_create_component() {
             this.show_create_component = false
         },
-        fetch_next(offset=0) {
-            const filter = {offset, limit:20}
-            return this.filter_groups(filter)
-        },
-        fetch_next_search(term, offset=0) {
+        fetch(term, offset=0) {
             const filter = {term, offset, limit:20}
             return this.filter_groups(filter)
+                       .then(items => this.groups.filter(s => items.includes(s.id))
+                                                 .sort((a,b) => items.indexOf(a.id) > items.indexOf(b.id)))
         },
         item_clicked(item) {
             const name = item.name

@@ -4,11 +4,6 @@
 }
 
 .GroupsPanel
-.section-break {
-    border-style: dashed;
-}
-
-.GroupsPanel
 .members-area {
     text-align: left;
     line-height: 38px;

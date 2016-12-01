@@ -6,7 +6,7 @@ export const Error   = 'error'
 
 export class Notification {
     constructor({message, type=Info}) {
-        this.message = message
+        this.message = message ? message : "Unknown Error"
         this.type    = type
     }
 

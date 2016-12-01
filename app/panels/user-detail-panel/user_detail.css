@@ -4,10 +4,10 @@
 }
 
 .UserDetailPanel
-.logo {
-    width: 150px;
-    max-width: 100%;
-    margin-top: -50px;
+.title {
+    padding-bottom: 8px;
+    font-size: x-large;
+    line-height: initial;
 }
 
 .UserCreator
@@ -38,3 +38,29 @@
     display: inline-block;
     width: 100%;
 }
+
+.UserDetailPanel
+.service .lnr {
+    display: inline;
+    width: auto;
+    float: right;
+    clear: both;
+    color: #DA6B6B;
+}
+
+/* modify infinite-table margins */
+.UserDetailPanel
+.InfiniteTable
+.container {
+    margin: 0;
+    width: 100%;
+}
+
+.UserDetailPanel
+.InfiniteTable
+.action-bar {
+    margin-bottom: 30px;
+}
+
+.UserDetailPanel thead { display: none; }
+.UserDetailPanel tbody { border-top: 1px solid #E1E1E1; }

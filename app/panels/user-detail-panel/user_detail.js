@@ -16,11 +16,13 @@ import {
     change_password,
     insert_notification,
     filter_zoho_contacts,
-    get_zoho_contact } from 'app/vuex/actions'
+    get_zoho_contact,
+    filter_services } from 'app/vuex/actions'
 
 import searchable_lookup from 'app/components/searchable-lookup/searchable_lookup'
 import value_bubble from 'app/components/value-bubble/value_bubble'
 import tooltip_input from 'app/components/tooltip-input/tooltip_input'
+import infinite_table from 'app/components/infinite-table/infinite_table'
 
 
 export default Vue.extend({
@@ -29,6 +31,7 @@ export default Vue.extend({
         'searchable-lookup': searchable_lookup,
         'value-bubble': value_bubble,
         'tooltip-input': tooltip_input,
+        'infinite-table': infinite_table,
     },
     data: () => ({
         user_id: null,
@@ -55,16 +58,15 @@ export default Vue.extend({
     route: {
         data(transition) {
             const id       = (transition.to.params.id) ? transition.to.params.id : this.signed_in_user.id
-            const promises = [this.get_user({id})]
-            const resolve  = ([user]) => ({dirty_user: merge({}, user), user_id: user.id})
-            return Promise.all(promises).then(resolve)
+            return this.get_user({id}).then(user_id => {
+                const user = this.find_user(user_id)
+                return { dirty_user: merge({}, user), user_id }
+            })
         },
     },
     computed: {
         user() {
-            const selected = u => u.id === this.user_id
-            const index    = this.users.findIndex(selected)
-            return (index !== -1) ? this.users[index] : null
+            return this.find_user(this.user_id)
         },
         zoho_contact() {
             return this.dirty_user.zcrm_id ? this.get_zoho_contact(this.dirty_user.zcrm_id) : 'unknown'
@@ -164,6 +166,7 @@ export default Vue.extend({
         getters: {
             signed_in_user: state => state.user,
             users: state => state.users,
+            services: state => state.services,
         },
         actions: {
             get_user,
@@ -174,9 +177,15 @@ export default Vue.extend({
             insert_notification,
             get_zoho_contact,
             filter_zoho_contacts,
+            filter_services,
         },
     },
     methods: {
+        find_user(user_id) {
+            const selected = u => u.id === user_id
+            const index    = this.users.findIndex(selected)
+            return (index !== -1) ? this.users[index] : null
+        },
         save(user) {
             this.saving_user = true
             this.recently_sent_verification = this.dirty_user.email !== this.user.email || this.recently_sent_verification
@@ -236,6 +245,24 @@ export default Vue.extend({
         send_user_invite() {
             const user_id = this.user_id
             return this.send_invite({user_id})
+        },
+        fetch(term=null, offset=0) {
+            // fetch action will return ids for the records
+            // this means they need to be pulled from store and resorted for the table to display them
+            const filter = {term, offset, limit:20}
+            return this.filter_services(filter)
+                       .then(items => this.services.filter(s => items.includes(s.id))
+                                                   .sort((a,b) => items.indexOf(a.id) > items.indexOf(b.id)))
+        },
+        display_table_cell_type(service, {column}) {
+            return 'html'
+        },
+        display_table_cell(service, {column}) {
+            const broken_link = service.client_url ? "" : "<span class='lnr lnr-warning'></span>"
+            return "<div class='service'>"+service.name+broken_link+"</div>"
+        },
+        item_clicked(service) {
+            if(service.client_url) window.location = service.client_url
         },
     },
     watch: {

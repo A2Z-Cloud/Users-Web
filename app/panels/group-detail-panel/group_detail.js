@@ -28,15 +28,25 @@ export default Vue.extend({
                 this.get_membership({group_name: name})]
 
             const resolve = ([group]) => {
-                const zoho_promises = [
-                    this.get_zoho_group({service: 'crm',      id: group.zcrm_id}),
-                    this.get_zoho_group({service: 'projects', id: group.zprojects_id}),
-                    this.get_zoho_group({service: 'support',  id: group.zsupport_id})]
-
+                // prepare function to finish loading group
                 const finish = () => ({ dirty_group: group, group_id: group.id })
-                return Promise.all(zoho_promises)
-                              .catch(finish)
-                              .then(finish)
+
+                // create promises for loading zoho data
+                const zoho_promises = []
+                if(group.zcrm_id)       zoho_promises.push(this.get_zoho_group({service: 'crm',      id: group.zcrm_id}))
+                if(group.zprojects_id)  zoho_promises.push(this.get_zoho_group({service: 'projects', id: group.zprojects_id}))
+                if(group.zsupport_id)   zoho_promises.push(this.get_zoho_group({service: 'support',  id: group.zsupport_id}))
+
+                // load zoho data
+                if(zoho_promises.length > 0) {
+                    return Promise.all(zoho_promises)
+                                  .catch(finish)
+                                  .then(finish)
+                }
+                else {
+                    // if no zoho ids were present just finish here
+                    finish()
+                }
             }
 
             return Promise.all(promises).then(resolve)
@@ -75,6 +85,7 @@ export default Vue.extend({
     vuex: {
         getters: {
             groups: state => state.groups,
+            users: state => state.users,
             memberships: state => state.memberships,
             zoho_groups: state => state.zoho_groups,
         },
@@ -112,6 +123,8 @@ export default Vue.extend({
             const limit  = 5 + this.group_membership.length
             const filter = {term, offset: 0, limit}
             return this.filter_users(filter)
+                       .then(items => this.users.filter(u => items.includes(u.id))
+                                                .sort((a,b) => items.indexOf(a.id) > items.indexOf(b.id)))
         },
         filter_searched_members(records) {
             // remove members from search

@@ -13,17 +13,19 @@ export default Vue.extend({
         creating_service: false,
         will_finish: false,
         service: {
-            name: '',
-            secret: '',
+            name: null,
+            secret: null,
+            client_url: null,
             cors: null,
-            sign_in_url: '',
-            sign_out_url: '',
+            sign_in_url: null,
+            sign_out_url: null,
         },
     }),
     computed: {
         enable_create_button() {
             return this.service.name
                 && this.service.secret
+                && this.service.client_url
                 && this.service.cors
                 && this.service.sign_in_url
                 && this.service.sign_out_url
@@ -42,11 +44,12 @@ export default Vue.extend({
     },
     methods: {
         clear_service() {
-            this.service.name         = ''
-            this.service.secret       = ''
+            this.service.name         = null
+            this.service.secret       = null
+            this.service.client_url   = null
             this.service.cors         = null
-            this.service.sign_in_url  = ''
-            this.service.sign_out_url = ''
+            this.service.sign_in_url  = null
+            this.service.sign_out_url = null
         },
         create_service({finish=true}) {
             this.creating_service = true

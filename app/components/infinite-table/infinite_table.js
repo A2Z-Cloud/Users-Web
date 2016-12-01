@@ -7,29 +7,21 @@ export default Vue.extend({
     template: tmpl,
     props: [
         'columns',
-        'items',
-        'fetch_next',
-        'fetch_next_search',
+        'fetch',
         'display_table_cell_type',
         'display_table_cell',
         'item_clicked',
     ],
     data: () => ({
-        busy: false,
-        busy_searching: false,
+        items: [],
         search_term: '',
-        search_items: [],
-        items_exhausted: false,
-        search_exhausted: false,
+        exhausted: false,
+        busy: false,
         table_body_distance_from_top: 0,
     }),
     computed: {
         searching() {
             return (this.search_term.length > 0)
-        },
-        display_items() {
-            if (this.searching) return this.search_items
-            return this.items
         },
         table_height() {
             return (this.window_height - this.table_body_distance_from_top - 32) + 'px'
@@ -37,11 +29,6 @@ export default Vue.extend({
         disabled() {
             return (!this.searching && this.items_exhausted)
                 || (this.searching && this.search_exhausted)
-        },
-        row_style() {
-            return {
-                'cursor': (this.item_clicked) ? 'pointer' : 'auto',
-            }
         },
     },
     ready() {
@@ -61,43 +48,22 @@ export default Vue.extend({
             if (this.display_table_cell) return this.display_table_cell(item, {column})
             return item[column]
         },
-        search() {
-            this.busy_searching = true
-            this.search_items   = []
-            this.fetch_next_search(this.search_term, 0)
-                .then(items => {
-                    this.search_items     = items
-                    this.search_exhausted = false
-                    this.busy_searching   = false
-                })
-                .catch(() => {
-                    this.search_exhausted = true
-                    this.busy_searching   = false
-                })
-        },
-        nearing_bottom() {
-            this.searching ? this.fetch_next_search_items() : this.fetch_next_items()
-        },
-        fetch_next_items() {
+        fetch_items(offset=0) {
             this.busy = true
-            this.fetch_next(this.items.length)
-                .then(() => (this.busy = false))
+            this.fetch(this.search_term, offset)
+                .then((items) => {
+                    this.busy = false
+                    // extend or replace items list (offset will be set when fetching next page)
+                    if(offset >= this.items.length) this.items.push(...items)
+                    else this.items = items
+                })
                 .catch(() => {
-                    this.items_exhausted = true
+                    this.exhausted = true
                     this.busy = false
                 })
         },
-        fetch_next_search_items() {
-            this.busy_searching = true
-            this.fetch_next_search(this.search_term, this.search_items.length)
-                .then(items => {
-                    this.search_items.push(...items)
-                    this.busy_searching = false
-                })
-                .catch(() => {
-                    this.search_exhausted = true
-                    this.busy_searching   = false
-                })
+        nearing_bottom() {
+            this.fetch_items(this.items.length)
         },
         _item_clicked(item) {
             if (this.item_clicked) this.item_clicked(item)

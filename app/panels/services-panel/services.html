@@ -1,4 +1,4 @@
-<div v-el:service-panel class="ServicesPanel panel">
+<div class="ServicesPanel panel" v-el:service-panel>
     <service-creator
         v-if="show_create_component"
         :completed="close_create_component">
@@ -15,9 +15,10 @@
     <infinite-table
         v-else
         :columns="['name']"
-        :items="services"
-        :fetch_next="fetch_next"
-        :fetch_next_search="fetch_next_search">
+        :fetch="fetch"
+        :display_table_cell_type="display_table_cell_type"
+        :display_table_cell="display_table_cell"
+        :item_clicked="item_clicked">
 
         <button
             slot="action-one"

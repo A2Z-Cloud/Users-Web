@@ -2,13 +2,32 @@ import { email_confirmation_url, invite_url, reset_password_url } from 'app/cons
 import { Notification } from 'app/model/notification'
 
 
+// –––– ERROR HANDLER
+
 function handle_reject(reject, store) {
     return error => {
-        const notification = Notification.from_error(error)
-        insert_notification(store, notification)
+        if(error.message != "null") {
+            const notification = Notification.from_error(error)
+            insert_notification(store, notification)
+        }
         reject(error)
     }
 }
+
+
+// –––– NOTIFICATIONS
+
+export const insert_notification = function(store, notification) {
+    store.dispatch('NOTIFICATION_INSERT', notification)
+    setTimeout(() => (store.dispatch('NOTIFICATION_DELETE', notification)), 10000)
+}
+
+export const delete_notification = function(store, notification) {
+    store.dispatch('NOTIFICATION_DELETE', notification)
+}
+
+
+// –––– ACTIONS
 
 export const authenticate = function(store) {
     return new Promise((resolve, reject) => {
@@ -18,22 +37,11 @@ export const authenticate = function(store) {
              .then(({user, auth_client_url}) => {
                  store.dispatch('CURRENT_USER_SET', user)
                  store.dispatch('AUTH_CLIENT_URL_SET', auth_client_url)
-                 if (user) resolve(user)
+                 if (user) resolve(user.id)
                  else reject(auth_client_url)
              })
              .catch(handle_error)
     })
-}
-
-export const insert_notification = function(store, notification) {
-    store.dispatch('NOTIFICATION_INSERT', notification)
-    setTimeout(
-        () => (store.dispatch('NOTIFICATION_DELETE', notification)),
-        10000)
-}
-
-export const delete_notification = function(store, notification) {
-    store.dispatch('NOTIFICATION_DELETE', notification)
 }
 
 export const accept_invite = function(store, {token, email, password}) {
@@ -58,7 +66,7 @@ export const get_user = function(store, {id=null}) {
     return new Promise((resolve, reject) => {
         const handle_success = user => {
             store.dispatch('USER_UPDATE', user)
-            resolve(user)
+            resolve(user.id)
         }
         store.control
              .get_user(id)
@@ -150,7 +158,7 @@ export const filter_users = function(store, {term=null, offset=0, limit=20, orde
     return new Promise((resolve, reject) => {
         const handle_success = users => {
             users.forEach(u => store.dispatch('USER_UPDATE', u))
-            resolve(users)
+            resolve(users.map(u => u.id))
         }
         store.control
              .filter_users(term, offset, limit, order_by)
@@ -159,14 +167,14 @@ export const filter_users = function(store, {term=null, offset=0, limit=20, orde
     })
 }
 
-export const filter_services = function(store, {term=null, offset=0, limit=20, order_by='name'}={}) {
+export const filter_services = function(store, {all_services=false, term=null, offset=0, limit=20, order_by='name'}={}) {
     return new Promise((resolve, reject) => {
         const handle_success = services => {
             services.forEach(s => store.dispatch('SERVICE_UPDATE', s))
-            resolve(services)
+            resolve(services.map(s => s.id))
         }
         store.control
-             .filter_services(term, offset, limit, order_by)
+             .filter_services(all_services, term, offset, limit, order_by)
              .then(handle_success)
              .catch(handle_reject(reject, store))
     })
@@ -176,7 +184,7 @@ export const filter_groups = function(store, {user_id=null, term=null, offset=0,
     return new Promise((resolve, reject) => {
         const handle_success = groups => {
             groups.forEach(g => store.dispatch('GROUP_UPDATE', g))
-            resolve(groups)
+            resolve(groups.map(g => g.id))
         }
         store.control
              .filter_groups(user_id, term, offset, limit, order_by)
@@ -258,12 +266,13 @@ export const invite_user = function(store, {email, first_name, last_name, phone=
     })
 }
 
-export const save_service = function(store, {name, secret, cors, sign_in_url, sign_out_url}) {
+export const save_service = function(store, {name, secret, client_url, cors, sign_in_url, sign_out_url}) {
     return new Promise((resolve, reject) => {
         store.control
              .save_service(
                  name,
                  secret,
+                 client_url,
                  cors,
                  sign_in_url,
                  sign_out_url)

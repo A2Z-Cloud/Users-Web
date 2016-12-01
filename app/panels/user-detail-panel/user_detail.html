@@ -5,11 +5,10 @@
     </div>
 
     <div v-if="!$loadingRouteData">
-        <img class="logo" src="https://s3-eu-west-1.amazonaws.com/com-a2zcloud-assets/images/logo/a2zcloud.svg" v-if="signed_in_user.type != 'admin'"/>
-        <div v-if="!$route.params.id" class="greeting">{{salutation}}, {{user.first_name}} {{user.last_name}}</div>
+        <div class="greeting" v-if="!$route.params.id">{{salutation}}, {{user.first_name}} {{user.last_name}}</div>
 
         <!-- Edit account details -->
-        <div v-if="!changing_password" class="container form-detail">
+        <div class="container form-detail" v-if="!changing_password">
             <div class="row">
                 <div class="six columns">
                     <div class="form-label">first name</div>
@@ -199,6 +198,18 @@
                     </button>
                 </div>
             </div>
+        </div>
+
+        <div class="container service-list" v-if="!changing_password">
+            <hr class="section-break">
+            <div class="title">My Services</div>
+            <infinite-table
+                :columns="['service']"
+                :fetch="fetch"
+                :display_table_cell_type="display_table_cell_type"
+                :display_table_cell="display_table_cell"
+                :item_clicked="item_clicked">
+            </infinite-table>
         </div>
     </div>
 
