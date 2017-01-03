@@ -119,6 +119,7 @@ table tr td:after {
 table tr td .pad {
     overflow: auto;
     padding: 10px 15px;
+    height: 18px;
 }
 
 .InfiniteTable
